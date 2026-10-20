@@ -1,0 +1,231 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import { getLocaleConfig, getProducts, getSiteSettings } from '../../lib/site-content';
+
+export async function getStaticPaths() {
+  const { defaultLocale } = await getLocaleConfig();
+  const products = await getProducts(defaultLocale, defaultLocale);
+
+  return products.map((product) => ({
+    params: { slug: product.slug },
+    props: { product },
+  }));
+}
+
+const { product } = Astro.props;
+const { defaultLocale } = await getLocaleConfig();
+const site = await getSiteSettings(defaultLocale);
+const isChinese = site.defaultLocale.toLowerCase().startsWith('zh');
+const backLabel = isChinese ? '返回产品列表' : 'Back to products';
+const contactHref = site.footerEmail
+  ? `mailto:${site.footerEmail}`
+  : site.contactPhonePrimaryHref || '';
+const contactValue = site.footerEmail || site.contactPhonePrimary || '';
+---
+
+<Layout
+  title={product.seoTitle || product.title}
+  description={product.seoDescription || product.summary || product.oneLiner}
+  lang={defaultLocale}
+  siteName={site.brandName}
+  defaultDescription={site.defaultMetaDescription}
+  faviconHref={site.logoPath}
+  ogImage={product.mainImage}
+>
+  <Navbar site={site} locale={defaultLocale} currentPath={`/products/${product.slug}`} />
+  <main class="product-page">
+    <article class="container">
+      <a class="back-link" href="/products">← {backLabel}</a>
+
+      {product.mainImage && (
+        <div class="hero-media">
+          <img src={product.mainImage} alt={product.title} />
+        </div>
+      )}
+
+      <header class="product-head">
+        {product.brand && <span class="brand-tag">{product.brand}</span>}
+        <h1 class="product-title">{product.title}</h1>
+        {product.englishName && <p class="english-name">{product.englishName}</p>}
+        {product.oneLiner && <p class="one-liner">{product.oneLiner}</p>}
+        {product.keywords && product.keywords.length > 0 && (
+          <div class="keyword-row">
+            {product.keywords.map((keyword) => <span>{keyword}</span>)}
+          </div>
+        )}
+      </header>
+
+      {(product.partNumber || product.stockStatus || product.ingredients || product.usage) && (
+        <dl class="spec-list">
+          {product.partNumber && (
+            <div><dt>{isChinese ? '型号' : 'Model'}</dt><dd>{product.partNumber}</dd></div>
+          )}
+          {product.stockStatus && (
+            <div><dt>{isChinese ? '状态' : 'Status'}</dt><dd>{product.stockStatus}</dd></div>
+          )}
+          {product.ingredients && (
+            <div><dt>{isChinese ? '成分/材质' : 'Materials'}</dt><dd>{product.ingredients}</dd></div>
+          )}
+          {product.usage && (
+            <div><dt>{isChinese ? '用法/场景' : 'Usage'}</dt><dd>{product.usage}</dd></div>
+          )}
+        </dl>
+      )}
+
+      {product.summary && <p class="summary-block">{product.summary}</p>}
+      {product.description && <p class="desc-block">{product.description}</p>}
+
+      {contactHref && (
+        <aside class="inquiry-card">
+          <h2>{isChinese ? '联系方式' : 'Get in touch'}</h2>
+          <p>{site.brandName || ''}</p>
+          <a class="inquiry-link" href={contactHref}>{contactValue || contactHref}</a>
+        </aside>
+      )}
+    </article>
+  </main>
+  <Footer site={site} locale={defaultLocale} />
+</Layout>
+
+<style>
+  .product-page {
+    padding-top: 7rem;
+  }
+
+  article {
+    display: grid;
+    gap: 2.5rem;
+    max-width: 880px;
+  }
+
+  .back-link {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+  }
+
+  .back-link:hover {
+    color: var(--color-primary);
+  }
+
+  .hero-media {
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+  }
+
+  .hero-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .brand-tag {
+    display: block;
+    margin-bottom: 0.75rem;
+    color: var(--color-primary);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .product-title {
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    margin-bottom: 1rem;
+  }
+
+  .english-name {
+    color: var(--color-text-muted);
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .one-liner {
+    color: var(--color-text-muted);
+    font-size: 1.15rem;
+    line-height: 1.8;
+  }
+
+  .keyword-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+  }
+
+  .keyword-row span {
+    padding: 0.25rem 0.7rem;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    color: var(--color-text-muted);
+    font-size: 0.8rem;
+  }
+
+  .spec-list {
+    display: grid;
+    gap: 1rem;
+    padding: 1.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+  }
+
+  .spec-list div {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .spec-list dt {
+    color: var(--color-primary);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .spec-list dd {
+    color: var(--color-text);
+    line-height: 1.8;
+  }
+
+  .summary-block,
+  .desc-block {
+    color: var(--color-text-muted);
+    font-size: 1.05rem;
+    line-height: 2;
+    white-space: pre-line;
+  }
+
+  .inquiry-card {
+    display: grid;
+    gap: 0.75rem;
+    padding: 2.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: white;
+  }
+
+  .inquiry-card h2 {
+    font-size: 1.6rem;
+  }
+
+  .inquiry-card p {
+    color: var(--color-text-muted);
+  }
+
+  .inquiry-link {
+    justify-self: start;
+    padding: 0.85rem 2rem;
+    border-radius: var(--radius-md);
+    background: var(--color-text);
+    color: white;
+    font-weight: 600;
+  }
+
+  .inquiry-link:hover {
+    background: var(--color-primary);
+  }
+</style>

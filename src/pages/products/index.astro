@@ -1,0 +1,122 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import {
+  getLocaleConfig,
+  getProducts,
+  getProductsPage,
+  getSiteSettings,
+} from '../../lib/site-content';
+
+const { defaultLocale } = await getLocaleConfig();
+const site = await getSiteSettings(defaultLocale);
+const products = await getProducts(defaultLocale, site.defaultLocale);
+const page = await getProductsPage(defaultLocale, site.defaultLocale);
+const emptyNote = page.emptyNote || (site.defaultLocale.toLowerCase().startsWith('zh')
+  ? '内容整理中，欢迎联系我们。'
+  : 'Products are being prepared. Please get in touch.');
+---
+
+<Layout
+  title={page.seoTitle || page.title}
+  description={page.seoDescription || page.body || site.defaultMetaDescription}
+  lang={defaultLocale}
+  siteName={site.brandName}
+  defaultDescription={site.defaultMetaDescription}
+  faviconHref={site.logoPath}
+  ogImage={site.defaultOgImage}
+>
+  <Navbar site={site} locale={defaultLocale} currentPath="/products" />
+  <main class="products-page">
+    <section class="page-hero">
+      <div class="container">
+        {page.kicker && <span class="section-kicker">{page.kicker}</span>}
+        <h1 class="page-title">{page.title}</h1>
+        {page.body && <p class="page-body">{page.body}</p>}
+      </div>
+    </section>
+
+    <section class="section-padding products-list">
+      <div class="container">
+        {products.length > 0 ? (
+          <div class="product-grid">
+            {products.map((product) => (
+              <ProductCard
+                title={product.title}
+                brand={product.brand}
+                oneLiner={product.oneLiner}
+                keywords={product.keywords}
+                mainImage={product.mainImage}
+                slug={product.slug || ''}
+                locale={defaultLocale}
+                defaultLocale={site.defaultLocale}
+              />
+            ))}
+          </div>
+        ) : (
+          <p class="empty-note">{emptyNote}</p>
+        )}
+      </div>
+    </section>
+  </main>
+  <Footer site={site} locale={defaultLocale} />
+</Layout>
+
+<style>
+  .products-page {
+    padding-top: 5.5rem;
+  }
+
+  .page-hero {
+    padding: 4.5rem 0 1rem;
+  }
+
+  .section-kicker {
+    display: block;
+    margin-bottom: 0.75rem;
+    color: var(--color-primary);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .page-title {
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    margin-bottom: 1rem;
+  }
+
+  .page-body {
+    max-width: 44rem;
+    color: var(--color-text-muted);
+    line-height: 1.9;
+  }
+
+  .products-list {
+    padding-top: 2.5rem;
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+
+  .empty-note {
+    color: var(--color-text-muted);
+  }
+
+  @media (max-width: 1024px) {
+    .product-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 640px) {
+    .product-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

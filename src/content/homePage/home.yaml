@@ -1,0 +1,168 @@
+heroLabel: 立足宁波 · 深耕成人继续教育
+heroTitle: 一次选择，成就更好的自己
+heroBody: 硕学教育为在职人员提供从中专、专科、本科到在职研究生的全层次学历提升通道，配合职业技能培训与企业内训，打造一站式在职终身学习服务平台。
+heroImage: /assets/images/hero.webp
+heroPrimaryLabel: 了解课程与服务
+heroPrimaryHref: /products
+heroSecondaryLabel: 关于硕学
+heroSecondaryHref: /about
+heroTertiaryLabel: 常见问题
+heroTertiaryHref: /faq
+introTitle: 规范、稳定的继续教育支持
+introBody: 自创办以来，硕学教育立足宁波，持续完善业务体系，逐步构建起覆盖多个学历层次与增值学习需求的全层次在职学习服务矩阵，依托覆盖浙东多地的教学服务网点，为在职学员提供本地化的教务与学员服务。
+highlights:
+  - title: 全层次学历通道
+    body: 从成人中专、专科、本科到同等学力申硕，横向丰富学历品类，纵向延伸学历层次，补齐不同学员的提升通道。
+    image: /assets/images/cat-degree.webp
+  - title: 一体化函授服务
+    body: 取得省内多所公办高校函授教学点合作资质，提供成考报考、考前辅导、教务管理等一体化函授配套服务。
+    image: /assets/images/highlight-tutoring.webp
+  - title: 本地化教学网点
+    body: 依托覆盖浙东多地的教学服务网点，20 家分校分布在浙江省和湖北省，深耕本地教务与学员服务。
+    image: /assets/images/showcase-network.webp
+  - title: 职业发展增值服务
+    body: 在学历主业基础上，提供职业技能培训、考证辅导与企业内训，从单一学历招生升级为终身学习服务平台。
+    image: /assets/images/highlight-career.webp
+storyImages:
+  - image: /assets/images/highlight-tutoring.webp
+    alt: 函授教学点辅导课堂
+logoCloudLabel: 合作高校
+logoCloudTitle: 与多所高校建立合作
+logos:
+  - name: 浙江师范大学
+  - name: 浙江农林大学
+  - name: 浙江海洋大学
+  - name: 宁波工程学院
+  - name: 湖北经济学院
+  - name: 绍兴文理学院
+  - name: 浙江工商职业技术学院
+statsLabel: 品牌数据
+statsTitle: 数字里的硕学
+stats:
+  - value: 20 家
+    label: 分校网点
+    detail: 主要分布在浙江省和湖北省
+  - value: 117 人
+    label: 全职老师
+    detail: 另有特聘合作老师 300 余人
+  - value: 10000+
+    label: 在校学员
+    detail: 在职学员规模持续增长
+  - value: 2012 年
+    label: 品牌创立
+    detail: 前身为 2008 年创办的助才网
+showcaseLabel: 业务体系
+showcaseTitle: 一站式在职终身学习服务
+showcaseBody: 从学历提升到职业发展，硕学教育围绕提升学员幸福感持续完善课程与服务体系。
+showcases:
+  - tag: 学历教育
+    title: 成人高考函授
+    body: 聚焦在职人员学历提升，提供成考报考、考前辅导、教务管理等一体化函授配套服务。
+    image: /assets/images/cat-exam.webp
+  - tag: 学历教育
+    title: 自考与开放教育
+    body: 自学考试助学、成人中专、国家开放大学等多通道并行，匹配不同基础与时间安排的学员。
+    image: /assets/images/product-online.webp
+  - tag: 在职研究生
+    title: 同等学力申硕
+    body: 延伸学历层次至在职研究生，形成从中专到研究生的完整学历服务链路。
+    image: /assets/images/product-zikao.webp
+  - tag: 增值板块
+    title: 职业技能与企业培训
+    body: 面向个人学员提供考证辅导，面向企事业单位提供定制化企业内训服务。
+    image: /assets/images/cat-skills.webp
+productsLabel: 课程与服务
+productsTitle: 精选课程与服务
+livingPicksLabel: 课程体系
+livingPicksTitle: 围绕学员幸福感打造的课程与服务
+livingPicksBody: 帮助你丰富生活、提高综合素质、找到更好的工作、在公司里升职加薪。
+livingPicksCategories:
+  - id: career-planning
+    name: 职业规划与求职
+    description: 从了解自己到顺利入职，一对一陪伴式求职辅导。
+    mainImage: /assets/images/cat-career.webp
+    products:
+      - name: 职业规划与一对一咨询
+        description: 人格心理学与职业规划课程，性格、价值观、能力、职业兴趣测试与解读。
+      - name: 意向企业岗位分析
+        description: 一对一分析意向企业、岗位与职位，更了解应聘的公司与岗位。
+      - name: 简历完善与修饰
+        description: 提炼工作经验与能力，制作精美的线上与纸质简历。
+      - name: 面试攻略
+        description: 从穿着、表达、行为细节入手，在压力下更好地发挥。
+      - name: 试用期生存指南
+        description: 帮助你在试用期适应公司、相处同事领导，顺利转正。
+  - id: skills
+    name: 职业技能提升
+    description: 面向升职加薪所需能力的系统训练。
+    mainImage: /assets/images/cat-skills.webp
+    products:
+      - name: 基础素质能力
+        description: 基础办公软件、口头表达、倾听能力等职场基础能力。
+      - name: 综合素质能力
+        description: 协作能力、目标管理、说服能力、谈判能力等。
+      - name: 专业知识技能
+        description: 语言类、平面设计、文案策划、电商运营、财务报表分析等方向。
+  - id: exam
+    name: 应试辅导
+    description: 成人学历与职业资格考试辅导。
+    mainImage: /assets/images/cat-exam.webp
+    products:
+      - name: 成人高考辅导
+      - name: 自考辅导
+      - name: 会计师
+      - name: 教师资格证
+      - name: 建造师、消防工程师、监理工程师
+  - id: interest
+    name: 兴趣拓展课
+    description: 丰富生活的文化兴趣课程。
+    mainImage: /assets/images/cat-interest.webp
+    products:
+      - name: 手绘、书法、插花
+      - name: 茶艺、陶艺
+      - name: 运动类、舞蹈类
+aboutLabel: 品牌故事
+aboutTitle: 弘扬终身学习观，提升学员幸福感
+aboutBody: 硕学教育成立于 2012 年，前身是 2008 年 5 月创办的助才网。"硕学"取自"硕学通儒"，意为做读书人。我们相信学习可以改变命运，帮助在职学员找到更好的工作、升职加薪。全体伙伴奉行"不断学习、快乐奋斗、精诚合作、乐于助人"的价值观，立志做教育界和企业界的桥梁，为社会培养输送高素质、高学历人才。
+ctaLabel: 加入硕学
+ctaTitle: 梦想属于奋斗的人
+ctaBody: 无论你处在职业发展的哪个阶段，硕学教育都愿意和你一起努力，打造属于自己的理想生活。欢迎到各分校咨询课程与报名事宜。
+ctaPrimaryLabel: 浏览课程与服务
+ctaPrimaryHref: /products
+ctaSecondaryLabel: 了解硕学
+ctaSecondaryHref: /about
+brandTimelineTitle: 发展历程
+brandTimeline:
+  - date: '2008'
+    title: 助才网创立
+    description: 硕学教育的前身助才网成立，取"帮助人成才"之意。
+  - date: '2012'
+    title: 硕学教育成立
+    description: 正式创办硕学教育并成功注册商标，以成人高考函授咨询为核心业务起步，当年帮助 960 人。
+  - date: '2013 - 2016'
+    title: 稳步成长
+    description: 聚焦在职人员学历提升，年服务学员从 1500 人增长至 3000 人，逐步取得省内公办高校函授教学点合作资质。
+  - date: '2017 - 2019'
+    title: 拓展业务体系
+    description: 新增自学考试助学、成人中专、国家开放大学等业务，年服务学员增长至 6000 人。
+  - date: '2020'
+    title: 全层次服务矩阵
+    description: 上线同等学力申硕咨询服务，拓展职业技能培训与企业内训，年帮助学员达 11000 人。
+  - date: '未来'
+    title: 一站式终身学习平台
+    description: 计划 3 年内在全国 15 个省份开设 50 家分校，特聘老师近 1000 名，在校人数达 5 万人规模。
+brandStatsLabel: 品牌数据
+brandStatsTitle: 硕学在行动
+brandStatsItems:
+  - label: 分校
+    value: 20 家
+    detail: 覆盖浙江省与湖北省
+  - label: 全职老师
+    value: 117 人
+    detail: 特聘合作老师 300 余人
+  - label: 在校学员
+    value: 10000+
+    detail: 在职学员规模超万人
+  - label: 合作高校
+    value: 多所
+    detail: 含 985/211 高校及省内公办院校

@@ -1,0 +1,163 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import { getLocaleConfig, getSiteSettings } from '../lib/site-content';
+
+const { defaultLocale } = await getLocaleConfig();
+const site = await getSiteSettings(defaultLocale);
+---
+
+<Layout
+  title="关于硕学"
+  description="硕学教育成立于 2012 年，立足宁波深耕成人继续教育，拥有 20 家分校、117 位全职老师，构建从中专到在职研究生的一站式在职学习服务矩阵。"
+  lang={defaultLocale}
+  siteName={site.brandName}
+  defaultDescription={site.defaultMetaDescription}
+  faviconHref={site.logoPath}
+  ogImage={site.defaultOgImage}
+>
+  <Navbar site={site} locale={defaultLocale} currentPath="/about" />
+  <main class="page">
+    <section class="page-hero">
+      <div class="container">
+        <span class="kicker">关于硕学</span>
+        <h1>弘扬终身学习观，提升学员幸福感</h1>
+        <p>
+          硕学教育成立于 2012 年，前身是 2008 年 5 月创办的助才网。“硕学”取自“硕学通儒”，意为做读书人。我们始终相信，学习可以改变命运。
+        </p>
+      </div>
+    </section>
+
+    <section class="page-section">
+      <div class="container">
+        <h2>使命与愿景</h2>
+        <div class="value-grid">
+          <div class="value-card">
+            <h3>使命</h3>
+            <p>弘扬终身学习观，提升学员幸福感。</p>
+          </div>
+          <div class="value-card">
+            <h3>愿景</h3>
+            <p>做教育界和企业界的桥梁，为社会培养输送高素质、高学历人才。</p>
+          </div>
+          <div class="value-card">
+            <h3>价值观</h3>
+            <p>不断学习、快乐奋斗、精诚合作、乐于助人。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-section alt">
+      <div class="container">
+        <h2>我们的现在</h2>
+        <p class="prose">
+          硕学教育目前拥有 20 家分校，主要分布在浙江省和湖北省；全职老师 117 人，特聘合作老师 300
+          余人，在校人数超万人。我们与浙江师范大学、浙江农林大学、浙江海洋大学、宁波工程学院、湖北经济学院、绍兴文理学院、浙江工商职业技术学院等众多高校建立了合作。
+        </p>
+        <p class="prose">
+          业务上，我们以成人高考函授咨询为核心起步，陆续新增自学考试助学、成人中专、国家开放大学，并上线同等学力申硕咨询服务，形成从中专、专科、本科到在职研究生的完整学历服务链路；同时在学历主业基础上拓展职业技能培训、企业内训等增值板块，升级为一站式在职终身学习服务平台。
+        </p>
+      </div>
+    </section>
+
+    <section class="page-section">
+      <div class="container">
+        <h2>未来规划</h2>
+        <p class="prose">
+          未来 3 年，硕学教育计划在全国 15 个省份开设 50 家分校，特聘老师近 1000 名，在校人数达 5
+          万人规模，并利用互联网与各分校教室，为学员提供全方位的教学服务。梦想属于奋斗的人，硕学教育愿意和你一起去努力。
+        </p>
+      </div>
+    </section>
+
+    <section class="page-section alt" id="contact">
+      <div class="container">
+        <h2>咨询与报名</h2>
+        <p class="prose">
+          硕学教育的教学服务网点覆盖浙东多地，欢迎到就近分校咨询课程与报名事宜，我们的老师会根据你的学历基础与职业目标，帮你规划合适的提升路径。
+        </p>
+        <p class="prose contact-line">📍 浙江省宁波市（分校覆盖浙江省、湖北省多地）</p>
+        <a class="link-button" href="/products">浏览课程与服务</a>
+      </div>
+    </section>
+  </main>
+  <Footer site={site} locale={defaultLocale} />
+</Layout>
+
+<style>
+  .page-hero {
+    background: var(--color-surface, #f7f5f2);
+    padding: 7rem 0 4rem;
+    text-align: center;
+  }
+  .page-hero .kicker {
+    display: inline-block;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    color: var(--color-accent, #b45309);
+    margin-bottom: 0.75rem;
+  }
+  .page-hero h1 {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    margin-bottom: 1rem;
+  }
+  .page-hero p {
+    max-width: 42rem;
+    margin: 0 auto;
+    line-height: 1.9;
+    color: var(--color-muted, #57534e);
+  }
+  .page-section {
+    padding: 3.5rem 0;
+  }
+  .page-section.alt {
+    background: var(--color-surface, #f7f5f2);
+  }
+  .page-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+  .prose {
+    max-width: 46rem;
+    line-height: 2;
+    color: var(--color-muted, #57534e);
+    margin-bottom: 1rem;
+  }
+  .value-grid {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+  .value-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  }
+  .value-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+  .value-card p {
+    color: var(--color-muted, #57534e);
+    line-height: 1.8;
+  }
+  .contact-line {
+    font-weight: 600;
+    color: var(--color-text, #1c1917);
+  }
+  .link-button {
+    display: inline-block;
+    margin-top: 0.5rem;
+    padding: 0.7rem 1.5rem;
+    border-radius: 999px;
+    background: var(--color-accent, #b45309);
+    color: white;
+    text-decoration: none;
+  }
+  .link-button:hover {
+    opacity: 0.9;
+  }
+</style>

@@ -1,0 +1,129 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero.astro';
+import FeatureSection from '../components/FeatureSection.astro';
+import LogoCloud from '../components/LogoCloud.astro';
+import StatsSection from '../components/StatsSection.astro';
+import ShowcaseSection from '../components/ShowcaseSection.astro';
+import LatestProducts from '../components/LatestProducts.astro';
+import AboutSection from '../components/AboutSection.astro';
+import CTABanner from '../components/CTABanner.astro';
+import LivingPicksSection from '../components/LivingPicksSection.astro';
+import Footer from '../components/Footer.astro';
+import { getHomePage, getLocaleConfig, getSiteSettings } from '../lib/site-content';
+
+const { defaultLocale, locales } = await getLocaleConfig();
+const site = await getSiteSettings(defaultLocale);
+const home = await getHomePage(defaultLocale, site.defaultLocale);
+const alternateLocales = Astro.site ? [
+  ...locales.map((locale) => ({
+    lang: locale.code,
+    href: new URL(locale.code.toLowerCase() === defaultLocale.toLowerCase() ? '/' : `/${locale.code}/`, Astro.site).toString(),
+  })),
+  { lang: 'x-default', href: new URL('/', Astro.site).toString() },
+] : [];
+---
+
+<Layout
+  title={home.heroTitle}
+  description={site.defaultMetaDescription}
+  lang={defaultLocale}
+  siteName={site.brandName}
+  defaultDescription={site.defaultMetaDescription}
+  faviconHref={site.logoPath}
+  ogImage={site.defaultOgImage}
+  alternateLocales={alternateLocales}
+>
+  <Navbar site={site} locale={defaultLocale} currentPath="/" />
+  <main>
+    <Hero
+      label={home.heroLabel}
+      title={home.heroTitle}
+      body={home.heroBody}
+      image={home.heroImage}
+      primaryLabel={home.heroPrimaryLabel}
+      primaryHref={home.heroPrimaryHref}
+      secondaryLabel={home.heroSecondaryLabel}
+      secondaryHref={home.heroSecondaryHref}
+      tertiaryLabel={home.heroTertiaryLabel}
+      tertiaryHref={home.heroTertiaryHref}
+      quaternaryLabel={home.heroQuaternaryLabel}
+      quaternaryHref={home.heroQuaternaryHref}
+    />
+    <FeatureSection
+      title={home.introTitle || ''}
+      body={home.introBody || ''}
+      highlights={home.highlights}
+      storyImages={home.storyImages}
+    />
+    <LogoCloud
+      label={home.logoCloudLabel}
+      title={home.logoCloudTitle}
+      logos={home.logos}
+    />
+    <StatsSection
+      label={home.statsLabel}
+      title={home.statsTitle}
+      stats={home.stats}
+    />
+    <ShowcaseSection
+      label={home.showcaseLabel}
+      title={home.showcaseTitle}
+      body={home.showcaseBody}
+      showcases={home.showcases}
+    />
+    <LatestProducts
+      locale={defaultLocale}
+      defaultLocale={site.defaultLocale}
+      title={home.productsTitle}
+      label={home.productsLabel}
+    />
+    <LivingPicksSection
+      locale={defaultLocale}
+      label={home.livingPicksLabel}
+      title={home.livingPicksTitle}
+      body={home.livingPicksBody}
+      categories={home.livingPicksCategories}
+    />
+    <AboutSection
+      locale={defaultLocale}
+      label={home.aboutLabel}
+      title={home.aboutTitle}
+      body={home.aboutBody}
+      contactEmail={home.aboutContactEmail}
+      contactRedNote={home.aboutContactRedNote}
+    />
+    <CTABanner
+      locale={defaultLocale}
+      defaultLocale={site.defaultLocale}
+      label={home.ctaLabel}
+      title={home.ctaTitle}
+      body={home.ctaBody}
+      timeline={home.brandTimeline}
+      stats={home.brandStatsItems}
+      timelineTitle={home.brandTimelineTitle}
+      statsLabel={home.brandStatsLabel}
+      statsTitle={home.brandStatsTitle}
+    />
+  </main>
+  <Footer site={site} locale={defaultLocale} />
+</Layout>
+
+<script>
+  const observerOptions = {
+    threshold: 0.1
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.fade-in-up, .reveal').forEach((el) => {
+    observer.observe(el);
+  });
+</script>
