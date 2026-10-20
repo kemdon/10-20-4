@@ -18,3 +18,4 @@ astro-dev*.log
 memory/
 scripts/test_output.png
 screenshot_desktop*.png
+.vite-cache/
