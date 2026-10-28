@@ -16,7 +16,7 @@ const content = await getNotFoundPage();
   faviconHref={site.logoPath}
   noindex={true}
 >
-  <main class="not-found-shell">
+  <main id="main" class="not-found-shell">
     <div class="not-found-card">
       <h1 class="not-found-code">{content.code}</h1>
       <p class="not-found-message">{content.message}</p>

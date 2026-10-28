@@ -110,11 +110,11 @@ const isTradChinese = locale === 'zh-TW' || locale === 'zh-HK';
 
 <style>
   .brand-dev-section {
-    background: #fbfbf9;
+    background: var(--color-surface);
     position: relative;
     overflow: hidden;
-    padding-block: 8rem;
-    border-top: 1px solid rgba(34, 54, 48, 0.05);
+    padding-block: 6rem;
+    border-top: 1px solid var(--color-border-soft);
   }
 
   .dev-header {
@@ -142,11 +142,10 @@ const isTradChinese = locale === 'zh-TW' || locale === 'zh-HK';
   }
 
   .subsection-title {
-    font-family: var(--font-serif);
-    font-size: 1.75rem;
-    font-weight: 500;
+    font-size: 1.4rem;
+    font-weight: 700;
     color: var(--color-text);
-    margin-bottom: 2.5rem;
+    margin-bottom: 2.25rem;
   }
 
   /* Timeline Styles */
@@ -190,9 +189,9 @@ const isTradChinese = locale === 'zh-TW' || locale === 'zh-HK';
     width: 0.65rem;
     height: 0.65rem;
     border-radius: 50%;
-    background: var(--color-primary-dark);
-    border: 2px solid #fbfbf9;
-    box-shadow: 0 0 0 2px rgba(34, 54, 48, 0.15);
+    background: var(--color-primary);
+    border: 2px solid var(--color-surface);
+    box-shadow: 0 0 0 2px rgba(31, 92, 77, 0.25);
     transition: var(--transition-smooth);
   }
 
@@ -208,10 +207,10 @@ const isTradChinese = locale === 'zh-TW' || locale === 'zh-HK';
   }
 
   .timeline-date {
-    font-size: 0.85rem;
+    font-family: var(--font-num);
+    font-size: 0.95rem;
     font-weight: 700;
-    color: var(--color-primary);
-    letter-spacing: 0.05em;
+    color: var(--color-accent);
   }
 
   .timeline-title {
@@ -233,11 +232,10 @@ const isTradChinese = locale === 'zh-TW' || locale === 'zh-HK';
 
   .stats-kicker {
     display: block;
-    font-size: 0.8rem;
-    font-weight: 700;
+    font-size: 0.9rem;
+    font-weight: 600;
     color: var(--color-primary);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+    letter-spacing: 0.08em;
     margin-bottom: 0.5rem;
   }
 
@@ -272,7 +270,7 @@ const isTradChinese = locale === 'zh-TW' || locale === 'zh-HK';
     left: 0;
     width: 100%;
     height: 3px;
-    background: linear-gradient(90deg, var(--color-primary), var(--color-primary-dark));
+    background: var(--color-primary);
     opacity: 0.15;
     transition: var(--transition-smooth);
   }
@@ -289,11 +287,11 @@ const isTradChinese = locale === 'zh-TW' || locale === 'zh-HK';
   }
 
   .stat-value {
-    font-family: var(--font-serif);
-    font-size: 2.5rem;
-    font-weight: 600;
-    line-height: 1;
-    color: var(--color-primary-dark);
+    font-family: var(--font-num);
+    font-size: 2.3rem;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--color-accent);
     margin-bottom: 0.5rem;
   }
 

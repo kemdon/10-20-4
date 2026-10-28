@@ -29,7 +29,7 @@ const emptyNote = page.emptyNote || (site.defaultLocale.toLowerCase().startsWith
   ogImage={site.defaultOgImage}
 >
   <Navbar site={site} locale={defaultLocale} currentPath="/products" />
-  <main class="products-page">
+  <main id="main" class="products-page">
     <section class="page-hero">
       <div class="container">
         {page.kicker && <span class="section-kicker">{page.kicker}</span>}

@@ -7,72 +7,128 @@ interface Props {
 }
 
 const { site } = Astro.props;
-const shouldRender = Boolean(
-  site.brandName ||
-  site.footerBody ||
-  site.footerContactValue ||
-  site.copyrightLine ||
-  site.footerPhone ||
-  site.footerEmail ||
-  site.footerMotto,
-);
 const motto = site.footerMotto || '';
+const year = new Date().getFullYear();
+const copyright = site.copyrightLine?.includes('©')
+  ? site.copyrightLine
+  : `© ${year} ${site.copyrightLine || ''}`;
 ---
 
-{shouldRender && (
-  <footer class="site-footer">
-    <div class="container footer-inner">
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
       {site.brandName && <h3 class="footer-title">{site.brandName}</h3>}
-      {site.footerBody && <p class="footer-desc">{site.footerBody}</p>}
-      {site.footerContactValue && <p class="contact-value">{site.footerContactValue}</p>}
-      {site.footerPhone && <p class="contact-phone">📞 {site.footerPhone}</p>}
-      {site.footerEmail && <p class="contact-email">✉️ {site.footerEmail}</p>}
       {motto && <p class="footer-motto">{motto}</p>}
-      {site.copyrightLine && <p class="copyright">{site.copyrightLine}</p>}
+      {site.footerBody && <p class="footer-desc">{site.footerBody}</p>}
     </div>
-  </footer>
-)}
+
+    <div class="footer-col">
+      <h4 class="footer-col-title">快速导航</h4>
+      <ul class="footer-nav">
+        {(site.footerLinks || []).map((link) => (
+          <li><a href={link.href || '/'}>{link.label}</a></li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4 class="footer-col-title">服务范围</h4>
+      <ul class="footer-nav">
+        <li>成人高考 · 函授</li>
+        <li>自学考试 · 国家开放大学</li>
+        <li>成人中专 · 同等学力申硕</li>
+        <li>职业技能培训 · 企业内训</li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4 class="footer-col-title">联系我们</h4>
+      <ul class="footer-nav">
+        {site.footerAddress && <li>{site.footerAddress}</li>}
+      </ul>
+    </div>
+  </div>
+
+  <div class="container footer-bottom">
+    {copyright && <p class="copyright">{copyright}</p>}
+  </div>
+</footer>
 
 <style>
   .site-footer {
-    background: var(--color-text);
-    color: white;
-    padding: 4rem 0;
+    background: var(--color-bg-deep);
+    color: rgba(255, 255, 255, 0.82);
+    padding: 4.5rem 0 2.5rem;
   }
 
-  .footer-inner {
+  .footer-grid {
     display: grid;
-    gap: 1rem;
-    justify-items: center;
-    text-align: center;
+    grid-template-columns: 1.6fr 1fr 1.2fr 1.4fr;
+    gap: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   }
 
   .footer-title {
+    font-family: var(--font-serif);
     font-size: 1.5rem;
-    color: white;
+    color: #fff;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.9rem;
+  }
+
+  .footer-motto {
+    color: #d9a05b;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
   }
 
   .footer-desc {
-    color: rgba(255, 255, 255, 0.6);
-    max-width: 40rem;
-    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.55);
+    max-width: 26rem;
+    font-size: 0.9rem;
+    line-height: 1.9;
   }
 
-  .contact-value {
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 1rem;
-    font-family: var(--font-serif);
+  .footer-col-title {
+    font-size: 0.95rem;
+    color: #fff;
+    margin-bottom: 1.1rem;
+    letter-spacing: 0.06em;
+  }
+
+  .footer-nav {
+    display: grid;
+    gap: 0.65rem;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.55);
+  }
+
+  .footer-nav a:hover {
+    color: #fff;
+  }
+
+  .footer-bottom {
+    padding-top: 1.75rem;
+    text-align: center;
   }
 
   .copyright {
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     color: rgba(255, 255, 255, 0.4);
   }
 
-  .contact-phone,
-  .contact-email,
-  .footer-motto {
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 0.95rem;
+  @media (max-width: 900px) {
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 2.25rem;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .footer-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
   }
 </style>

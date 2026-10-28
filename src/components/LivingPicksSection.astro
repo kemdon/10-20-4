@@ -50,7 +50,7 @@ const {
             aria-selected={idx === 0 ? 'true' : 'false'}
             aria-controls={`panel-${cat.id}`}
           >
-            <span class="tab-num">{cat.id}</span>
+            <span class="tab-num">{String(idx + 1).padStart(2, "0")}</span>
             <span class="tab-label">
               <span class="tab-zh">{locale === 'en' ? (cat.englishName || cat.name) : cat.name}</span>
             </span>
@@ -75,7 +75,7 @@ const {
                     <img src={cat.mainImage} alt={locale === 'en' ? (cat.englishName || cat.name) : cat.name} class="scene-image" />
                   )}
                   <div class="scene-overlay"></div>
-                  <div class="scene-badge">{cat.englishName || 'Collection'}</div>
+                  {cat.englishName && <div class="scene-badge">{cat.englishName}</div>}
                 </div>
                 <div class="scene-info">
                   <h3 class="scene-title">{locale === 'en' ? (cat.englishName || cat.name) : cat.name}</h3>
@@ -89,11 +89,11 @@ const {
                 <div class="product-cards-grid">
                   {cat.products.map((prod) => (
                     <div class="product-mini-card glass-effect">
-                      <div class="prod-img-box">
-                        {prod.image && (
+                      {prod.image && (
+                        <div class="prod-img-box">
                           <img src={prod.image} alt={prod.name} class="prod-mini-img" />
-                        )}
-                      </div>
+                        </div>
+                      )}
                       <div class="prod-info-box">
                         <h5 class="prod-name">{prod.name}</h5>
                         {prod.description && <p class="prod-desc">{prod.description}</p>}
@@ -149,8 +149,8 @@ const {
 
 <style>
   .living-picks-section {
-    background: #fbfbf9;
-    border-top: 1px solid rgba(34, 54, 48, 0.05);
+    background: var(--color-bg);
+    border-top: 1px solid var(--color-border-soft);
     position: relative;
     padding-block: 8rem;
   }
@@ -166,7 +166,7 @@ const {
     overflow-x: auto;
     padding-bottom: 1.5rem;
     margin-bottom: 4rem;
-    border-bottom: 1px solid rgba(34, 54, 48, 0.08);
+    border-bottom: 1px solid var(--color-border-soft);
     -scrollbar-width: none;
   }
 
@@ -191,19 +191,19 @@ const {
 
   .tab-btn:hover {
     opacity: 0.85;
-    background: rgba(34, 54, 48, 0.02);
+    background: rgba(30, 43, 39, 0.03);
   }
 
   .tab-btn.active {
     opacity: 1;
-    background: rgba(34, 54, 48, 0.04);
+    background: rgba(30, 43, 39, 0.05);
   }
 
   .tab-num {
-    font-family: var(--font-serif);
-    font-size: 1.5rem;
-    font-weight: 500;
-    color: var(--color-primary);
+    font-family: var(--font-num);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--color-accent);
   }
 
   .tab-label {
@@ -258,7 +258,7 @@ const {
     border-radius: var(--radius-md);
     overflow: hidden;
     aspect-ratio: 4 / 3;
-    box-shadow: 0 20px 40px rgba(34, 54, 48, 0.04);
+    box-shadow: 0 20px 40px rgba(30, 43, 39, 0.05);
   }
 
   .scene-image {
@@ -275,22 +275,19 @@ const {
   .scene-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(34, 54, 48, 0.3), transparent);
+    background: linear-gradient(to top, rgba(18, 43, 37, 0.35), transparent);
   }
 
   .scene-badge {
     position: absolute;
-    top: 1.5rem;
-    left: 1.5rem;
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(5px);
-    padding: 0.4rem 0.9rem;
-    border-radius: 2rem;
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    color: var(--color-primary-dark);
-    text-transform: uppercase;
+    top: 1.25rem;
+    left: 1.25rem;
+    background: rgba(255, 255, 255, 0.92);
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-primary);
   }
 
   .scene-info {
@@ -299,9 +296,8 @@ const {
   }
 
   .scene-title {
-    font-family: var(--font-serif);
-    font-size: 1.75rem;
-    font-weight: 500;
+    font-size: 1.5rem;
+    font-weight: 700;
     color: var(--color-text);
   }
 
@@ -338,16 +334,16 @@ const {
     gap: 1.5rem;
     padding: 1.5rem;
     background: white;
-    border: 1px solid rgba(34, 54, 48, 0.05);
+    border: 1px solid var(--color-border-soft);
     border-radius: var(--radius-md);
-    box-shadow: 0 4px 15px rgba(34, 54, 48, 0.01);
+    box-shadow: 0 4px 15px rgba(18, 43, 37, 0.02);
     transition: var(--transition-smooth);
   }
 
   .product-mini-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(34, 54, 48, 0.04);
-    border-color: rgba(34, 54, 48, 0.12);
+    box-shadow: 0 10px 25px rgba(30, 43, 39, 0.05);
+    border-color: rgba(30, 43, 39, 0.14);
   }
 
   .prod-img-box {
@@ -356,8 +352,8 @@ const {
     height: 5rem;
     border-radius: var(--radius-sm);
     overflow: hidden;
-    background: #fbfbf9;
-    border: 1px solid rgba(34, 54, 48, 0.04);
+    background: var(--color-bg);
+    border: 1px solid rgba(30, 43, 39, 0.05);
   }
 
   .prod-mini-img {

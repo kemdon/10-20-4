@@ -10,6 +10,7 @@ import LatestProducts from '../components/LatestProducts.astro';
 import AboutSection from '../components/AboutSection.astro';
 import CTABanner from '../components/CTABanner.astro';
 import LivingPicksSection from '../components/LivingPicksSection.astro';
+import TaglineReveal from '../components/TaglineReveal.astro';
 import Footer from '../components/Footer.astro';
 import { getHomePage, getLocaleConfig, getSiteSettings } from '../lib/site-content';
 
@@ -36,7 +37,7 @@ const alternateLocales = Astro.site ? [
   alternateLocales={alternateLocales}
 >
   <Navbar site={site} locale={defaultLocale} currentPath="/" />
-  <main>
+  <main id="main">
     <Hero
       label={home.heroLabel}
       title={home.heroTitle}
@@ -94,6 +95,7 @@ const alternateLocales = Astro.site ? [
       contactEmail={home.aboutContactEmail}
       contactRedNote={home.aboutContactRedNote}
     />
+    <TaglineReveal />
     <CTABanner
       locale={defaultLocale}
       defaultLocale={site.defaultLocale}

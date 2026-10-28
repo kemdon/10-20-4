@@ -1,0 +1,48 @@
+---
+interface Props {
+  lines?: string[];
+}
+
+const { lines = ['我们相信，学习可以改变命运。', '从一次选择开始，让每一步努力都有回响。'] } = Astro.props;
+
+// 按阅读顺序给每个字生成逐字显现单元（B11）
+let index = 0;
+const rendered = lines.map((line) => {
+  const words = [...line].map((ch) => ({ ch, i: index++ }));
+  return { words };
+});
+---
+
+<section class="tagline-reveal" aria-label={lines.join('')}>
+  {rendered.map((line) => (
+    <p class="tagline-line">
+      {line.words.map(({ ch, i }) => <span class="word" data-word-index={i}>{ch}</span>)}
+    </p>
+  ))}
+</section>
+
+<script>
+  const taglineSections = document.querySelectorAll('.tagline-reveal');
+
+  taglineSections.forEach((section) => {
+    const words = section.querySelectorAll('.word');
+    if (!words.length) return;
+
+    // 进入视口后按阅读顺序逐字点亮，每字 45-70ms，总时长有上限
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const step = Math.min(65, Math.floor(400 / Math.max(1, words.length)) || 45);
+          words.forEach((word, i) => {
+            setTimeout(() => word.classList.add('on'), Math.min(i * step, 1200));
+          });
+          observer.disconnect();
+        });
+      },
+      { threshold: 0.35 },
+    );
+
+    observer.observe(section);
+  });
+</script>

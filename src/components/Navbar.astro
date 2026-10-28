@@ -124,79 +124,118 @@ const activeLocale = localeLinks.find((item) => item.active) || localeLinks[0];
 <style>
   .navbar-wrapper {
     position: fixed;
-    top: 0;
+    top: 0.75rem;
     left: 0;
     width: 100%;
     z-index: 1000;
-    border-bottom: 1px solid var(--color-border);
+    background: transparent;
+    border-bottom: none;
     transition: var(--transition-smooth);
   }
 
   .navbar-container {
-    height: 5rem;
+    height: auto;
+    min-height: 3.5rem;
+    max-width: 68rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 1rem;
+    padding: 0.5rem 0.75rem 0.5rem 1.25rem;
+    background: rgba(250, 247, 241, 0.82);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid var(--color-border-soft);
+    border-radius: 999px;
+    box-shadow: 0 8px 28px rgba(18, 43, 37, 0.08);
   }
 
   .brand-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
     font-family: var(--font-serif);
-    font-size: 1.5rem;
+    font-size: 1.125rem;
     font-weight: 700;
-    color: var(--color-text);
-    letter-spacing: -0.02em;
+    color: var(--color-primary-dark);
+    letter-spacing: 0.06em;
+  }
+
+  .brand-logo::before {
+    content: '';
+    width: 0.55rem;
+    height: 1.5rem;
+    border-radius: 3px;
+    background: var(--color-primary);
   }
 
   .nav-menu {
     display: flex;
     align-items: center;
-    gap: 2.5rem;
+    gap: 2rem;
   }
 
-  .locale-switcher { position: relative; display: block; }
-  .locale-current { display: inline-flex; align-items: center; min-height: 2.5rem; max-width: 12rem; padding: 0 0.9rem; border: 1px solid rgba(28, 25, 23, 0.12); border-radius: var(--radius-md); color: var(--color-text-muted); font-size: 0.78rem; font-weight: 700; cursor: pointer; list-style: none; }
+  .locale-switcher { position: relative; display: none; }
+  .locale-current { display: inline-flex; align-items: center; min-height: 2.5rem; max-width: 12rem; padding: 0 0.9rem; border: 1px solid var(--color-border); border-radius: var(--radius-md); color: var(--color-text-muted); font-size: 0.78rem; font-weight: 700; cursor: pointer; list-style: none; }
   .locale-current::-webkit-details-marker { display: none; }
-  .locale-current { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .locale-menu { position: absolute; top: calc(100% + 0.55rem); right: 0; display: grid; gap: 0.25rem; width: min(22rem, calc(100vw - 2rem)); max-height: min(28rem, calc(100vh - 7rem)); overflow: auto; padding: 0.5rem; border: 1px solid rgba(28, 25, 23, 0.12); border-radius: var(--radius-md); background: var(--color-background); box-shadow: 0 20px 60px rgba(28, 25, 23, 0.14); }
+  .locale-menu { position: absolute; top: calc(100% + 0.55rem); right: 0; display: grid; gap: 0.25rem; width: min(22rem, calc(100vw - 2rem)); max-height: min(28rem, calc(100vh - 7rem)); overflow: auto; padding: 0.5rem; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface); box-shadow: 0 20px 60px rgba(18, 43, 37, 0.14); }
   .locale-link { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 2.25rem; padding: 0 0.65rem; border-radius: calc(var(--radius-md) * 0.75); font-size: 0.82rem; color: var(--color-text-muted); }
-  .locale-link:hover,
-  .locale-link.active { color: var(--color-text); background: rgba(28, 25, 23, 0.06); }
+  .locale-link:hover, .locale-link.active { color: var(--color-text); background: rgba(30, 43, 39, 0.06); }
   .locale-code { font-size: 0.72rem; opacity: 0.62; text-transform: uppercase; }
 
   .nav-link {
-    font-size: 0.9rem;
+    font-size: 0.875rem;
     font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
     color: var(--color-text-muted);
+    position: relative;
+    padding: 0.35rem 0;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    border-radius: 1px;
+    background: var(--color-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .nav-link:hover {
-    color: var(--color-primary);
+    color: var(--color-text);
+  }
+
+  .nav-link:hover::after {
+    transform: scaleX(1);
   }
 
   .primary-button {
-    background: var(--color-text);
-    color: white;
-    padding: 0.75rem 1.5rem;
-    border-radius: var(--radius-md);
-    transition: var(--transition-smooth);
+    background: var(--color-primary);
+    color: #fff;
+    padding: 0.5rem 0.875rem;
+    font-size: 0.875rem;
+    border-radius: 999px;
+  }
+
+  .primary-button::after {
+    display: none;
   }
 
   .primary-button:hover {
-    background: var(--color-primary);
-    color: white;
-    transform: translateY(-2px);
+    background: var(--color-primary-dark);
+    color: #fff;
   }
 
-  /* Controls wrapper */
   .nav-controls {
     display: flex;
     align-items: center;
     gap: 0.75rem;
   }
 
-  /* Hamburger */
   .hamburger {
     display: none;
     flex-direction: column;
@@ -233,17 +272,14 @@ const activeLocale = localeLinks.find((item) => item.active) || localeLinks[0];
     transform: translateY(-7px) rotate(-45deg);
   }
 
-  /* Mobile menu overlay */
   .mobile-menu {
     display: none;
     position: fixed;
-    top: 5rem;
+    top: 4.5rem;
     left: 0;
     width: 100%;
-    height: calc(100vh - 5rem);
-    background: rgba(250, 250, 249, 0.98);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    height: calc(100vh - 4.25rem);
+    background: var(--color-bg);
     z-index: 999;
     overflow-y: auto;
     opacity: 0;
@@ -275,18 +311,18 @@ const activeLocale = localeLinks.find((item) => item.active) || localeLinks[0];
   }
 
   .mobile-nav-link:hover {
-    background: rgba(28, 25, 23, 0.06);
+    background: rgba(30, 43, 39, 0.06);
   }
 
   .mobile-primary-button {
-    background: var(--color-text);
-    color: white;
+    background: var(--color-primary);
+    color: #fff;
     text-align: center;
   }
 
   .mobile-primary-button:hover {
-    background: var(--color-primary);
-    color: white;
+    background: var(--color-primary-dark);
+    color: #fff;
   }
 
   .mobile-locales {
@@ -309,7 +345,7 @@ const activeLocale = localeLinks.find((item) => item.active) || localeLinks[0];
 
   .mobile-locale-link.active {
     color: var(--color-text);
-    background: rgba(28, 25, 23, 0.06);
+    background: rgba(30, 43, 39, 0.06);
   }
 
   body.menu-open {
