@@ -64,24 +64,23 @@ const hasImages = visibleLogos.some((item) => item.image);
   .logo-cloud-grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 0;
-    border-top: 1px solid var(--color-border-soft);
-    border-left: 1px solid var(--color-border-soft);
+    gap: 0.75rem;
   }
 
   .logo-pill {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 4.5rem;
+    min-height: 4.25rem;
     padding: 1rem 1.25rem;
-    border-right: 1px solid var(--color-border-soft);
-    border-bottom: 1px solid var(--color-border-soft);
+    border: 1px solid var(--color-border-soft);
+    border-radius: var(--radius-md);
     background: var(--color-surface);
     color: var(--color-text-muted);
     font-size: 0.95rem;
     font-weight: 600;
     letter-spacing: 0.04em;
+    text-align: center;
     transition: var(--transition-smooth);
   }
 

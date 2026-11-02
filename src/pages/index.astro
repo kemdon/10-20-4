@@ -52,9 +52,38 @@ const alternateLocales = Astro.site ? [
       quaternaryLabel={home.heroQuaternaryLabel}
       quaternaryHref={home.heroQuaternaryHref}
     />
+    <section class="portal-intro">
+      <div class="container portal-grid">
+        <div class="portal-about">
+          <h2 class="portal-title">{home.introTitle}</h2>
+          <p class="portal-body">{home.introBody}</p>
+          <ul class="portal-facts">
+            <li>经教育部门审批设立的民办成人学历教育学校</li>
+            <li>“硕学”二字取自《南史·顾越传》“通儒硕学”</li>
+            <li>浙江海洋大学、浙江师范大学等高校宁波官方函授站</li>
+            <li>宁波 3 家分校、6 个接待点，在校学员近万人</li>
+          </ul>
+          <a class="portal-more" href="/about">了解硕学 »</a>
+        </div>
+        <div class="portal-news">
+          <div class="portal-news-head">
+            <h2 class="portal-title">硕学大事记</h2>
+            <a class="portal-more-link" href="/about">更多 »</a>
+          </div>
+          <ul class="portal-list">
+            {home.brandTimeline.slice(0, 5).map((item) => (
+              <li>
+                <span class="portal-list-date">{item.date}</span>
+                <span class="portal-list-text">{item.title}：{item.description}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
     <FeatureSection
-      title={home.introTitle || ''}
-      body={home.introBody || ''}
+      title="办学特色"
+      body={''}
       highlights={home.highlights}
       storyImages={home.storyImages}
     />
@@ -74,6 +103,30 @@ const alternateLocales = Astro.site ? [
       body={home.showcaseBody}
       showcases={home.showcases}
     />
+    <section class="channel-section">
+      <div class="container channel-grid">
+        <div class="channel-col">
+          <h2 class="portal-title">学历提升通道</h2>
+          <ul class="channel-list">
+            <li><a href="/products/chengkao/">成人高考（函授）<span>在职学历提升主流通道，报考、辅导、教务一体化</span></a></li>
+            <li><a href="/products/zikao/">自学考试助学<span>灵活自主的学习方式，助学辅导助力顺利毕业</span></a></li>
+            <li><a href="/products/guokai/">国家开放大学<span>面向在职人员的开放教育，线上学习更灵活</span></a></li>
+            <li><a href="/products/zhongzhuan/">成人中专<span>补齐中专学历起点，为进一步提升打好基础</span></a></li>
+            <li><a href="/products/shuoshi/">同等学力申硕<span>在职人员攻读硕士学位的正规通道</span></a></li>
+          </ul>
+        </div>
+        <div class="channel-col">
+          <h2 class="portal-title">职业培训课程</h2>
+          <ul class="channel-list">
+            <li><a href="/products/zhiye/">会计面授课<span>硕学自设面授课程，深受学员喜爱</span></a></li>
+            <li><a href="/products/zhiye/">新媒体运营面授课<span>紧跟行业实务，学以致用</span></a></li>
+            <li><a href="/products/zhiye/">办公软件面授课<span>职场基础能力，即学即用</span></a></li>
+            <li><a href="/products/zhiye/">电商面授课<span>从入门到运营实战</span></a></li>
+            <li><a href="/products/zhiye/">考证辅导与企业内训<span>会计师、教师资格证、建造师等</span></a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
     <LatestProducts
       locale={defaultLocale}
       defaultLocale={site.defaultLocale}
@@ -129,3 +182,34 @@ const alternateLocales = Astro.site ? [
     observer.observe(el);
   });
 </script>
+
+<style>
+  .portal-intro { background: var(--color-surface); border-top: 1px solid var(--color-border-soft); padding: 4rem 0; }
+  .portal-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 3.5rem; align-items: start; }
+  .portal-title { display: flex; align-items: center; gap: 0.75rem; font-size: 1.375rem; margin-bottom: 1.25rem; }
+  .portal-title::before { content: ''; width: 4px; height: 1.25rem; border-radius: 2px; background: var(--color-primary); }
+  .portal-body { color: var(--color-text-muted); line-height: 2; margin-bottom: 1.25rem; }
+  .portal-facts { display: grid; gap: 0.6rem; margin-bottom: 1.5rem; }
+  .portal-facts li { position: relative; padding-left: 1.1rem; color: var(--color-text-muted); font-size: 0.95rem; }
+  .portal-facts li::before { content: ''; position: absolute; left: 0; top: 0.7em; width: 6px; height: 6px; border-radius: 50%; background: var(--color-accent); }
+  .portal-more { display: inline-block; color: var(--color-primary); font-weight: 600; font-size: 0.95rem; }
+  .portal-more:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .portal-news-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 1.25rem; }
+  .portal-news-head .portal-title { margin-bottom: 0; }
+  .portal-more-link { color: var(--color-text-muted); font-size: 0.875rem; }
+  .portal-more-link:hover { color: var(--color-primary); }
+  .portal-list { display: grid; border-top: 1px solid var(--color-border-soft); }
+  .portal-list li { display: grid; grid-template-columns: 6.5rem 1fr; gap: 1rem; padding: 0.8rem 0.25rem; border-bottom: 1px dashed var(--color-border-soft); font-size: 0.92rem; line-height: 1.7; }
+  .portal-list-date { font-family: var(--font-num); font-weight: 700; color: var(--color-accent); }
+  .portal-list-text { color: var(--color-text-muted); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .channel-section { background: var(--color-surface); border-top: 1px solid var(--color-border-soft); padding: 4rem 0; }
+  .channel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; }
+  .channel-list { border-top: 1px solid var(--color-border-soft); }
+  .channel-list a { display: grid; gap: 0.15rem; padding: 0.85rem 0.5rem; border-bottom: 1px dashed var(--color-border-soft); font-weight: 600; font-size: 1rem; color: var(--color-text); }
+  .channel-list a span { font-weight: 400; font-size: 0.875rem; color: var(--color-text-muted); }
+  .channel-list a:hover { background: var(--color-primary-soft); }
+  .channel-list a:hover span { color: var(--color-primary); }
+  @media (max-width: 900px) {
+    .portal-grid, .channel-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  }
+</style>
