@@ -1,0 +1,45 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import { getLocaleConfig, getSiteSettings } from '../../lib/site-content';
+
+const { defaultLocale } = await getLocaleConfig();
+const site = await getSiteSettings(defaultLocale);
+---
+
+<Layout
+  title="招聘信息"
+  description="硕学教育诚聘英才，与我们一起帮助更多人学习成才。"
+  lang={defaultLocale}
+  siteName={site.brandName}
+  defaultDescription={site.defaultMetaDescription}
+  faviconHref={site.logoPath}
+  ogImage={site.defaultOgImage}
+>
+  <Navbar site={site} locale={defaultLocale} currentPath="/" />
+  <main id="main">
+    <section class="page-hero">
+      <div class="container">
+        <span class="kicker">JOIN US</span>
+        <h1>招聘信息</h1>
+      </div>
+    </section>
+    <div class="page-body">
+      <div class="container">
+
+      <div class="sec-block">
+        <h2 class="sec-title">在招岗位</h2>
+        <div class="info-card">
+          <p style="color:var(--color-text-muted);line-height:2">目前各分校与总部岗位随学期需要动态招聘，长期欢迎以下方向的伙伴加入：</p>
+          <div class="chip-wrap" style="margin:1rem 0">
+            <span class="chip">教务 / 学务老师</span><span class="chip">课程咨询顾问</span><span class="chip">面授课程讲师</span><span class="chip">新媒体运营</span><span class="chip">校区行政</span>
+          </div>
+          <p style="color:var(--color-text-muted);line-height:2">应聘方式：请携带个人简历到就近分校前台登记，或咨询各校区招聘负责人。我们奉行“不断学习、快乐奋斗、精诚合作、乐于助人”的价值观，期待与你同行。</p>
+        </div>
+      </div>
+      </div>
+    </div>
+  </main>
+  <Footer site={site} locale={defaultLocale} />
+</Layout>

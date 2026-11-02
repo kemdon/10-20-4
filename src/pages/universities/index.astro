@@ -1,0 +1,67 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import { getLocaleConfig, getSiteSettings } from '../../lib/site-content';
+
+const { defaultLocale } = await getLocaleConfig();
+const site = await getSiteSettings(defaultLocale);
+---
+
+<Layout
+  title="招生院校"
+  description="硕学为多所高校宁波官方函授站，并与十余所高校合作招生。"
+  lang={defaultLocale}
+  siteName={site.brandName}
+  defaultDescription={site.defaultMetaDescription}
+  faviconHref={site.logoPath}
+  ogImage={site.defaultOgImage}
+>
+  <Navbar site={site} locale={defaultLocale} currentPath="/" />
+  <main id="main">
+    <section class="page-hero">
+      <div class="container">
+        <span class="kicker">UNIVERSITIES</span>
+        <h1>招生院校</h1>
+      </div>
+    </section>
+    <div class="page-body">
+      <div class="container">
+
+      <div class="sec-block">
+        <h2 class="sec-title">宁波官方函授站</h2>
+        <div class="tile-grid">
+          <div class="tile" style="background:var(--color-primary-soft);color:var(--color-primary)">浙江海洋大学</div>
+          <div class="tile" style="background:var(--color-primary-soft);color:var(--color-primary)">浙江师范大学</div>
+          <div class="tile" style="background:var(--color-primary-soft);color:var(--color-primary)">金华职业技术大学</div>
+          <div class="tile" style="background:var(--color-primary-soft);color:var(--color-primary)">浙江工商职业技术学院</div>
+          <div class="tile" style="background:var(--color-primary-soft);color:var(--color-primary)">浙江国际海运职业技术学院</div>
+        </div>
+      </div>
+      <div class="page-body alt">
+        <div class="container">
+          <h2 class="sec-title">合作高校</h2>
+          <div class="tile-grid">
+            <div class="tile">浙江农林大学</div><div class="tile">宁波工程学院</div><div class="tile">宁波大学</div><div class="tile">浙江工商大学</div>
+            <div class="tile">杭州师范大学</div><div class="tile">浙江财经大学</div><div class="tile">湖北师范大学</div><div class="tile">嘉兴大学</div>
+            <div class="tile">丽水学院</div><div class="tile">浙江中医药大学</div><div class="tile">东北农业大学</div><div class="tile">浙江水利水电学院</div>
+          </div>
+          <p class="disclaimer">合作院校与招生专业以各高校当年成人高等教育招生简章为准，欢迎到校咨询当年可报院校与专业。</p>
+        </div>
+      </div>
+      <div class="page-body">
+        <div class="container">
+          <h2 class="sec-title">教学表彰</h2>
+          <div class="honor-grid">
+            <figure><img src="/assets/images/honors/honor-2025-shida.webp" alt="浙江师范大学优秀校外教学点荣誉证书" loading="lazy" /><figcaption>浙江师范大学 · 优秀校外教学点</figcaption></figure>
+            <figure><img src="/assets/images/honors/honor-2024-haiyun.webp" alt="浙江国际海运职业技术学院优秀校外教学点证书" loading="lazy" /><figcaption>浙江国际海运职业技术学院</figcaption></figure>
+            <figure><img src="/assets/images/honors/honor-2022-haida.webp" alt="浙江海洋大学优秀函授站证书" loading="lazy" /><figcaption>浙江海洋大学 · 优秀函授站</figcaption></figure>
+            <figure><img src="/assets/images/honors/honor-2013-zhulinan.webp" alt="浙江农林大学校外合作办学进步单位证书" loading="lazy" /><figcaption>浙江农林大学 · 合作办学进步单位</figcaption></figure>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </main>
+  <Footer site={site} locale={defaultLocale} />
+</Layout>

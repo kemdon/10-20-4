@@ -1,0 +1,65 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import { getLocaleConfig, getSiteSettings } from '../../lib/site-content';
+
+const { defaultLocale } = await getLocaleConfig();
+const site = await getSiteSettings(defaultLocale);
+---
+
+<Layout
+  title="教务通知"
+  description="成人高考、自学考试、开放教育等报名与考试安排的常见教务提示。"
+  lang={defaultLocale}
+  siteName={site.brandName}
+  defaultDescription={site.defaultMetaDescription}
+  faviconHref={site.logoPath}
+  ogImage={site.defaultOgImage}
+>
+  <Navbar site={site} locale={defaultLocale} currentPath="/" />
+  <main id="main">
+    <section class="page-hero">
+      <div class="container">
+        <span class="kicker">NOTICES</span>
+        <h1>教务通知</h1>
+      </div>
+    </section>
+    <div class="page-body">
+      <div class="container">
+
+      <div class="sec-block">
+        <ul class="news-list">
+          <li>
+            <span>浙江省成人高考报名与考试时间以浙江省教育考试院当年公布为准</span>
+            <span class="date">教务提示</span>
+            <span class="snippet">成人高考报名一般在每年 8 至 9 月进行，考试安排在 10 月下旬。请以浙江省教育考试院官网发布的当年通知为准，我校各接待点可协助学员完成报名流程。</span>
+          </li>
+          <li>
+            <span>成人高考报名材料清单</span>
+            <span class="date">报名须知</span>
+            <span class="snippet">报名一般需准备：居民身份证、前置学历证书原件及复印件、近期免冠证件照，外省户籍考生需关注社保或居住证相关要求，具体以当年报名公告为准。</span>
+          </li>
+          <li>
+            <span>国家开放大学春、秋两季注册</span>
+            <span class="date">教务提示</span>
+            <span class="snippet">国家开放大学实行春季、秋季两季注册入学，具体注册时间与招生计划以当季通知为准，欢迎到各分校咨询。</span>
+          </li>
+          <li>
+            <span>学士学位申请条件以各主考高校规定为准</span>
+            <span class="date">学位须知</span>
+            <span class="snippet">本科毕业生申请学士学位一般需满足课程成绩、学位外语及论文要求，具体条件以各高校继续教育学院发布的学位授予细则为准。</span>
+          </li>
+          <li>
+            <span>学籍与学历信息统一以学信网查询结果为准</span>
+            <span class="date">教务提示</span>
+            <span class="snippet">学籍注册、学历查询均可通过中国高等教育学生信息网（学信网）核验，入学后我校教务老师会协助学员完成学籍核对。</span>
+          </li>
+        </ul>
+        <p class="disclaimer">以上为常见教务事项提示，具体政策与时间安排均以教育主管部门及各高校当年正式发布为准。</p>
+      </div>
+      </div>
+    </div>
+  </main>
+  <Footer site={site} locale={defaultLocale} />
+</Layout>

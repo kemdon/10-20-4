@@ -49,6 +49,14 @@ const copyright = site.copyrightLine?.includes('©')
     </div>
   </div>
 
+  <div class="container friend-links">
+    <span class="friend-label">友情链接：</span>
+    <a href="https://www.moe.gov.cn" target="_blank" rel="noopener noreferrer">教育部</a>
+    <a href="https://jyt.zj.gov.cn" target="_blank" rel="noopener noreferrer">浙江省教育厅</a>
+    <a href="https://www.zjzs.net" target="_blank" rel="noopener noreferrer">浙江省教育考试院</a>
+    <a href="https://www.chsi.com.cn" target="_blank" rel="noopener noreferrer">学信网</a>
+  </div>
+
   <div class="container footer-bottom">
     {copyright && <p class="copyright">{copyright}</p>}
   </div>
@@ -78,7 +86,7 @@ const copyright = site.copyrightLine?.includes('©')
   }
 
   .footer-motto {
-    color: #d9a05b;
+    color: #E8A23B;
     font-size: 0.95rem;
     margin-bottom: 1rem;
   }
@@ -107,6 +115,20 @@ const copyright = site.copyrightLine?.includes('©')
   .footer-nav a:hover {
     color: #fff;
   }
+
+  .friend-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.45);
+    align-items: center;
+  }
+  .friend-links a { color: rgba(255, 255, 255, 0.55); }
+  .friend-links a:hover { color: #fff; }
+  .friend-label { color: rgba(255, 255, 255, 0.35); }
 
   .footer-bottom {
     padding-top: 1.75rem;

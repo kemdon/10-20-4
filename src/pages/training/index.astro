@@ -1,0 +1,66 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import { getLocaleConfig, getSiteSettings } from '../../lib/site-content';
+
+const { defaultLocale } = await getLocaleConfig();
+const site = await getSiteSettings(defaultLocale);
+---
+
+<Layout
+  title="职业培训"
+  description="硕学自设面授课程与考证辅导、企业内训服务。"
+  lang={defaultLocale}
+  siteName={site.brandName}
+  defaultDescription={site.defaultMetaDescription}
+  faviconHref={site.logoPath}
+  ogImage={site.defaultOgImage}
+>
+  <Navbar site={site} locale={defaultLocale} currentPath="/" />
+  <main id="main">
+    <section class="page-hero">
+      <div class="container">
+        <span class="kicker">TRAINING</span>
+        <h1>职业培训</h1>
+      </div>
+    </section>
+    <div class="page-body">
+      <div class="container">
+
+      <div class="sec-block">
+        <h2 class="sec-title">自设面授课程</h2>
+        <div class="tile-grid">
+          <div class="tile">会计面授课</div>
+          <div class="tile">新媒体运营面授课</div>
+          <div class="tile">办公软件面授课</div>
+          <div class="tile">硕学电商面授课</div>
+        </div>
+        <p class="disclaimer">以上为硕学自设的面授课程，在宁波各分校滚动开班，具体课表与开班时间请到就近分校咨询。</p>
+      </div>
+      <div class="page-body alt">
+        <div class="container">
+          <h2 class="sec-title">考证辅导与企业内训</h2>
+          <div class="major-cols">
+            <div class="info-card">
+              <h3>考证辅导</h3>
+              <div class="chip-wrap" style="margin-top:0.9rem">
+                <span class="chip">会计师</span><span class="chip">教师资格证</span><span class="chip">建造师</span><span class="chip">消防工程师</span><span class="chip">监理工程师</span>
+              </div>
+              <p style="margin-top:1rem;color:var(--color-text-muted);line-height:1.9;font-size:0.92rem">面向个人学员的考证辅导课程，配套报考指导与考前串讲。</p>
+            </div>
+            <div class="info-card">
+              <h3>企业内训</h3>
+              <div class="chip-wrap" style="margin-top:0.9rem">
+                <span class="chip">办公软件</span><span class="chip">口头表达</span><span class="chip">目标管理</span><span class="chip">协作与谈判</span><span class="chip">财务报表分析</span>
+              </div>
+              <p style="margin-top:1rem;color:var(--color-text-muted);line-height:1.9;font-size:0.92rem">面向企事业单位的定制化培训，按岗位能力模型设计课程组合。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </main>
+  <Footer site={site} locale={defaultLocale} />
+</Layout>

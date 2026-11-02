@@ -1,12 +1,12 @@
 :root {
   /* ——— 硕学教育 · 视觉体系 ———
      暖纸底 + 墨绿主色 + 赭石点缀，编辑式排版，去掉玻璃拟态与模板感 */
-  --color-primary: #1F5C4D;        /* 墨绿 */
-  --color-primary-dark: #14453A;
-  --color-primary-soft: #E7F0EB;   /* 浅绿衬底 */
-  --color-accent: #C2703D;         /* 赭石（用于数字/标签点缀） */
-  --color-bg: #FAF7F1;             /* 暖纸 */
-  --color-bg-deep: #122B25;        /* 深绿底（深色带区） */
+  --color-primary: #1D4E89;        /* 墨绿 */
+  --color-primary-dark: #153A68;
+  --color-primary-soft: #E9F1F9;   /* 浅绿衬底 */
+  --color-accent: #C8452B;         /* 赭石（用于数字/标签点缀） */
+  --color-bg: #F5F7FA;             /* 暖纸 */
+  --color-bg-deep: #16324F;        /* 深绿底（深色带区） */
   --color-surface: #FFFFFF;
   --color-text: #1E2B27;
   --color-text-muted: #5C6B65;
@@ -35,7 +35,7 @@
 }
 
 html {
-  scroll-padding-top: 5rem;
+  scroll-padding-top: 4.5rem;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -355,4 +355,84 @@ h3 {
   .section-padding {
     padding: 4rem 0;
   }
+}
+
+/* ——— 门户栏目页通用 ——— */
+.page-hero {
+  background: linear-gradient(0deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  color: #fff;
+  text-align: center;
+  padding: 3.5rem 0 2.75rem;
+}
+.page-hero .kicker { color: rgba(255,255,255,0.75); font-size: 0.85rem; letter-spacing: 0.2em; }
+.page-hero h1 { color: #fff; font-size: 1.75rem; margin: 0.4rem 0 0.5rem; }
+.page-hero p { max-width: 44rem; margin: 0 auto; color: rgba(255,255,255,0.8); font-size: 0.95rem; line-height: 1.9; }
+.page-body { background: #fff; padding: 3rem 0 4rem; }
+.page-body.alt { background: var(--color-bg); }
+.sec-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.375rem;
+  margin-bottom: 1.5rem;
+}
+.sec-title::before {
+  content: '';
+  width: 5px;
+  height: 1.4rem;
+  border-radius: 2px;
+  background: var(--color-primary);
+}
+.sec-more { margin-left: auto; font-size: 0.875rem; font-weight: 400; color: var(--color-text-muted); }
+.sec-more:hover { color: var(--color-primary); }
+.news-list { display: grid; border-top: 1px solid var(--color-border-soft); }
+.news-list a, .news-list li {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1rem;
+  align-items: baseline;
+  padding: 0.9rem 0.25rem;
+  border-bottom: 1px dashed var(--color-border-soft);
+  font-size: 0.98rem;
+}
+.news-list a { color: var(--color-text); }
+.news-list a:hover { color: var(--color-primary); }
+.news-list .date { font-family: var(--font-num); color: var(--color-accent); font-size: 0.9rem; }
+.news-list .snippet { grid-column: 1 / -1; color: var(--color-text-muted); font-size: 0.88rem; line-height: 1.8; }
+.info-card {
+  background: #fff;
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-md);
+  padding: 1.5rem 1.75rem;
+}
+.step-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+.step-card { background: #fff; border: 1px solid var(--color-border-soft); border-radius: var(--radius-md); padding: 1.5rem; }
+.step-card .no { font-family: var(--font-num); font-size: 1.5rem; font-weight: 700; color: var(--color-accent); margin-bottom: 0.5rem; }
+.step-card h3 { font-size: 1.05rem; margin-bottom: 0.5rem; }
+.step-card p { color: var(--color-text-muted); font-size: 0.9rem; line-height: 1.8; }
+.tile-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.75rem; }
+.tile {
+  display: flex; align-items: center; justify-content: center;
+  min-height: 4rem; padding: 1rem;
+  background: #fff; border: 1px solid var(--color-border-soft); border-radius: var(--radius-md);
+  font-weight: 600; font-size: 0.95rem; color: var(--color-text);
+  text-align: center;
+}
+a.tile:hover { border-color: var(--color-primary); color: var(--color-primary); background: var(--color-primary-soft); }
+.major-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+.chip-wrap { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.chip {
+  padding: 0.45rem 1rem;
+  background: #fff; border: 1px solid var(--color-border-soft); border-radius: 999px;
+  font-size: 0.9rem; color: var(--color-text);
+}
+.chip-hot { border-color: var(--color-primary); color: var(--color-primary); background: var(--color-primary-soft); }
+.disclaimer {
+  margin-top: 1.5rem; padding: 0.9rem 1.1rem;
+  background: #FBF6EC; border: 1px solid #EBD9B4; border-radius: var(--radius-md);
+  color: #7A5B18; font-size: 0.88rem; line-height: 1.8;
+}
+@media (max-width: 900px) {
+  .step-grid { grid-template-columns: repeat(2, 1fr); }
+  .major-cols { grid-template-columns: 1fr; }
 }

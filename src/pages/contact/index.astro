@@ -1,0 +1,60 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import { getLocaleConfig, getSiteSettings } from '../../lib/site-content';
+
+const { defaultLocale } = await getLocaleConfig();
+const site = await getSiteSettings(defaultLocale);
+---
+
+<Layout
+  title="联系我们"
+  description="硕学教育扎根宁波，3 家分校、6 个接待点欢迎你的到来。"
+  lang={defaultLocale}
+  siteName={site.brandName}
+  defaultDescription={site.defaultMetaDescription}
+  faviconHref={site.logoPath}
+  ogImage={site.defaultOgImage}
+>
+  <Navbar site={site} locale={defaultLocale} currentPath="/" />
+  <main id="main">
+    <section class="page-hero">
+      <div class="container">
+        <span class="kicker">CONTACT</span>
+        <h1>联系我们</h1>
+      </div>
+    </section>
+    <div class="page-body">
+      <div class="container">
+
+      <div class="sec-block">
+        <h2 class="sec-title">校区分布</h2>
+        <div class="major-cols">
+          <div class="info-card">
+            <h3>宁波市区</h3>
+            <p style="margin-top:0.75rem;color:var(--color-text-muted);line-height:1.9;font-size:0.93rem">分校与接待点覆盖宁波主城区，可现场咨询学历提升方案、办理报名。</p>
+          </div>
+          <div class="info-card">
+            <h3>区县接待点</h3>
+            <p style="margin-top:0.75rem;color:var(--color-text-muted);line-height:1.9;font-size:0.93rem">在宁波各区县设有接待点（含北仑等），方便在职学员就近咨询与办理。</p>
+          </div>
+        </div>
+        <p class="disclaimer">各校区具体地址与咨询电话请提前联系学校确认，或到访前先通过分校前台确认办公时间。</p>
+      </div>
+      <div class="page-body alt">
+        <div class="container">
+          <h2 class="sec-title">咨询建议</h2>
+          <ul class="news-list">
+            <li><span>学历提升：建议携带最高学历证书，老师可现场评估可报院校与专业</span><span class="date">到校咨询</span></li>
+            <li><span>职业培训：面授课程滚动开班，可先预约试听</span><span class="date">电话 / 到校</span></li>
+            <li><span>企业内训：提供定制化方案，欢迎企事业单位洽谈</span><span class="date">预约洽谈</span></li>
+          </ul>
+          <a class="portal-more" href="/signup" style="margin-top:1.5rem;display:inline-block">查看报名流程 »</a>
+        </div>
+      </div>
+      </div>
+    </div>
+  </main>
+  <Footer site={site} locale={defaultLocale} />
+</Layout>

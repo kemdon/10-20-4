@@ -14,15 +14,29 @@ heroScrollText: 向下浏览
 navigation:
   - label: 首页
     href: /
-  - label: 课程与服务
-    href: /products
-  - label: 关于硕学
+  - label: 学校简介
     href: /about
-  - label: 常见问题
-    href: /faq
-  - label: 咨询课程
-    href: /about#contact
+  - label: 学院新闻
+    href: /news
+  - label: 教务通知
+    href: /notices
+  - label: 学历教育
+    href: /products
+  - label: 职业培训
+    href: /training
+  - label: 在职研究生
+    href: /products/shuoshi/
+  - label: 招生院校
+    href: /universities
+  - label: 招生专业
+    href: /majors
+  - label: 在线报名
+    href: /signup
     isPrimary: true
+  - label: 招聘信息
+    href: /jobs
+  - label: 联系我们
+    href: /contact
 footerBody: 硕学教育立足宁波，深耕成人继续教育领域，从中专、专科、本科到在职研究生，打造一站式在职终身学习服务平台。
 footerLinks:
   - label: 首页

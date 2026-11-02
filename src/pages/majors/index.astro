@@ -1,0 +1,54 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import { getLocaleConfig, getSiteSettings } from '../../lib/site-content';
+
+const { defaultLocale } = await getLocaleConfig();
+const site = await getSiteSettings(defaultLocale);
+---
+
+<Layout
+  title="招生专业"
+  description="合作高校成人高等教育常设专业方向参考。"
+  lang={defaultLocale}
+  siteName={site.brandName}
+  defaultDescription={site.defaultMetaDescription}
+  faviconHref={site.logoPath}
+  ogImage={site.defaultOgImage}
+>
+  <Navbar site={site} locale={defaultLocale} currentPath="/" />
+  <main id="main">
+    <section class="page-hero">
+      <div class="container">
+        <span class="kicker">MAJORS</span>
+        <h1>招生专业</h1>
+      </div>
+    </section>
+    <div class="page-body">
+      <div class="container">
+
+      <div class="sec-block">
+        <h2 class="sec-title">本科（专升本 / 高起本）专业方向</h2>
+        <div class="chip-wrap">
+          <span class="chip chip-hot">会计学</span><span class="chip">工商管理</span><span class="chip">市场营销</span><span class="chip">电子商务</span><span class="chip">行政管理</span>
+          <span class="chip">学前教育</span><span class="chip">小学教育</span><span class="chip">汉语言文学</span><span class="chip">法学</span><span class="chip">机械设计制造及其自动化</span>
+          <span class="chip">电气工程及其自动化</span><span class="chip">计算机科学与技术</span><span class="chip">土木工程</span><span class="chip">护理学</span><span class="chip">药学</span>
+        </div>
+      </div>
+      <div class="page-body alt">
+        <div class="container">
+          <h2 class="sec-title">专科专业方向</h2>
+          <div class="chip-wrap">
+            <span class="chip chip-hot">大数据与会计</span><span class="chip">工商企业管理</span><span class="chip">电子商务</span><span class="chip">市场营销</span><span class="chip">行政管理</span>
+            <span class="chip">学前教育</span><span class="chip">计算机应用技术</span><span class="chip">机电一体化技术</span><span class="chip">建筑工程技术</span><span class="chip">护理</span>
+            <span class="chip">药学</span><span class="chip">现代物流管理</span>
+          </div>
+          <p class="disclaimer">以上为合作高校成人高等教育中常见的专业方向示例，供参考。当年实际可报院校、专业、学费与学习形式，均以各高校成人高等教育招生简章和教育考试院公布为准，欢迎到各分校获取最新招生目录。</p>
+        </div>
+      </div>
+      </div>
+    </div>
+  </main>
+  <Footer site={site} locale={defaultLocale} />
+</Layout>

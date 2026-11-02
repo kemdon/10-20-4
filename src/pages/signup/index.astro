@@ -1,0 +1,61 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import { getLocaleConfig, getSiteSettings } from '../../lib/site-content';
+
+const { defaultLocale } = await getLocaleConfig();
+const site = await getSiteSettings(defaultLocale);
+---
+
+<Layout
+  title="在线报名"
+  description="四步完成报名咨询，欢迎到就近分校或接待点办理。"
+  lang={defaultLocale}
+  siteName={site.brandName}
+  defaultDescription={site.defaultMetaDescription}
+  faviconHref={site.logoPath}
+  ogImage={site.defaultOgImage}
+>
+  <Navbar site={site} locale={defaultLocale} currentPath="/" />
+  <main id="main">
+    <section class="page-hero">
+      <div class="container">
+        <span class="kicker">SIGN UP</span>
+        <h1>在线报名</h1>
+      </div>
+    </section>
+    <div class="page-body">
+      <div class="container">
+
+      <div class="sec-block">
+        <h2 class="sec-title">报名流程</h2>
+        <div class="step-grid">
+          <div class="step-card"><div class="no">01</div><h3>咨询规划</h3><p>到就近分校或接待点，老师根据你的学历基础与职业目标推荐合适的院校与专业。</p></div>
+          <div class="step-card"><div class="no">02</div><h3>准备材料</h3><p>身份证、前置学历证书、证件照等报名材料，教务老师协助整理与审核。</p></div>
+          <div class="step-card"><div class="no">03</div><h3>网上报名</h3><p>在规定时间内完成教育考试院统一报名或高校注册，并完成考前辅导报名。</p></div>
+          <div class="step-card"><div class="no">04</div><h3>入学学习</h3><p>录取后由教务老师跟进学籍注册与课程安排，直至顺利毕业。</p></div>
+        </div>
+      </div>
+      <div class="page-body alt">
+        <div class="container">
+          <h2 class="sec-title">报名方式</h2>
+          <div class="major-cols">
+            <div class="info-card">
+              <h3>到校咨询报名</h3>
+              <p style="margin-top:0.75rem;color:var(--color-text-muted);line-height:1.9;font-size:0.93rem">宁波市区 3 家分校、6 个接待点均可现场咨询与办理报名，建议先到校做免费学历规划。</p>
+              <a class="portal-more" href="/contact">查看校区分布 »</a>
+            </div>
+            <div class="info-card">
+              <h3>报名提醒</h3>
+              <p style="margin-top:0.75rem;color:var(--color-text-muted);line-height:1.9;font-size:0.93rem">成人高考报名时间集中、考位有限，建议提前准备材料；报名政策以浙江省教育考试院当年公布为准。</p>
+              <a class="portal-more" href="/notices">查看教务通知 »</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </main>
+  <Footer site={site} locale={defaultLocale} />
+</Layout>

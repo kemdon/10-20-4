@@ -1,0 +1,69 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import { getLocaleConfig, getSiteSettings } from '../../lib/site-content';
+
+const { defaultLocale } = await getLocaleConfig();
+const site = await getSiteSettings(defaultLocale);
+---
+
+<Layout
+  title="学院新闻"
+  description="硕学教育与院校合作、教学表彰等最新动态。"
+  lang={defaultLocale}
+  siteName={site.brandName}
+  defaultDescription={site.defaultMetaDescription}
+  faviconHref={site.logoPath}
+  ogImage={site.defaultOgImage}
+>
+  <Navbar site={site} locale={defaultLocale} currentPath="/" />
+  <main id="main">
+    <section class="page-hero">
+      <div class="container">
+        <span class="kicker">NEWS CENTER</span>
+        <h1>学院新闻</h1>
+      </div>
+    </section>
+    <div class="page-body">
+      <div class="container">
+
+      <div class="sec-block">
+        <ul class="news-list">
+          <li>
+            <a href="/universities/">硕学获评浙江师范大学“优秀校外教学点”（2025 年度）</a>
+            <span class="date">2025-12</span>
+            <span class="snippet">浙江师范大学高等学历继续教育授予硕学“优秀校外教学点”称号，肯定我校在教学组织与学员服务方面的持续投入。</span>
+          </li>
+          <li>
+            <a href="/universities/">浙江国际海运职业技术学院授予我校“2024 年度优秀校外教学点”</a>
+            <span class="date">2024-12</span>
+            <span class="snippet">继 2021、2023 年度之后，我校再次获评该院优秀校外教学点，函授教学与服务质量保持稳定。</span>
+          </li>
+          <li>
+            <a href="/universities/">浙江海洋大学“优秀函授站”授牌（2021 年度）</a>
+            <span class="date">2022-01</span>
+            <span class="snippet">浙江海洋大学为我校授牌“优秀函授站”（2021 年度），双方在成人继续教育领域的合作进一步深化。</span>
+          </li>
+          <li>
+            <a href="/universities/">浙江工商职业技术学院授予我校“教学管理优秀教学点”</a>
+            <span class="date">2019-01</span>
+            <span class="snippet">2018 年度教学管理考核中，我校获评该院“教学管理优秀教学点”。</span>
+          </li>
+          <li>
+            <a href="/universities/">浙江农林大学获评“校外合作办学进步单位”</a>
+            <span class="date">2013-12</span>
+            <span class="snippet">我校成为浙江农林大学指定宁波教学点，并获评该校“校外合作办学进步单位”。</span>
+          </li>
+          <li>
+            <a href="/about/">硕学教育正式创校，首年招生 950 名学员</a>
+            <span class="date">2012-09</span>
+            <span class="snippet">经江东区教育局审批，硕学教育第一家校区正式设立，首年招生 950 人，“硕学”商标同步注册。</span>
+          </li>
+        </ul>
+      </div>
+      </div>
+    </div>
+  </main>
+  <Footer site={site} locale={defaultLocale} />
+</Layout>
