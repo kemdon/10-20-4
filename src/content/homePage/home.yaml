@@ -7,7 +7,7 @@ heroPrimaryHref: /products
 heroSecondaryLabel: 关于硕学
 heroSecondaryHref: /about
 introTitle: 规范、稳定的继续教育支持
-introBody: 自创办以来，硕学教育立足宁波，持续完善业务体系，逐步构建起覆盖多个学历层次与增值学习需求的全层次在职学习服务矩阵，依托覆盖浙东多地的教学服务网点，为在职学员提供本地化的教务与学员服务。
+introBody: 自创办以来，硕学教育立足宁波，持续完善业务体系，逐步构建起覆盖多个学历层次与增值学习需求的全层次在职学习服务矩阵，依托扎根宁波的分校与接待点网络，为在职学员提供本地化的教务与学员服务。
 highlights:
   - title: 全层次学历通道
     body: 从成人中专、专科、本科到同等学力申硕，横向丰富学历品类，纵向延伸学历层次，补齐不同学员的提升通道。
@@ -16,7 +16,7 @@ highlights:
     body: 取得省内多所公办高校函授教学点合作资质，提供成考报考、考前辅导、教务管理等一体化函授配套服务。
     image: /assets/images/highlight-tutoring.webp
   - title: 本地化教学网点
-    body: 依托覆盖浙东多地的教学服务网点，20 家分校分布在浙江省和湖北省，深耕本地教务与学员服务。
+    body: 扎根宁波的教学服务网络：3 家分校、6 个接待点，深耕本地教务与学员服务。
     image: /assets/images/showcase-network.webp
   - title: 职业发展增值服务
     body: 在学历主业基础上，提供职业技能培训、考证辅导与企业内训，从单一学历招生升级为终身学习服务平台。
@@ -27,27 +27,32 @@ storyImages:
 logoCloudLabel: 合作高校
 logoCloudTitle: 与多所高校建立合作
 logos:
-  - name: 浙江师范大学
-  - name: 浙江农林大学
   - name: 浙江海洋大学
-  - name: 宁波工程学院
-  - name: 湖北经济学院
-  - name: 绍兴文理学院
+  - name: 浙江师范大学
+  - name: 金华职业技术大学
   - name: 浙江工商职业技术学院
+  - name: 浙江国际海运职业技术学院
+  - name: 浙江农林大学
+  - name: 宁波工程学院
+  - name: 湖北师范大学
+  - name: 宁波大学
+  - name: 浙江工商大学
+  - name: 杭州师范大学
+  - name: 浙江财经大学
 statsLabel: 品牌数据
 statsTitle: 数字里的硕学
 stats:
-  - value: 20 家
-    label: 分校网点
-    detail: 主要分布在浙江省和湖北省
-  - value: 117 人
-    label: 全职老师
-    detail: 另有特聘合作老师 300 余人
-  - value: 10000+
+  - value: 3 家
+    label: 分校
+    detail: 另设 6 个接待点，覆盖宁波各区县
+  - value: 近 1 万
     label: 在校学员
-    detail: 在职学员规模持续增长
+    detail: 近万名学员的共同选择
+  - value: 5 所
+    label: 官方函授站
+    detail: 浙江海洋大学、浙江师范大学等高校宁波官方函授站
   - value: 2012 年
-    label: 品牌创立
+    label: 硕学创校
     detail: 前身为 2008 年创办的助才网
 showcaseLabel: 业务体系
 showcaseTitle: 一站式在职终身学习服务
@@ -132,35 +137,35 @@ ctaSecondaryHref: /about
 brandTimelineTitle: 发展历程
 brandTimeline:
   - date: '2008'
-    title: 助才网创立
-    description: 硕学教育的前身助才网成立，取"帮助人成才"之意。
+    title: 缘起助才网
+    description: 2008 年 5 月，创始人创办"助才网"，取"帮助人成才"之意，这是"学习改变命运"理念的萌芽。
   - date: '2012'
-    title: 硕学教育成立
-    description: 正式创办硕学教育并成功注册商标，以成人高考函授咨询为核心业务起步，当年帮助 960 人。
-  - date: '2013 - 2016'
-    title: 稳步成长
-    description: 聚焦在职人员学历提升，年服务学员从 1500 人增长至 3000 人，逐步取得省内公办高校函授教学点合作资质。
-  - date: '2017 - 2019'
-    title: 拓展业务体系
-    description: 新增自学考试助学、成人中专、国家开放大学等业务，年服务学员增长至 6000 人。
-  - date: '2020'
-    title: 全层次服务矩阵
-    description: 上线同等学力申硕咨询服务，拓展职业技能培训与企业内训，年帮助学员达 11000 人。
-  - date: '未来'
-    title: 一站式终身学习平台
-    description: 计划 3 年内在全国 15 个省份开设 50 家分校，特聘老师近 1000 名，在校人数达 5 万人规模。
+    title: 硕学创校
+    description: 经江东区教育局审批开设第一家校区，首年招生 950 名学员，"硕学"商标成功注册。
+  - date: '2013'
+    title: 扎根高校合作
+    description: 新开北仑报名点，成为浙江师范大学指定宁波唯一函授点、浙江农林大学指定宁波教学点，并获评浙农林"校外合作办学进步单位"。
+  - date: '2014 - 2017'
+    title: 布局宁波各区县
+    description: 在宁波各区县陆续开设校区，学历提升渠道拓展至成考夜大、自考、国开、远程教育等多种方式。
+  - date: '2017 - 2024'
+    title: 高校合作深化
+    description: 成为浙江师范大学、浙江农林大学、浙江海洋大学、金华职业技术大学、浙江国际海运职业技术学院等高校的直属教学点，获评浙江师范大学"优秀函授站"、浙江农林大学唯一"优秀民办教学点"。
+  - date: '2024 - 至今'
+    title: 近万学员共同选择
+    description: 在宁波在校学员近万人，会计、新媒体运营、办公软件、电商等自设面授课程深受学员喜爱。
 brandStatsLabel: 品牌数据
 brandStatsTitle: 硕学在行动
 brandStatsItems:
   - label: 分校
-    value: 20 家
-    detail: 覆盖浙江省与湖北省
-  - label: 全职老师
-    value: 117 人
-    detail: 特聘合作老师 300 余人
+    value: 3 家
+    detail: 另设 6 个接待点
   - label: 在校学员
-    value: 10000+
-    detail: 在职学员规模超万人
+    value: 近 1 万
+    detail: 在宁波持续深耕成人学历教育
+  - label: 官方函授站
+    value: 5 所
+    detail: 多所高校宁波官方函授站
   - label: 合作高校
-    value: 多所
-    detail: 含 985/211 高校及省内公办院校
+    value: 10 余所
+    detail: 携手共育，合作招生
