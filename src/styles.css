@@ -141,7 +141,7 @@ img {
 }
 
 .section-padding {
-  padding: 6rem 0;
+  padding: 6.5rem 0;
 }
 
 /* ——— 入场动画（B7）：上升 32px，600-800ms，基础曲线，只动 transform/opacity ——— */
@@ -397,7 +397,7 @@ h3 {
   margin: 1.25rem auto 0;
   background: rgba(226, 196, 132, 0.75);
 }
-.page-body { background: #fff; padding: 2.6rem 0 3.4rem; }
+.page-body { background: #fff; padding: 3.8rem 0 4.6rem; }
 .page-body.alt { background: var(--color-bg); }
 .sec-title {
   display: flex;
