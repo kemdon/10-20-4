@@ -110,8 +110,16 @@ const pageCount = Math.ceil(total / pageSize);
     info.textContent = `第 ${page} / ${pageCount} 页 · 共 ${total} 条`;
   }
 
-  prev.addEventListener('click', () => { render(page - 1); window.scrollTo({ top: 0, behavior: 'smooth' }); });
-  next.addEventListener('click', () => { render(page + 1); window.scrollTo({ top: 0, behavior: 'smooth' }); });
-  numButtons.forEach((b) => b.addEventListener('click', () => { render(Number(b.dataset.page)); window.scrollTo({ top: 0, behavior: 'smooth' }); }));
+  prev.addEventListener('click', () => { render(page - 1); scrollToList(); });
+  next.addEventListener('click', () => { render(page + 1); scrollToList(); });
+  numButtons.forEach((b) => b.addEventListener('click', () => { render(Number(b.dataset.page)); scrollToList(); }));
   render(1);
+
+  // 翻页后只滚到新闻列表顶部，避免整页跳顶让人误以为点击无效
+  function scrollToList() {
+    const anchor = document.getElementById('news-list');
+    if (!anchor) return;
+    const top = anchor.getBoundingClientRect().top + window.scrollY - 90;
+    window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+  }
 </script>
