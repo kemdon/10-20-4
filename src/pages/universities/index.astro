@@ -3,65 +3,242 @@ import Layout from '../../layouts/Layout.astro';
 import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
 import { getLocaleConfig, getSiteSettings } from '../../lib/site-content';
+import { servicePromise } from '../../data/contacts';
 
 const { defaultLocale } = await getLocaleConfig();
 const site = await getSiteSettings(defaultLocale);
+
+// 反馈：原「宁波官方函授站 / 合作高校」两组统一合并为合作高校；每个院校改为可交互
+const names = [
+  '浙江海洋大学', '浙江师范大学', '金华职业技术大学', '浙江工商职业技术学院', '浙江国际海运职业技术学院',
+  '浙江农林大学', '宁波工程学院', '宁波大学', '浙江工商大学', '杭州师范大学',
+  '浙江财经大学', '湖北师范大学', '嘉兴大学', '丽水学院', '浙江中医药大学',
+  '东北农业大学', '浙江水利水电学院', '浙江舟山群岛新区旅游与健康职业学院', '嘉兴南洋职业技术学院',
+  '浙江工商大学杭州商学院', '绍兴文理学院', '温州科技职业学院', '丽水职业技术学院', '衢州职业技术学院',
+];
+
+// 资料包《官网-招生文档插入-直属非直属》中的招生简章海报
+const posterMap: Record<string, string> = {
+  '浙江师范大学': '/assets/images/universities/zjnu.webp',
+  '浙江海洋大学': '/assets/images/universities/zjou.webp',
+  '浙江国际海运职业技术学院': '/assets/images/universities/zjimc.webp',
+  '金华职业技术大学': '/assets/images/universities/jhc.webp',
+  '浙江工商职业技术学院': '/assets/images/universities/zjbti.webp',
+  '浙江农林大学': '/assets/images/universities/zafu.webp',
+};
+const directNames = ['浙江海洋大学', '浙江师范大学', '金华职业技术大学', '浙江工商职业技术学院', '浙江国际海运职业技术学院', '浙江农林大学'];
+const introMap: Record<string, string> = {
+  '浙江海洋大学': '浙江海洋大学是自然资源部与浙江省共建高校，成人高等教育开设经管、文史、理工、医学等多门类专升本专业。硕学教育为该校宁波官方函授站，负责招生咨询、考前辅导与在读教务跟进。',
+  '浙江师范大学': '浙江师范大学以教师教育见长，成人高等教育涵盖小学教育、学前教育、汉语言文学等师范类及经管类专业。硕学教育为该校宁波直属教学点，2025 年度获评「优秀校外教学点」。',
+  '金华职业技术大学': '金华职业技术大学是国家「双高计划」高职院校，成人专科专业覆盖机电、护理、学前教育、财经商贸等方向，适合在职人员提升专科层次学历。',
+  '浙江工商职业技术学院': '浙江工商职业技术学院立足宁波本地产业，成人高等教育以工商企业管理、电子商务、机电一体化等应用型专业为主，多次授予硕学「教学管理优秀教学点」。',
+  '浙江国际海运职业技术学院': '浙江国际海运职业技术学院面向港航物流、船舶与海洋产业开设特色专业，硕学教育连续多年获评该校「优秀校外教学点」。',
+  '浙江农林大学': '浙江农林大学成人高等教育涵盖农学、林学、园林、工程管理等方向，硕学教育为该校指定宁波教学点并获评「校外合作办学进步单位」。',
+};
+const universities = names.map((name) => ({
+  name,
+  poster: posterMap[name] || '/assets/images/universities/benke.webp',
+  direct: directNames.includes(name),
+  intro: introMap[name] || `${name}与硕学教育合作开展成人高等学历继续教育，开设专科、本科多层次招生专业。硕学教务团队提供选校选专业、报考材料预审、考前辅导与在读教务跟进的一站式服务，具体招生专业以该校当年成人高等教育招生简章为准。`,
+}));
+
+const majorChips = [
+  { name: '小学教育', group: '教育类', desc: '培养小学学科教学与班级管理能力，适合在职教师、教务人员及计划从事教育工作的人员报读。' },
+  { name: '学前教育', group: '教育类', desc: '面向幼儿园与早教机构，课程涵盖儿童心理、教育活动设计与幼儿保育，适合幼教从业者提升学历。' },
+  { name: '会计学', group: '经管类', desc: '学习财务会计、成本会计、审计与税法，适合企事业单位财务岗位与财务管理人员。' },
+  { name: '工商管理', group: '经管类', desc: '系统学习管理学、市场营销、人力资源与运营管理，适配行政、运营及基层管理岗位。' },
+  { name: '行政管理', group: '经管类', desc: '以行政学原理、公共政策、公文写作为主，适合考公考编与企事业单位行政事务岗位。' },
+  { name: '电子商务', group: '经管类', desc: '覆盖网店运营、网络营销、供应链与数据分析，适合电商及新零售行业在职人员。' },
+  { name: '计算机科学与技术', group: '理工类', desc: '学习程序设计、数据库、网络与软件工程，面向软件开发、信息技术与运维岗位。' },
+  { name: '机械设计制造及其自动化', group: '理工类', desc: '面向智能制造与装备制造行业，课程含机械设计、数控技术与自动化控制基础。' },
+  { name: '护理学', group: '医学类', desc: '面向临床护理与健康管理岗位，报考需符合当年医学类专业从业与执业资质要求。' },
+  { name: '药学', group: '医学类', desc: '学习药理学、药剂学与药品管理，适合医药零售、医疗机构药学岗位人员。' },
+  { name: '汉语言文学', group: '文史类', desc: '强化文学素养与文字表达能力，适合编辑出版、文案策划、行政与教师岗位，也是考公热门专业。' },
+  { name: '视觉传达设计', group: '艺术类', desc: '面向平面设计、品牌与新媒体视觉岗位，部分院校需加试或提交作品，报名前请确认当年要求。' },
+];
+
+const honors = [
+  { image: '/assets/images/honors/real-honor-1.webp', caption: '浙江师范大学<br />优秀校外教学点', alt: '浙江师范大学优秀校外教学点荣誉' },
+  { image: '/assets/images/honors/real-honor-3.webp', caption: '浙江国际海运职业技术学院<br />优秀教学点', alt: '浙江国际海运职业技术学院荣誉' },
+  { image: '/assets/images/honors/real-honor-5.webp', caption: '浙江海洋大学<br />优秀函授站', alt: '浙江海洋大学优秀函授站荣誉' },
+  { image: '/assets/images/honors/real-honor-8.webp', caption: '浙江农林大学<br />合作办学进步单位', alt: '浙江农林大学荣誉' },
+];
 ---
 
 <Layout
-  title="招生院校"
-  description="硕学为多所高校宁波官方函授站，并与十余所高校合作招生。"
+  title="合作高校"
+  description="硕学教育与浙江海洋大学、浙江师范大学等二十余所高校合作开展成人学历继续教育，点击院校查看招生简章与招生专业。"
   lang={defaultLocale}
   siteName={site.brandName}
   defaultDescription={site.defaultMetaDescription}
   faviconHref={site.logoPath}
   ogImage={site.defaultOgImage}
 >
-  <Navbar site={site} locale={defaultLocale} currentPath="/" />
+  <Navbar site={site} locale={defaultLocale} currentPath="/universities" />
   <main id="main">
     <section class="page-hero">
       <div class="container">
         <span class="kicker">UNIVERSITIES</span>
-        <h1>招生院校</h1>
+        <h1>合作高校</h1>
+        <p>二十余所高校携手共育 · 点击院校查看招生简章与招生专业</p>
+        <span class="hero-rule"></span>
       </div>
     </section>
     <div class="page-body">
-      <div class="container">
+      <div class="container uni-container">
+        <div class="sec-block">
+          <h2 class="sec-title">合作高校 · {universities.length} 所</h2>
+          <p class="uni-hint">点击院校名称切换，查看该校招生简章海报、开设专业与教务服务说明。</p>
+          <div class="uni-tabs" id="uni-tabs" role="tablist" aria-label="合作高校列表">
+            {universities.map((u, i) => (
+              <button type="button" class="uni-tab" role="tab" aria-selected={i === 0 ? 'true' : 'false'} data-uni-index={i}>{u.name}</button>
+            ))}
+          </div>
 
-      <div class="sec-block">
-        <h2 class="sec-title">宁波官方函授站</h2>
-        <div class="tile-grid">
-          <div class="tile" style="background:var(--color-primary-soft);color:var(--color-primary)">浙江海洋大学</div>
-          <div class="tile" style="background:var(--color-primary-soft);color:var(--color-primary)">浙江师范大学</div>
-          <div class="tile" style="background:var(--color-primary-soft);color:var(--color-primary)">金华职业技术大学</div>
-          <div class="tile" style="background:var(--color-primary-soft);color:var(--color-primary)">浙江工商职业技术学院</div>
-          <div class="tile" style="background:var(--color-primary-soft);color:var(--color-primary)">浙江国际海运职业技术学院</div>
+          <div class="uni-panel" id="uni-panel" role="tabpanel">
+            <div class="uni-poster-wrap">
+              <span class="uni-tag" id="uni-tag">直属教学点 / 官方函授站</span>
+              <a id="uni-poster-link" href="/assets/images/universities/zjou.webp" target="_blank" rel="noopener">
+                <img id="uni-poster" src="/assets/images/universities/zjou.webp" alt="浙江海洋大学成人高等教育招生简章" loading="lazy" />
+              </a>
+              <a id="uni-poster-more" class="uni-poster-more" href="/assets/images/universities/zjou.webp" target="_blank" rel="noopener">查看完整招生简章 ↗</a>
+            </div>
+            <div class="uni-info">
+              <h3 id="uni-name">浙江海洋大学</h3>
+              <p class="uni-intro" id="uni-intro">{universities[0].intro}</p>
+              <h4>1. 招生专业</h4>
+              <div class="uni-major-chips" id="uni-major-chips">
+                {majorChips.map((m, i) => (
+                  <button type="button" class="uni-major-chip" data-major-index={i} aria-pressed="false">{m.name}</button>
+                ))}
+              </div>
+              <p class="uni-major-desc" id="uni-major-desc" hidden></p>
+              <h4>2. 教务服务</h4>
+              <p class="uni-service">{servicePromise}</p>
+              <p class="uni-service-sub">硕学教育教学点提供选校选专业、报考材料预审、备考辅导、学籍注册与在读教务跟进，学员全程有专人对接。</p>
+              <div class="uni-actions">
+                <a class="uni-cta" id="uni-consult" href="/signup/?school=%E6%B5%99%E6%B1%9F%E6%B5%B7%E6%B4%8B%E5%A4%A7%E5%AD%A6">咨询这所院校 →</a>
+                <a class="uni-cta ghost" href="/majors/">查看全部招生专业</a>
+              </div>
+            </div>
+          </div>
+          <p class="disclaimer">以上招生简章海报为资料展示，合作院校、招生专业、学制与学费以各高校当年成人高等教育招生简章和浙江省教育考试院公布为准，报名前请先做材料预审。</p>
         </div>
       </div>
       <div class="page-body alt">
-        <div class="container">
-          <h2 class="sec-title">合作高校</h2>
-          <div class="tile-grid">
-            <div class="tile">浙江农林大学</div><div class="tile">宁波工程学院</div><div class="tile">宁波大学</div><div class="tile">浙江工商大学</div>
-            <div class="tile">杭州师范大学</div><div class="tile">浙江财经大学</div><div class="tile">湖北师范大学</div><div class="tile">嘉兴大学</div>
-            <div class="tile">丽水学院</div><div class="tile">浙江中医药大学</div><div class="tile">东北农业大学</div><div class="tile">浙江水利水电学院</div>
-          </div>
-          <p class="disclaimer">合作院校与招生专业以各高校当年成人高等教育招生简章为准，欢迎到校咨询当年可报院校与专业。</p>
-        </div>
-      </div>
-      <div class="page-body">
-        <div class="container">
+        <div class="container uni-container">
           <h2 class="sec-title">教学表彰</h2>
-          <div class="honor-grid">
-            <figure><img src="/assets/images/honors/honor-2025-shida.webp" alt="浙江师范大学优秀校外教学点荣誉证书" loading="lazy" /><figcaption>浙江师范大学 · 优秀校外教学点</figcaption></figure>
-            <figure><img src="/assets/images/honors/honor-2024-haiyun.webp" alt="浙江国际海运职业技术学院优秀校外教学点证书" loading="lazy" /><figcaption>浙江国际海运职业技术学院</figcaption></figure>
-            <figure><img src="/assets/images/honors/honor-2022-haida.webp" alt="浙江海洋大学优秀函授站证书" loading="lazy" /><figcaption>浙江海洋大学 · 优秀函授站</figcaption></figure>
-            <figure><img src="/assets/images/honors/honor-2013-zhulinan.webp" alt="浙江农林大学校外合作办学进步单位证书" loading="lazy" /><figcaption>浙江农林大学 · 合作办学进步单位</figcaption></figure>
+          <div class="honor-row">
+            {honors.map((h) => (
+              <figure>
+                <img src={h.image} alt={h.alt} loading="lazy" />
+                <figcaption set:html={h.caption} />
+              </figure>
+            ))}
           </div>
         </div>
-      </div>
       </div>
     </div>
   </main>
   <Footer site={site} locale={defaultLocale} />
 </Layout>
+
+<style>
+  .uni-container { max-width: 1200px; }
+  .sec-block { max-width: 100%; }
+  .uni-hint { margin: -0.6rem 0 1.1rem; font-size: 0.9rem; color: var(--color-text-muted); }
+  .uni-tabs { display: flex; gap: 0.5rem; overflow-x: auto; padding: 0.2rem 0.2rem 0.8rem; scrollbar-width: thin; }
+  .uni-tab {
+    flex: none; padding: 0.55rem 1rem; border: 1px solid #DCE6F3; border-radius: 999px;
+    background: #fff; color: #46586E; font-family: inherit; font-size: 0.86rem; cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .uni-tab:hover { border-color: var(--color-primary); color: var(--color-primary); }
+  .uni-tab[aria-selected="true"] { background: var(--color-primary); border-color: var(--color-primary); color: #fff; font-weight: 600; }
+  .uni-panel {
+    display: grid; grid-template-columns: 0.92fr 1.08fr; gap: 1.8rem;
+    padding: 1.6rem; background: #F7FAFE; border: 1px solid #E4ECF6; border-radius: 0.85rem;
+  }
+  .uni-poster-wrap { position: relative; }
+  .uni-tag {
+    position: absolute; top: 0.75rem; left: 0.75rem; z-index: 2;
+    padding: 0.3rem 0.75rem; border-radius: 999px; background: rgba(16, 48, 92, 0.88);
+    color: #F0CE8C; font-size: 0.72rem; font-weight: 600;
+  }
+  .uni-poster-wrap > a:first-of-type { display: block; background: #fff; border: 1px solid #E4ECF6; border-radius: 0.6rem; overflow: hidden; }
+  #uni-poster { display: block; width: 100%; height: 19rem; object-fit: contain; background: #fff; }
+  .uni-poster-more { display: inline-block; margin-top: 0.7rem; font-size: 0.82rem; color: var(--color-primary); }
+  .uni-poster-more:hover { text-decoration: underline; }
+  .uni-info h3 { font-size: 1.4rem; color: #16437D; margin-bottom: 0.7rem; }
+  .uni-intro { color: var(--color-text-muted); font-size: 0.9rem; line-height: 1.9; margin-bottom: 1.3rem; }
+  .uni-info h4 { font-size: 1rem; color: #1B3E6D; margin: 1.1rem 0 0.7rem; }
+  .uni-major-chips { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+  .uni-major-chip {
+    padding: 0.4rem 0.85rem; border: 1px solid #DCE6F3; border-radius: 0.4rem;
+    background: #fff; color: #46586E; font-family: inherit; font-size: 0.8rem; cursor: pointer;
+  }
+  .uni-major-chip:hover, .uni-major-chip[aria-pressed="true"] { background: var(--color-primary); border-color: var(--color-primary); color: #fff; }
+  .uni-major-desc {
+    margin-top: 0.75rem; padding: 0.7rem 0.9rem; background: #fff; border-left: 3px solid var(--color-primary);
+    border-radius: 0 0.4rem 0.4rem 0; font-size: 0.85rem; line-height: 1.8; color: #46586E;
+  }
+  .uni-major-desc[hidden] { display: none; }
+  .uni-service, .uni-service-sub { font-size: 0.86rem; line-height: 1.9; color: var(--color-text-muted); }
+  .uni-service { padding: 0.8rem 0.95rem; background: #FBF6EC; border: 1px solid #EBD9B4; border-radius: 0.5rem; color: #7A5B18; }
+  .uni-service-sub { margin-top: 0.6rem; }
+  .uni-actions { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 1.3rem; }
+  .uni-cta { display: inline-block; padding: 0.6rem 1.35rem; border-radius: 999px; background: #1D4E89; color: #fff; font-size: 0.86rem; text-decoration: none; }
+  .uni-cta:hover { background: #16437D; }
+  .uni-cta.ghost { background: #fff; color: #1D4E89; border: 1px solid #C9D9EE; }
+  @media (max-width: 900px) {
+    .uni-panel { grid-template-columns: 1fr; }
+    #uni-poster { height: 16rem; }
+  }
+</style>
+
+<script define:vars={{ universities, majorChips }}>
+  const tabs = [...document.querySelectorAll('[data-uni-index]')];
+  const poster = document.getElementById('uni-poster');
+  const posterLink = document.getElementById('uni-poster-link');
+  const posterMore = document.getElementById('uni-poster-more');
+  const nameEl = document.getElementById('uni-name');
+  const introEl = document.getElementById('uni-intro');
+  const tagEl = document.getElementById('uni-tag');
+  const consultEl = document.getElementById('uni-consult');
+  const chips = [...document.querySelectorAll('[data-major-index]')];
+  const majorDesc = document.getElementById('uni-major-desc');
+
+  function selectUniversity(index) {
+    const u = universities[index];
+    if (!u) return;
+    tabs.forEach((t, i) => t.setAttribute('aria-selected', String(i === index)));
+    nameEl.textContent = u.name;
+    introEl.textContent = u.intro;
+    tagEl.textContent = u.direct ? '直属教学点 / 官方函授站' : '合作高校';
+    poster.src = u.poster;
+    poster.alt = `${u.name}成人高等教育招生简章`;
+    posterLink.href = u.poster;
+    posterMore.href = u.poster;
+    consultEl.href = `/signup/?school=${encodeURIComponent(u.name)}`;
+    chips.forEach((c) => c.setAttribute('aria-pressed', 'false'));
+    majorDesc.hidden = true;
+  }
+
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      selectUniversity(Number(tab.dataset.uniIndex));
+      tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    });
+  });
+
+  chips.forEach((chip) => {
+    chip.addEventListener('click', () => {
+      const m = majorChips[Number(chip.dataset.majorIndex)];
+      chips.forEach((c) => c.setAttribute('aria-pressed', String(c === chip)));
+      majorDesc.textContent = `${m.group} · ${m.name}：${m.desc}`;
+      majorDesc.hidden = false;
+    });
+  });
+
+  selectUniversity(0);
+</script>

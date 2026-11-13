@@ -9,7 +9,18 @@ export const GET: APIRoute = async ({ site }) => {
   const products = await getProducts(defaultLocale, defaultLocale);
   const paths = [
     '/',
+    '/about',
     '/products',
+    '/universities',
+    '/majors',
+    '/training',
+    '/graduate',
+    '/news',
+    '/faq',
+    '/signup',
+    '/contact',
+    '/notices',
+    '/jobs',
     ...products.map((product) => `/products/${product.slug}`),
     ...locales
       .filter((locale) => locale.code.toLowerCase() !== defaultLocale.toLowerCase())

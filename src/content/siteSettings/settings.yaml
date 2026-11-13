@@ -1,7 +1,7 @@
 brandName: 硕学教育
 defaultMetaDescription: 硕学教育立足宁波，深耕成人继续教育，提供成人高考、自学考试、国家开放大学、成人中专、同等学力申硕及职业技能培训等一站式在职学习服务。
-logoPath: /favicon.svg
-defaultOgImage: /assets/images/hero.webp
+logoPath: /favicon.png
+defaultOgImage: /assets/images/hero-main.webp
 defaultLocale: zh-CN
 localeCookieName: site_locale
 localeSwitcherLabel: 语言
@@ -16,25 +16,21 @@ navigation:
     href: /
   - label: 学校简介
     href: /about
-  - label: 学院新闻
-    href: /news
-  - label: 教务通知
-    href: /notices
   - label: 学历教育
     href: /products
-  - label: 职业培训
-    href: /training
-  - label: 在职研究生
-    href: /products/shuoshi/
   - label: 招生院校
     href: /universities
   - label: 招生专业
     href: /majors
+  - label: 新闻资讯
+    href: /news
+  - label: 职业培训
+    href: /training
+  - label: 在职研究生
+    href: /graduate
   - label: 在线报名
     href: /signup
     isPrimary: true
-  - label: 招聘信息
-    href: /jobs
   - label: 联系我们
     href: /contact
 footerBody: 硕学教育立足宁波，深耕成人继续教育领域，从中专、专科、本科到在职研究生，打造一站式在职终身学习服务平台。
@@ -49,6 +45,6 @@ footerLinks:
     href: /faq
 footerQuickLinksLabel: 快速导航
 footerContactColumnTitle: 联系我们
-footerAddress: 浙江省宁波市（3 家分校 · 6 个接待点，欢迎就近咨询）
-footerMotto: 弘扬终身学习观，提升学员幸福感
-copyrightLine: © 硕学教育 · 立足宁波 · 深耕成人继续教育
+footerAddress: 浙江省宁波市鄞州区南部商务区天童南路700号荣安大厦2楼211
+footerMotto: 专注学历教育 · 成就职业未来
+copyrightLine: Copyright © 硕学教育 版权所有

@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
 import ProductCard from '../../components/ProductCard.astro';
+import { servicePromise } from '../../data/contacts';
 import {
   getLocaleConfig,
   getProducts,
@@ -60,37 +61,64 @@ const emptyNote = page.emptyNote || (site.defaultLocale.toLowerCase().startsWith
         )}
       </div>
     </section>
+
+    <!-- 反馈：服务文案 -->
+    <section class="service-band">
+      <div class="container">
+        <h2>我们的教学服务</h2>
+        <p class="service-lead">{servicePromise}</p>
+        <p class="service-note">从选校选专业、报考材料预审，到考前辅导、学籍注册与在读教务跟进，硕学教务团队全程专人对接，让在职学习更省心。</p>
+        <a class="service-cta" href="/signup/">立即咨询 →</a>
+      </div>
+    </section>
   </main>
   <Footer site={site} locale={defaultLocale} />
 </Layout>
 
 <style>
+  /* 反馈「对齐」：去掉多余的 5.5rem 顶部留白，与其他内页横幅对齐 */
   .products-page {
-    padding-top: 5.5rem;
+    padding-top: 0;
   }
 
   .page-hero {
-    padding: 4.5rem 0 1rem;
+    padding: 4.5rem 1rem 4.2rem;
   }
+
+  .service-band { padding: 2.8rem 0 3.4rem; background: var(--color-bg); text-align: center; }
+  .service-band h2 { font-size: 1.5rem; color: #16437D; margin-bottom: 1rem; }
+  .service-lead {
+    max-width: 52rem; margin: 0 auto; padding: 1rem 1.2rem;
+    background: #FBF6EC; border: 1px solid #EBD9B4; border-radius: 0.6rem;
+    color: #7A5B18; font-size: 0.95rem; line-height: 1.95;
+  }
+  .service-note { max-width: 52rem; margin: 0.9rem auto 0; font-size: 0.88rem; line-height: 1.9; color: var(--color-text-muted); }
+  .service-cta { display: inline-block; margin-top: 1.3rem; padding: 0.65rem 1.6rem; border-radius: 999px; background: #1D4E89; color: #fff; font-size: 0.9rem; text-decoration: none; }
+  .service-cta:hover { background: #16437D; }
 
   .section-kicker {
     display: block;
-    margin-bottom: 0.75rem;
-    color: var(--color-primary);
+    margin-bottom: 0.9rem;
+    color: rgba(214, 231, 255, 0.75);
     font-size: 0.78rem;
     font-weight: 700;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.28em;
     text-transform: uppercase;
   }
 
   .page-title {
     font-size: clamp(2.2rem, 5vw, 3.5rem);
-    margin-bottom: 1rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 0.9rem;
   }
 
   .page-body {
-    max-width: 44rem;
-    color: var(--color-text-muted);
+    max-width: 46rem;
+    margin: 0 auto;
+    background: transparent;
+    padding: 0;
+    color: rgba(222, 235, 252, 0.82);
     line-height: 1.9;
   }
 

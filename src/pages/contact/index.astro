@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
 import { getLocaleConfig, getSiteSettings } from '../../lib/site-content';
+import { districtContacts } from '../../data/contacts';
 
 const { defaultLocale } = await getLocaleConfig();
 const site = await getSiteSettings(defaultLocale);
@@ -10,51 +11,92 @@ const site = await getSiteSettings(defaultLocale);
 
 <Layout
   title="联系我们"
-  description="硕学教育扎根宁波，3 家分校、6 个接待点欢迎你的到来。"
+  description="硕学教育扎根宁波，3 家分校、6 个接待点，宁波各区报名联系人电话一览。"
   lang={defaultLocale}
   siteName={site.brandName}
   defaultDescription={site.defaultMetaDescription}
   faviconHref={site.logoPath}
   ogImage={site.defaultOgImage}
 >
-  <Navbar site={site} locale={defaultLocale} currentPath="/" />
+  <Navbar site={site} locale={defaultLocale} currentPath="/contact" />
   <main id="main">
     <section class="page-hero">
       <div class="container">
         <span class="kicker">CONTACT</span>
         <h1>联系我们</h1>
+        <p>宁波各区均有负责老师，欢迎就近咨询学历提升与职业培训</p>
+        <span class="hero-rule"></span>
       </div>
     </section>
     <div class="page-body">
-      <div class="container">
+      <div class="container contact-container">
 
-      <div class="sec-block">
-        <h2 class="sec-title">校区分布</h2>
-        <div class="major-cols">
-          <div class="info-card">
-            <h3>宁波市区</h3>
-            <p style="margin-top:0.75rem;color:var(--color-text-muted);line-height:1.9;font-size:0.93rem">分校与接待点覆盖宁波主城区，可现场咨询学历提升方案、办理报名。</p>
-          </div>
-          <div class="info-card">
-            <h3>区县接待点</h3>
-            <p style="margin-top:0.75rem;color:var(--color-text-muted);line-height:1.9;font-size:0.93rem">在宁波各区县设有接待点（含北仑等），方便在职学员就近咨询与办理。</p>
+        <div class="sec-block">
+          <h2 class="sec-title">校区分布</h2>
+          <div class="major-cols">
+            <div class="info-card">
+              <h3>宁波市区</h3>
+              <p class="card-text">分校与接待点覆盖宁波主城区，可现场咨询学历提升方案、办理报名。</p>
+            </div>
+            <div class="info-card">
+              <h3>区县接待点</h3>
+              <p class="card-text">在宁波各区县设有接待点（含北仑、慈溪、余姚等），方便在职学员就近咨询与办理。</p>
+            </div>
           </div>
         </div>
-        <p class="disclaimer">各校区具体地址与咨询电话请提前联系学校确认，或到访前先通过分校前台确认办公时间。</p>
-      </div>
-      <div class="page-body alt">
-        <div class="container">
+
+        <!-- 反馈六：加一个联系方式（宁波各区报名联系人） -->
+        <div class="sec-block">
+          <h2 class="sec-title">宁波各区报名联系人</h2>
+          <p class="contact-hint">按所在区域联系负责老师，可直接点击电话拨号；也可在页面底部在线提交报名意向。</p>
+          <div class="contact-grid">
+            {districtContacts.map((c) => (
+              <div class="contact-card">
+                <span class="contact-district">{c.district}</span>
+                <span class="contact-teacher">{c.teacher}</span>
+                <a class="contact-phone" href={`tel:${c.phone}`}>{c.phone}</a>
+              </div>
+            ))}
+          </div>
+          <p class="disclaimer">各校区具体地址与办公时间请提前与负责老师确认；联系方式如有变更，以学校前台最新公布为准。</p>
+        </div>
+
+        <div class="sec-block alt-block">
           <h2 class="sec-title">咨询建议</h2>
           <ul class="news-list">
             <li><span>学历提升：建议携带最高学历证书，老师可现场评估可报院校与专业</span><span class="date">到校咨询</span></li>
-            <li><span>职业培训：面授课程滚动开班，可先预约试听</span><span class="date">电话 / 到校</span></li>
+            <li><span>职业培训：面授课程与考证辅导滚动开班，可先预约试听</span><span class="date">电话 / 到校</span></li>
             <li><span>企业内训：提供定制化方案，欢迎企事业单位洽谈</span><span class="date">预约洽谈</span></li>
           </ul>
-          <a class="portal-more" href="/signup" style="margin-top:1.5rem;display:inline-block">查看报名流程 »</a>
+          <a class="portal-more" href="/signup/">前往在线报名 »</a>
         </div>
-      </div>
+
       </div>
     </div>
   </main>
   <Footer site={site} locale={defaultLocale} />
 </Layout>
+
+<style>
+  .contact-container { max-width: 1100px; }
+  .sec-block { margin-bottom: 2.6rem; }
+  .card-text { margin-top: 0.75rem; color: var(--color-text-muted); line-height: 1.9; font-size: 0.93rem; }
+  .contact-hint { margin: -0.6rem 0 1.2rem; font-size: 0.9rem; color: var(--color-text-muted); }
+  /* 反馈「对齐」：各区联系人统一卡片网格，左右两列等高对齐 */
+  .contact-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.8rem; }
+  .contact-card {
+    display: flex; flex-direction: column; align-items: center; gap: 0.35rem;
+    padding: 1.1rem 0.6rem; background: #fff; border: 1px solid #E9EFF7;
+    border-radius: 0.65rem; box-shadow: 0 4px 16px rgba(23, 63, 116, 0.05); text-align: center;
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+  }
+  .contact-card:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(23, 63, 116, 0.12); }
+  .contact-district { font-size: 0.98rem; font-weight: 700; color: #16437D; }
+  .contact-teacher { font-size: 0.84rem; color: var(--color-text-muted); }
+  .contact-phone { font-family: var(--font-num); font-size: 0.86rem; color: var(--color-primary); text-decoration: none; }
+  .contact-phone:hover { text-decoration: underline; }
+  .alt-block { padding: 1.6rem; background: var(--color-bg); border-radius: 0.8rem; }
+  .portal-more { display: inline-block; margin-top: 1.4rem; color: var(--color-primary); font-size: 0.9rem; }
+  @media (max-width: 900px) { .contact-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (max-width: 560px) { .contact-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+</style>

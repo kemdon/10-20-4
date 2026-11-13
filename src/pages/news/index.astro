@@ -6,64 +6,112 @@ import { getLocaleConfig, getSiteSettings } from '../../lib/site-content';
 
 const { defaultLocale } = await getLocaleConfig();
 const site = await getSiteSettings(defaultLocale);
+
+// 反馈九：新闻列表做翻页（每页 5 条）
+const newsItems = [
+  { title: '2026 届硕学专本科毕业典礼圆满举行', date: '2026-07', snippet: '专本科毕业生齐聚一堂，教务老师现场完成毕业材料核对与证书发放，并为新一届学员分享学习与备考经验。', href: '/about/' },
+  { title: '浙江师范大学 2026 届毕业典礼 · 硕学教学点学员返校', date: '2026-06', snippet: '硕学教学点组织学员返校参加毕业典礼与学位授予仪式，合影留念并记录下这一重要时刻。', href: '/about/' },
+  { title: '浙江海洋大学教学点工作会议召开', date: '2026-01', snippet: '围绕新学年教学组织、课程安排与学员服务流程进行复盘，进一步统一教务标准与回访机制。', href: '/universities/' },
+  { title: '浙江师范大学 2026 春季开学典礼', date: '2026-03', snippet: '新生完成报到与入学教育，教务老师逐一说明学习平台使用、课程考核与毕业要求。', href: '/about/' },
+  { title: '硕学学员春日踏青活动', date: '2026-03', snippet: '课余时间组织学员户外交流，让在职学习不止于课堂，也有一同前行的同伴。', href: '/about/' },
+  { title: '名师入硕学开展线下课', date: '2025-05', snippet: '邀请院校名师到校开展线下面授与考前串讲，帮助学员梳理重点、提升备考效率。', href: '/training/' },
+  { title: '硕学获评浙江师范大学「优秀校外教学点」（2025 年度）', date: '2025-12', snippet: '浙江师范大学高等学历继续教育授予硕学「优秀校外教学点」称号，肯定我校在教学组织与学员服务方面的持续投入。', href: '/universities/' },
+  { title: '浙江国际海运职业技术学院授予我校「2024 年度优秀校外教学点」', date: '2024-12', snippet: '继 2021、2023 年度之后，我校再次获评该院优秀校外教学点，函授教学与服务质量保持稳定。', href: '/universities/' },
+  { title: '浙江海洋大学「优秀函授站」授牌（2021 年度）', date: '2022-01', snippet: '浙江海洋大学为我校授牌「优秀函授站」（2021 年度），双方在成人继续教育领域的合作进一步深化。', href: '/universities/' },
+  { title: '浙江工商职业技术学院授予我校「教学管理优秀教学点」', date: '2019-01', snippet: '2018 年度教学管理考核中，我校获评该院「教学管理优秀教学点」。', href: '/universities/' },
+  { title: '浙江农林大学获评「校外合作办学进步单位」', date: '2013-12', snippet: '我校成为浙江农林大学指定宁波教学点，并获评该校「校外合作办学进步单位」。', href: '/universities/' },
+  { title: '硕学教育正式创校，首年招生 950 名学员', date: '2012-09', snippet: '经江东区教育局审批，硕学教育第一家校区正式设立，首年招生 950 人，「硕学」商标同步注册。', href: '/about/' },
+];
+const pageSize = 5;
+const total = newsItems.length;
+const pageCount = Math.ceil(total / pageSize);
 ---
 
 <Layout
   title="学院新闻"
-  description="硕学教育与院校合作、教学表彰等最新动态。"
+  description="硕学教育与院校合作、教学表彰、开学与毕业典礼、学员活动等最新动态。"
   lang={defaultLocale}
   siteName={site.brandName}
   defaultDescription={site.defaultMetaDescription}
   faviconHref={site.logoPath}
   ogImage={site.defaultOgImage}
 >
-  <Navbar site={site} locale={defaultLocale} currentPath="/" />
+  <Navbar site={site} locale={defaultLocale} currentPath="/news" />
   <main id="main">
     <section class="page-hero">
       <div class="container">
         <span class="kicker">NEWS CENTER</span>
         <h1>学院新闻</h1>
+        <p>院校合作 · 教学表彰 · 学员活动，记录硕学与每一位学员共同成长的时刻</p>
+        <span class="hero-rule"></span>
       </div>
     </section>
     <div class="page-body">
-      <div class="container">
-
-      <div class="sec-block">
-        <ul class="news-list">
-          <li>
-            <a href="/universities/">硕学获评浙江师范大学“优秀校外教学点”（2025 年度）</a>
-            <span class="date">2025-12</span>
-            <span class="snippet">浙江师范大学高等学历继续教育授予硕学“优秀校外教学点”称号，肯定我校在教学组织与学员服务方面的持续投入。</span>
-          </li>
-          <li>
-            <a href="/universities/">浙江国际海运职业技术学院授予我校“2024 年度优秀校外教学点”</a>
-            <span class="date">2024-12</span>
-            <span class="snippet">继 2021、2023 年度之后，我校再次获评该院优秀校外教学点，函授教学与服务质量保持稳定。</span>
-          </li>
-          <li>
-            <a href="/universities/">浙江海洋大学“优秀函授站”授牌（2021 年度）</a>
-            <span class="date">2022-01</span>
-            <span class="snippet">浙江海洋大学为我校授牌“优秀函授站”（2021 年度），双方在成人继续教育领域的合作进一步深化。</span>
-          </li>
-          <li>
-            <a href="/universities/">浙江工商职业技术学院授予我校“教学管理优秀教学点”</a>
-            <span class="date">2019-01</span>
-            <span class="snippet">2018 年度教学管理考核中，我校获评该院“教学管理优秀教学点”。</span>
-          </li>
-          <li>
-            <a href="/universities/">浙江农林大学获评“校外合作办学进步单位”</a>
-            <span class="date">2013-12</span>
-            <span class="snippet">我校成为浙江农林大学指定宁波教学点，并获评该校“校外合作办学进步单位”。</span>
-          </li>
-          <li>
-            <a href="/about/">硕学教育正式创校，首年招生 950 名学员</a>
-            <span class="date">2012-09</span>
-            <span class="snippet">经江东区教育局审批，硕学教育第一家校区正式设立，首年招生 950 人，“硕学”商标同步注册。</span>
-          </li>
-        </ul>
-      </div>
+      <div class="container news-container">
+        <div class="sec-block">
+          <ul class="news-list" id="news-list">
+            {newsItems.map((item, i) => (
+              <li data-news-index={i} hidden={i >= pageSize}>
+                <a href={item.href}>{item.title}</a>
+                <span class="date">{item.date}</span>
+                <span class="snippet">{item.snippet}</span>
+              </li>
+            ))}
+          </ul>
+          <nav class="pager" id="pager" aria-label="新闻分页">
+            <button type="button" class="pager-btn" id="pager-prev" disabled>上一页</button>
+            <span class="pager-numbers" id="pager-numbers"></span>
+            <button type="button" class="pager-btn" id="pager-next">下一页</button>
+          </nav>
+          <p class="pager-info" id="pager-info"></p>
+        </div>
       </div>
     </div>
   </main>
   <Footer site={site} locale={defaultLocale} />
 </Layout>
+
+<style>
+  .news-container { max-width: 1000px; }
+  .news-list li[hidden] { display: none; }
+  .pager { display: flex; align-items: center; justify-content: flex-end; gap: 0.45rem; margin-top: 1.6rem; }
+  .pager-btn, .pager-num {
+    padding: 0.42rem 0.9rem; border: 1px solid #DCE6F3; border-radius: 0.4rem;
+    background: #fff; color: #46586E; font-family: inherit; font-size: 0.85rem; cursor: pointer;
+    text-decoration: none; transition: all 0.2s ease;
+  }
+  .pager-btn:hover:not(:disabled), .pager-num:hover { border-color: var(--color-primary); color: var(--color-primary); }
+  .pager-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+  .pager-num.active { background: var(--color-primary); border-color: var(--color-primary); color: #fff; font-weight: 600; }
+  .pager-numbers { display: flex; gap: 0.35rem; }
+  .pager-info { margin-top: 0.7rem; text-align: right; font-size: 0.78rem; color: #9AA7B8; }
+</style>
+
+<script define:vars={{ pageSize, pageCount, total }}>
+  const items = [...document.querySelectorAll('[data-news-index]')];
+  const numbers = document.getElementById('pager-numbers');
+  const prev = document.getElementById('pager-prev');
+  const next = document.getElementById('pager-next');
+  const info = document.getElementById('pager-info');
+  let page = 1;
+
+  numbers.innerHTML = Array.from({ length: pageCount }, (_, i) =>
+    `<button type="button" class="pager-num" data-page="${i + 1}">${i + 1}</button>`
+  ).join('');
+  const numButtons = [...numbers.querySelectorAll('[data-page]')];
+
+  function render(target) {
+    page = Math.min(Math.max(1, target), pageCount);
+    const start = (page - 1) * pageSize;
+    items.forEach((li, i) => { li.hidden = i < start || i >= start + pageSize; });
+    numButtons.forEach((b) => b.classList.toggle('active', Number(b.dataset.page) === page));
+    prev.disabled = page === 1;
+    next.disabled = page === pageCount;
+    info.textContent = `第 ${page} / ${pageCount} 页 · 共 ${total} 条`;
+  }
+
+  prev.addEventListener('click', () => { render(page - 1); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+  next.addEventListener('click', () => { render(page + 1); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+  numButtons.forEach((b) => b.addEventListener('click', () => { render(Number(b.dataset.page)); window.scrollTo({ top: 0, behavior: 'smooth' }); }));
+  render(1);
+</script>

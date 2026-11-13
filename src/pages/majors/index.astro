@@ -6,49 +6,127 @@ import { getLocaleConfig, getSiteSettings } from '../../lib/site-content';
 
 const { defaultLocale } = await getLocaleConfig();
 const site = await getSiteSettings(defaultLocale);
+
+// 完整专业目录，来自资料包《浙江成人高考专升本本科专业介绍》《浙江成人高考专科专业介绍》
+const undergraduate = ["小学教育","学前教育","体育教育","特殊教育","思想政治教育","工商管理","会计学","行政管理","财务管理","物流管理","经济学","国际经济与贸易","市场营销","电子商务","人力资源管理","工程造价","工程管理","汉语言文学","法学","社会工作","金融学","计算机科学与技术","交通运输","智能制造工程","电子信息工程","建筑学","测绘工程","生物制药","应用化学","车辆工程","安全工程","水利水电工程","食品科学与工程","食品质量与安全","纺织工程","数学与应用数学","生物科学","药学","护理学","中药学","临床医学","口腔医学","医学检验技术","医学影像技术","康复治疗学","动物医学","园林","农学","林学","园艺","水产养殖学","数字媒体艺术","音乐学","视觉传达设计","新闻学","广播电视学"];
+const junior = ["电子商务","大数据与会计","市场营销","工商企业管理","金融科技应用","金融服务与管理","国际经济与贸易","国际商务","机电一体化技术","工业机器人技术","机械制造及自动化","电气自动化技术","港口与航运管理","现代物流管理","船舶工程技术","轮机工程技术","航海技术","石油化工技术","应用化工技术","动物医学","园林技术","建筑装饰工程技术","视觉传达设计","护理","药学","中药学","健康管理","建筑工程技术","工程测量技术","计算机网络技术","数字媒体技术","旅游管理","导游","酒店管理与数字化运营"];
+
+// 资料包内提供了图文专业介绍的重点专业
+const featured = {
+  '会计学': { image: '/assets/images/major-intro-1.webp', desc: '培养掌握会计、审计与财务管理基本理论与实务的应用型人才。核心课程涵盖基础会计、财务会计、成本会计、财务管理、审计学、税法等；适合在企事业单位财务部门、会计师事务所、金融机构从事会计核算、财务分析与审计工作。' },
+  '学前教育': { image: '/assets/images/major-intro-2.webp', desc: '面向幼儿园及早教机构，培养具备儿童保育、教育活动设计与班级管理能力的专业人才。核心课程包括学前教育学、儿童心理学、幼儿园课程、幼儿游戏与手工等；就业方向为幼儿教师、早教指导师、儿童教育产品运营。' },
+  '工商管理': { image: '/assets/images/major-intro-3.webp', desc: '系统学习管理学、市场营销、人力资源、运营与战略管理，培养具备综合经营分析能力的管理人才。适合在各类企业担任行政、运营、市场、人力资源及基层管理岗位，也是在职人员晋升管理层的常见选择。' },
+  '汉语言文学': { image: '/assets/images/major-intro-4.webp', desc: '研读中国古代文学、现代文学、语言学概论、写作与文学理论，强化文字表达与内容处理能力。就业面广，适合文案策划、编辑出版、新媒体运营、行政管理及教师等岗位，也是考公考编的热门专业。' },
+  '行政管理': { image: '/assets/images/major-intro-5.webp', desc: '学习行政学原理、公共政策、组织行为学、公文写作与电子政务，培养企事业单位行政事务与综合管理能力。适合行政专员、人事行政、党群事务、公共服务与基层管理岗位，课程以理解记忆为主，适配在职学习。' },
+};
 ---
 
 <Layout
   title="招生专业"
-  description="合作高校成人高等教育常设专业方向参考。"
+  description="浙江成人高考专升本、高起专完整专业目录，点击专业可查看培养方向与就业前景。"
   lang={defaultLocale}
   siteName={site.brandName}
   defaultDescription={site.defaultMetaDescription}
   faviconHref={site.logoPath}
   ogImage={site.defaultOgImage}
 >
-  <Navbar site={site} locale={defaultLocale} currentPath="/" />
+  <Navbar site={site} locale={defaultLocale} currentPath="/majors" />
   <main id="main">
     <section class="page-hero">
       <div class="container">
         <span class="kicker">MAJORS</span>
         <h1>招生专业</h1>
+        <p>覆盖教育、经管、理工、医学、农林、艺术等门类的完整专业目录 · 点击专业查看介绍</p>
+        <span class="hero-rule"></span>
       </div>
     </section>
     <div class="page-body">
       <div class="container">
-
-      <div class="sec-block">
-        <h2 class="sec-title">本科（专升本 / 高起本）专业方向</h2>
-        <div class="chip-wrap">
-          <span class="chip chip-hot">会计学</span><span class="chip">工商管理</span><span class="chip">市场营销</span><span class="chip">电子商务</span><span class="chip">行政管理</span>
-          <span class="chip">学前教育</span><span class="chip">小学教育</span><span class="chip">汉语言文学</span><span class="chip">法学</span><span class="chip">机械设计制造及其自动化</span>
-          <span class="chip">电气工程及其自动化</span><span class="chip">计算机科学与技术</span><span class="chip">土木工程</span><span class="chip">护理学</span><span class="chip">药学</span>
+        <div class="sec-block">
+          <h2 class="sec-title">本科（专升本 / 高起本）专业方向 · {undergraduate.length} 个</h2>
+          <div class="chip-wrap">
+            {undergraduate.map((name) => (
+              <button class="major-chip" type="button" data-major={name} data-level="本科" aria-pressed="false">{name}</button>
+            ))}
+          </div>
         </div>
       </div>
       <div class="page-body alt">
         <div class="container">
-          <h2 class="sec-title">专科专业方向</h2>
+          <h2 class="sec-title">专科（高起专）专业方向 · {junior.length} 个</h2>
           <div class="chip-wrap">
-            <span class="chip chip-hot">大数据与会计</span><span class="chip">工商企业管理</span><span class="chip">电子商务</span><span class="chip">市场营销</span><span class="chip">行政管理</span>
-            <span class="chip">学前教育</span><span class="chip">计算机应用技术</span><span class="chip">机电一体化技术</span><span class="chip">建筑工程技术</span><span class="chip">护理</span>
-            <span class="chip">药学</span><span class="chip">现代物流管理</span>
+            {junior.map((name) => (
+              <button class="major-chip" type="button" data-major={name} data-level="专科" aria-pressed="false">{name}</button>
+            ))}
           </div>
-          <p class="disclaimer">以上为合作高校成人高等教育中常见的专业方向示例，供参考。当年实际可报院校、专业、学费与学习形式，均以各高校成人高等教育招生简章和教育考试院公布为准，欢迎到各分校获取最新招生目录。</p>
         </div>
       </div>
+      <div class="page-body">
+        <div class="container">
+          <div class="major-detail" id="major-detail" hidden>
+            <img id="major-detail-img" src="/assets/images/major-intro-1.webp" alt="专业介绍" loading="lazy" />
+            <div>
+              <span class="tag" id="major-detail-level">本科</span>
+              <h3 id="major-detail-name"></h3>
+              <p id="major-detail-desc"></p>
+              <p class="major-tip">以上为专业培养方向与就业方向的通用说明，当年实际招生院校、报考条件、学制与学费，以各高校成人高等教育招生简章和浙江省教育考试院公布为准。需要完整专业计划表，可联系教务老师获取。</p>
+              <a class="major-cta" href="/signup/">咨询这个专业 →</a>
+            </div>
+          </div>
+          <p class="disclaimer">专业目录依据浙江成人高考招生专业整理，页面支持点击专业查看培养方向与就业前景。医学类、艺术类等部分专业有额外执业资质或加试要求，报名前请先做材料预审。</p>
+        </div>
       </div>
     </div>
   </main>
   <Footer site={site} locale={defaultLocale} />
 </Layout>
+
+<style>
+  .major-tip { margin-top: 0.8rem; font-size: 0.82rem; }
+  .major-cta { display: inline-block; margin-top: 0.6rem; padding: 0.55rem 1.3rem; border-radius: 999px; background: #1D4E89; color: #fff; font-size: 0.85rem; text-decoration: none; }
+  .major-cta:hover { background: #16437D; }
+</style>
+
+<script define:vars={{ featured }}>
+  const detail = document.getElementById('major-detail');
+  const img = document.getElementById('major-detail-img');
+  const levelEl = document.getElementById('major-detail-level');
+  const nameEl = document.getElementById('major-detail-name');
+  const descEl = document.getElementById('major-detail-desc');
+  const chips = [...document.querySelectorAll('[data-major]')];
+
+  const categories = [
+    { keys: ['教育', '学前', '小学', '体育', '思想政治'], text: '教育类专业侧重教育理论与教学实践，适合从事教学、教务、培训与儿童服务相关工作。' },
+    { keys: ['会计', '财务', '金融', '经济', '工商', '管理', '市场', '营销', '商务', '贸易', '物流', '人力资源', '行政', '工程造', '工程造价', '旅游', '酒店', '导游', '健康'], text: '经管类专业岗位覆盖面广，课程以理解记忆与案例分析为主，适合在职人员提升管理能力和职业竞争力。' },
+    { keys: ['计算机', '机械', '电气', '电子', '智能', '建筑', '测绘', '土木', '车辆', '水利', '化工', '制药', '食品', '纺织', '生物', '数学', '物理', '航海', '轮机', '船舶', '石油化工', '数字媒体', '网络技术', '自动化', '工程测量', '安全工程', '应用化学'], text: '理工类专业注重专业基础与实践应用，适合相关行业技术岗位，报考前请确认是否需要对应行业工作背景。' },
+    { keys: ['医', '药', '护理', '临床', '口腔', '康复', '中药', '检验', '影像'], text: '医学类专业有额外执业资质与从业背景要求，报考前务必按当年招生文件核对报考资格。' },
+    { keys: ['农', '林', '园', '水产', '动物', '园艺'], text: '农林类专业涵盖现代农业、园林与养殖方向，适合涉农企事业单位及乡村振兴相关岗位。' },
+    { keys: ['艺术', '音乐', '设计', '新闻', '广播电视', '视觉'], text: '艺术与传媒类专业通常包含作品或加试要求，适合从事设计、内容创作与媒体运营工作。' },
+    { keys: ['法', '汉语言', '文学', '社会工作'], text: '文史法学类以阅读、写作与法规理解为主，适合考公考编、文案编辑与行政管理岗位。' },
+  ];
+
+  function introFor(name) {
+    if (featured[name]) return featured[name];
+    const hit = categories.find((c) => c.keys.some((k) => name.includes(k)));
+    return {
+      image: '/assets/images/major-intro-1.webp',
+      desc: `${name} 属于${hit ? '' : '成人高等教育'}专业方向。${hit ? hit.text : '课程兼顾专业基础与岗位应用能力，适合在职人员系统提升专业知识与学历层次。'} 硕学教育提供选校选专业、报考材料预审、备考辅导与在读教务跟进等一站式服务，可联系教务老师获取该专业完整课程计划与合作院校名单。`,
+    };
+  }
+
+  chips.forEach((chip) => {
+    chip.addEventListener('click', () => {
+      const name = chip.dataset.major;
+      const level = chip.dataset.level;
+      const info = introFor(name);
+      chips.forEach((c) => c.setAttribute('aria-pressed', String(c === chip)));
+      img.src = info.image;
+      img.alt = `${name}专业介绍`;
+      levelEl.textContent = level === '专科' ? '专科 · 高起专' : '本科 · 专升本 / 高起本';
+      nameEl.textContent = name;
+      descEl.textContent = info.desc;
+      detail.hidden = false;
+      detail.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  });
+</script>

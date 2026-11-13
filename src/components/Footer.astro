@@ -7,151 +7,113 @@ interface Props {
 }
 
 const { site } = Astro.props;
-const motto = site.footerMotto || '';
 const year = new Date().getFullYear();
-const copyright = site.copyrightLine?.includes('©')
-  ? site.copyrightLine
-  : `© ${year} ${site.copyrightLine || ''}`;
+const address = site.footerAddress || '';
+const addressLabel = '校区地址';
+const subway = '地铁 3 号线「南部商务区站」C 口直达';
+const slogan = site.footerMotto || '专注学历教育 · 成就职业未来';
+// 仅链接到白名单内的腾讯地图网页，站点自身不加载任何地图 SDK、瓦片或地理数据。
+const mapQuery = encodeURIComponent('浙江省宁波市鄞州区天童南路700号荣安大厦');
+const mapHref = `https://map.qq.com/?q=${mapQuery}`;
 ---
 
 <footer class="site-footer">
   <div class="container footer-grid">
     <div class="footer-brand">
-      {site.brandName && <h3 class="footer-title">{site.brandName}</h3>}
-      {motto && <p class="footer-motto">{motto}</p>}
-      {site.footerBody && <p class="footer-desc">{site.footerBody}</p>}
-    </div>
-
-    <div class="footer-col">
-      <h4 class="footer-col-title">快速导航</h4>
-      <ul class="footer-nav">
+      <div class="footer-logo">
+        <img src="/assets/images/brand-logo.webp" alt={site.brandName} width="200" height="58" />
+      </div>
+      <p class="footer-slogan">{slogan}</p>
+      <nav class="footer-quick" aria-label="页脚快速导航">
         {(site.footerLinks || []).map((link) => (
-          <li><a href={link.href || '/'}>{link.label}</a></li>
+          <a href={link.href || '/'}>{link.label}</a>
         ))}
-      </ul>
+      </nav>
     </div>
 
-    <div class="footer-col">
-      <h4 class="footer-col-title">服务范围</h4>
-      <ul class="footer-nav">
-        <li>成人高考 · 函授</li>
-        <li>自学考试 · 国家开放大学</li>
-        <li>成人中专 · 同等学力申硕</li>
-        <li>职业技能培训 · 企业内训</li>
-      </ul>
+    <div class="footer-contact">
+      <h4><span class="ico" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+      </span>{addressLabel}</h4>
+      <p>{address}</p>
+      <h4 class="second"><span class="ico" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M6 12h12M12 3c2.4 2.4 3.6 5.4 3.6 9S14.4 18.6 12 21c-2.4-2.4-3.6-5.4-3.6-9S9.6 5.4 12 3Z"/></svg>
+      </span>交通指引</h4>
+      <p>{subway}</p>
+      <a class="map-link" href={mapHref} target="_blank" rel="noopener noreferrer">在腾讯地图中查看 ›</a>
     </div>
 
-    <div class="footer-col">
-      <h4 class="footer-col-title">联系我们</h4>
-      <ul class="footer-nav">
-        {site.footerAddress && <li>{site.footerAddress}</li>}
-      </ul>
+    <!-- 装饰性街区示意图：纯 CSS/SVG 几何纹理，不含地名、边界、坐标或任何地理数据 -->
+    <div class="footer-map" aria-hidden="true">
+      <svg viewBox="0 0 360 170" preserveAspectRatio="xMidYMid slice">
+        <rect width="360" height="170" fill="#F1F5F9"/>
+        <g stroke="#FFFFFF" stroke-width="9" fill="none">
+          <path d="M-20 38H380M-20 118H380M60 -20V190M168 -20V190M278 -20V190"/>
+          <path d="M-30 168L180 -20M110 190L330 -20" stroke-width="6"/>
+        </g>
+        <g fill="#E3EBF3">
+          <rect x="12" y="48" width="38" height="58" rx="3"/>
+          <rect x="72" y="48" width="82" height="24" rx="3"/>
+          <rect x="72" y="84" width="82" height="22" rx="3"/>
+          <rect x="180" y="48" width="84" height="58" rx="3"/>
+          <rect x="290" y="48" width="58" height="58" rx="3"/>
+          <rect x="12" y="128" width="38" height="32" rx="3"/>
+          <rect x="72" y="128" width="82" height="32" rx="3"/>
+          <rect x="180" y="128" width="84" height="32" rx="3"/>
+          <rect x="290" y="128" width="58" height="32" rx="3"/>
+        </g>
+        <g fill="#DCEBD9">
+          <rect x="180" y="12" width="84" height="24" rx="3"/>
+          <rect x="290" y="12" width="58" height="24" rx="3"/>
+        </g>
+        <path d="M180 68h150" stroke="#C9DCEB" stroke-width="5" fill="none"/>
+      </svg>
+      <span class="map-pin">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg>
+      </span>
+      <span class="map-caption">南部商务区 · 天童南路</span>
     </div>
   </div>
 
-  <div class="container friend-links">
-    <span class="friend-label">友情链接：</span>
-    <a href="https://www.moe.gov.cn" target="_blank" rel="noopener noreferrer">教育部</a>
-    <a href="https://jyt.zj.gov.cn" target="_blank" rel="noopener noreferrer">浙江省教育厅</a>
-    <a href="https://www.zjzs.net" target="_blank" rel="noopener noreferrer">浙江省教育考试院</a>
-    <a href="https://www.chsi.com.cn" target="_blank" rel="noopener noreferrer">学信网</a>
-  </div>
-
-  <div class="container footer-bottom">
-    {copyright && <p class="copyright">{copyright}</p>}
-    <p class="copyright">浙ICP备XXXXXXXX号（备案占位）</p>
+  <div class="copyright-bar">
+    <div class="container">
+      Copyright © {year} {site.brandName} 版权所有 <i></i> 浙ICP备XXXXXXXX号（备案占位）
+    </div>
   </div>
 </footer>
 
 <style>
-  .site-footer {
-    background: var(--color-bg-deep);
-    color: rgba(255, 255, 255, 0.82);
-    padding: 4.5rem 0 2.5rem;
-  }
-
-  .footer-grid {
-    display: grid;
-    grid-template-columns: 1.6fr 1fr 1.2fr 1.4fr;
-    gap: 3rem;
-    padding-bottom: 3rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-  }
-
-  .footer-title {
-    font-family: var(--font-serif);
-    font-size: 1.5rem;
-    color: #fff;
-    letter-spacing: 0.06em;
-    margin-bottom: 0.9rem;
-  }
-
-  .footer-motto {
-    color: #E8A23B;
-    font-size: 0.95rem;
-    margin-bottom: 1rem;
-  }
-
-  .footer-desc {
-    color: rgba(255, 255, 255, 0.55);
-    max-width: 26rem;
-    font-size: 0.9rem;
-    line-height: 1.9;
-  }
-
-  .footer-col-title {
-    font-size: 0.95rem;
-    color: #fff;
-    margin-bottom: 1.1rem;
-    letter-spacing: 0.06em;
-  }
-
-  .footer-nav {
-    display: grid;
-    gap: 0.65rem;
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.55);
-  }
-
-  .footer-nav a:hover {
-    color: #fff;
-  }
-
-  .friend-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.25rem;
-    padding: 1.5rem 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.45);
-    align-items: center;
-  }
-  .friend-links a { color: rgba(255, 255, 255, 0.55); }
-  .friend-links a:hover { color: #fff; }
-  .friend-label { color: rgba(255, 255, 255, 0.35); }
-
-  .footer-bottom {
-    padding-top: 1.75rem;
-    text-align: center;
-  }
-
-  .copyright {
-    font-size: 0.82rem;
-    color: rgba(255, 255, 255, 0.4);
-  }
-
+  .site-footer { background: #FFFFFF; border-top: 1px solid #EDF1F7; }
+  .footer-grid { display: grid; grid-template-columns: 1.05fr 1.1fr 1fr; gap: 3rem; align-items: center; padding: 3.2rem 1.5rem 3rem; }
+  .footer-logo { display: flex; align-items: center; }
+  .footer-logo img { width: auto; height: 3.4rem; flex: none; object-fit: contain; }
+  .footer-slogan { margin-top: 1.2rem; font-size: 0.92rem; letter-spacing: 0.08em; color: #5C6B7E; }
+  .footer-quick { display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; margin-top: 1.35rem; }
+  .footer-quick a { font-size: 0.78rem; color: #9AA7B8; }
+  .footer-quick a:hover { color: #1D4E89; }
+  .footer-contact { border-left: 1px solid #EDF1F7; padding-left: 2.5rem; }
+  .footer-contact h4 { display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; font-weight: 700; color: #1B3E6D; }
+  .footer-contact h4.second { margin-top: 1.4rem; }
+  .footer-contact .ico { display: inline-grid; place-items: center; width: 1.5rem; height: 1.5rem; color: #1D4E89; }
+  .footer-contact .ico svg { width: 1.15rem; height: 1.15rem; }
+  .footer-contact p { margin-top: 0.55rem; padding-left: 2rem; font-size: 0.86rem; line-height: 1.8; color: #6C7C90; }
+  .map-link { display: inline-block; margin: 0.8rem 0 0 2rem; font-size: 0.78rem; color: #1D4E89; }
+  .map-link:hover { text-decoration: underline; }
+  .footer-map { position: relative; overflow: hidden; border-radius: 0.6rem; border: 1px solid #EDF1F7; }
+  .footer-map svg { display: block; width: 100%; height: 10.5rem; }
+  .map-pin { position: absolute; top: 38%; left: 50%; transform: translate(-50%, -100%); width: 2rem; height: 2rem; display: grid; place-items: center; color: #1D4E89; filter: drop-shadow(0 3px 5px rgba(20, 55, 105, 0.3)); }
+  .map-pin svg { width: 100%; height: 100%; }
+  .map-caption { position: absolute; bottom: 0.6rem; left: 0.7rem; padding: 0.25rem 0.6rem; border-radius: 999px; background: rgba(255, 255, 255, 0.92); font-size: 0.68rem; color: #5C6B7E; }
+  .copyright-bar { background: #12386C; color: rgba(255, 255, 255, 0.78); }
+  .copyright-bar .container { min-height: 3.6rem; display: flex; align-items: center; justify-content: center; gap: 0.85rem; font-size: 0.8rem; letter-spacing: 0.03em; }
+  .copyright-bar i { display: inline-block; width: 1px; height: 0.85rem; background: rgba(255, 255, 255, 0.35); }
   @media (max-width: 900px) {
-    .footer-grid {
-      grid-template-columns: 1fr 1fr;
-      gap: 2.25rem;
-    }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.2rem; }
+    .footer-map { grid-column: 1 / -1; }
   }
-
-  @media (max-width: 560px) {
-    .footer-grid {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
+  @media (max-width: 620px) {
+    .footer-grid { grid-template-columns: 1fr; padding: 2.4rem 1.5rem; }
+    .footer-contact { border-left: none; border-top: 1px solid #EDF1F7; padding: 1.8rem 0 0; }
+    .footer-map { grid-column: auto; }
   }
 </style>

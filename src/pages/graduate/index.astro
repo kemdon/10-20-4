@@ -1,0 +1,149 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import { getLocaleConfig, getSiteSettings } from '../../lib/site-content';
+
+const { defaultLocale } = await getLocaleConfig();
+const site = await getSiteSettings(defaultLocale);
+
+const advantages = [
+  '免试入学，入学门槛低，专为在职人员设计',
+  '学习形式灵活，采用线上网络课程 + 周末面授',
+  '备考节奏贴合上班族，兼顾本职工作，不用脱产学习',
+  '硕学教育教学点报名，专人协助材料整理、填报指导与流程提醒',
+];
+const conditions = [
+  '符合国家学位申请规定',
+  '已获学士学位且拿证后工作满 3 年（2024 年 3 月底前取得学士学位）',
+  '无学士学位，但已拥有硕士 / 博士学位',
+  '国（境）外学位需留服认证，学士学位同样要求 2024 年 3 月底前获取',
+  '在报考专业或相近专业有成果，学术水平达到授予学位标准',
+];
+const process = [
+  '流程：网报 + 现场确认 → 参加全国统考 → 统考通过后修研究生课程 → 论文写作 → 申请学位',
+  '资格通过起连续 4 年内考过全国统考，未通过直接清退',
+  '统考通过后课程学习 1 年，论文写作 1 年',
+  '最长学习年限 7 年，超期清退；课程采用线上 + 线下结合模式',
+  '全国统考：每年 5 月第三个周日，2027 年以教育部通知为准',
+];
+---
+
+<Layout
+  title="在职研究生 · 同等学力申硕"
+  description="浙江师范大学 2027 年同等学力申请硕士学位项目：免试入学、线上 + 周末面授，15 个学科招生，硕学教育教学点全程协助。"
+  lang={defaultLocale}
+  siteName={site.brandName}
+  defaultDescription={site.defaultMetaDescription}
+  faviconHref={site.logoPath}
+  ogImage={site.defaultOgImage}
+>
+  <Navbar site={site} locale={defaultLocale} currentPath="/graduate" />
+  <main id="main">
+    <section class="page-hero">
+      <div class="container">
+        <span class="kicker">IN-SERVICE GRADUATE</span>
+        <h1>在职研究生</h1>
+        <p>浙江师范大学 2027 年同等学力申请硕士学位 · 免试入学 · 不脱产学习</p>
+        <span class="hero-rule"></span>
+      </div>
+    </section>
+
+    <div class="page-body">
+      <div class="container grad-container">
+        <div class="sec-block">
+          <h2 class="sec-title">同等学力申硕项目说明</h2>
+          <p class="grad-text">浙师大 2027 年开展同等学力申请硕士学位工作，依据国务院学位委员会及校内管理办法制定简章，共 15 个学科招生，详见下方招生专业表。</p>
+        </div>
+
+        <div class="sec-block">
+          <h2 class="sec-title">招生专业（图 1）</h2>
+          <figure class="grad-figure">
+            <img src="/assets/images/graduate-majors.webp" alt="浙江师范大学 2027 年同等学力申硕招生学科专业表" loading="lazy" width="1100" height="777" />
+            <figcaption>浙江师范大学 2027 年接收同等学力人员申请硕士学位学科专业目录（点击查看大图）</figcaption>
+          </figure>
+          <a class="grad-link" href="/assets/images/graduate-majors.webp" target="_blank" rel="noopener">查看完整招生专业表 ↗</a>
+        </div>
+
+        <div class="grad-grid">
+          <div class="info-card">
+            <h3>申请条件</h3>
+            <ul class="grad-list">{conditions.map((c) => <li>{c}</li>)}</ul>
+          </div>
+          <div class="info-card">
+            <h3>项目优势</h3>
+            <ul class="grad-list">{advantages.map((a) => <li>{a}</li>)}</ul>
+          </div>
+        </div>
+
+        <div class="sec-block">
+          <h2 class="sec-title">报名程序</h2>
+          <p class="grad-text">同等学力申硕采取「网上报名 + 现场确认」的方式，先进行网上报名，再进行现场确认。硕学教育教学点报名，专人全程协助材料整理、填报指导、流程提醒。</p>
+          <div class="grad-timeline">
+            <div class="grad-step"><span class="grad-step-no">01</span><h4>报名时间</h4><p>即日起 — 2027.2.21</p></div>
+            <div class="grad-step"><span class="grad-step-no">02</span><h4>现场确认</h4><p>2027.2.23 — 2.25（行政北楼 430 室），3 月 1 日前完成</p></div>
+            <div class="grad-step"><span class="grad-step-no">03</span><h4>全国统考</h4><p>每年 5 月第三个周日，2027 年以教育部通知为准</p></div>
+          </div>
+        </div>
+
+        <div class="grad-grid">
+          <div class="info-card">
+            <h3>学习与考试</h3>
+            <ul class="grad-list">{process.map((p) => <li>{p}</li>)}</ul>
+          </div>
+          <div class="info-card">
+            <h3>学费与证书</h3>
+            <ul class="grad-list">
+              <li><strong>学费：</strong>总费用 4.5 万元，全国统考通过、开课之前一次性缴纳。</li>
+              <li><strong>证书：</strong>完成全部流程仅获得硕士学位证，无研究生学历证，属于单证研究生。</li>
+              <li><strong>认可度：</strong>学位与全日制硕士学位具备同等法律效力，在社会求职、职业晋升中认可度较高。</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="grad-cta">
+          <div>
+            <h3>想了解自己是否符合申请条件？</h3>
+            <p>留下信息，教务老师为你核对学位与工作年限要求，并说明完整报名材料清单。</p>
+          </div>
+          <a href="/signup/?project=%E5%90%8C%E7%AD%89%E5%AD%A6%E5%8A%9B%E7%94%B3%E7%A1%95">咨询这个项目 →</a>
+        </div>
+        <p class="disclaimer">招生学科、申请条件、报名时间、统考安排与收费标准以浙江师范大学 2027 年正式发布的同等学力申请硕士学位简章及教育部通知为准，本页内容仅作咨询参考。</p>
+      </div>
+    </div>
+  </main>
+  <Footer site={site} locale={defaultLocale} />
+</Layout>
+
+<style>
+  .grad-container { max-width: 1100px; }
+  .sec-block { margin-bottom: 2.2rem; }
+  .grad-text { color: var(--color-text-muted); font-size: 0.94rem; line-height: 2; }
+  .grad-figure { margin: 0; background: #fff; border: 1px solid #E4ECF6; border-radius: 0.7rem; overflow: hidden; }
+  .grad-figure img { display: block; width: 100%; height: auto; }
+  .grad-figure figcaption { padding: 0.65rem 1rem; font-size: 0.8rem; color: #8794A6; text-align: center; border-top: 1px solid #EEF2F7; }
+  .grad-link { display: inline-block; margin-top: 0.8rem; font-size: 0.86rem; color: var(--color-primary); }
+  .grad-link:hover { text-decoration: underline; }
+  .grad-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; margin-bottom: 2.2rem; }
+  .grad-grid .info-card { padding: 1.5rem 1.6rem; }
+  .grad-grid h3 { font-size: 1.1rem; color: #16437D; margin-bottom: 0.9rem; }
+  .grad-list { display: grid; gap: 0.6rem; padding-left: 1.1rem; }
+  .grad-list li { font-size: 0.88rem; line-height: 1.85; color: var(--color-text-muted); }
+  .grad-timeline { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.2rem; }
+  .grad-step { padding: 1.2rem; background: #F7FAFE; border: 1px solid #E4ECF6; border-radius: 0.65rem; }
+  .grad-step-no { font-family: var(--font-num); font-size: 1.3rem; font-weight: 700; color: var(--color-accent); }
+  .grad-step h4 { margin: 0.4rem 0 0.35rem; font-size: 0.98rem; color: #1B3E6D; }
+  .grad-step p { font-size: 0.84rem; line-height: 1.8; color: var(--color-text-muted); }
+  .grad-cta {
+    display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap;
+    padding: 1.6rem 1.8rem; margin-bottom: 1.5rem; border-radius: 0.8rem;
+    background: linear-gradient(120deg, #12386C 0%, #1B4F94 100%); color: #fff;
+  }
+  .grad-cta h3 { font-size: 1.2rem; margin-bottom: 0.4rem; }
+  .grad-cta p { font-size: 0.86rem; color: rgba(226, 238, 255, 0.82); line-height: 1.7; }
+  .grad-cta a { flex: none; padding: 0.7rem 1.6rem; border-radius: 999px; background: #F0CE8C; color: #12386C; font-weight: 700; font-size: 0.9rem; text-decoration: none; }
+  .grad-cta a:hover { filter: brightness(1.07); }
+  @media (max-width: 760px) {
+    .grad-grid, .grad-timeline { grid-template-columns: 1fr; }
+  }
+</style>

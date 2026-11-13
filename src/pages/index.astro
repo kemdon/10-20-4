@@ -1,44 +1,48 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
-import StatsSection from '../components/StatsSection.astro';
 import Footer from '../components/Footer.astro';
-import { getHomePage, getLocaleConfig, getSiteSettings } from '../lib/site-content';
+import { getLocaleConfig, getSiteSettings } from '../lib/site-content';
 
 const { defaultLocale } = await getLocaleConfig();
 const site = await getSiteSettings(defaultLocale);
-const home = await getHomePage(defaultLocale, site.defaultLocale);
 
-const banners = [
-  { image: '/assets/images/banner-1.webp', title: '2026 年成人高等教育招生进行中', text: '合作高校官方函授站 · 报考、辅导、教务一体化服务', href: '/signup/', cta: '在线报名' },
-  { image: '/assets/images/banner-2.webp', title: '从中专到在职研究生', text: '成人高考 · 自学考试 · 国家开放大学 · 同等学力申硕', href: '/products/', cta: '了解学历教育' },
-  { image: '/assets/images/banner-3.webp', title: '近万名学员的共同选择', text: '宁波 3 家分校 · 6 个接待点 · 深耕成人继续教育', href: '/about/', cta: '学校简介' },
+const heroSlides = [
+  {
+    image: '/assets/images/hero-main.webp',
+    title: '提升学历 · 成就更好的你',
+    subtitle: '专注成人学历教育 · 助力人生进阶',
+    cta: '立即咨询',
+    href: '/signup/',
+  },
+  {
+    image: '/assets/images/banner-1.webp',
+    title: '从中专到在职研究生',
+    subtitle: '全层次学历提升通道 · 一站式教务服务',
+    cta: '了解学历教育',
+    href: '/products/',
+  },
+  {
+    image: '/assets/images/banner-2.webp',
+    title: '近万名学员的共同选择',
+    subtitle: '宁波 3 家分校 · 6 个接待点 · 深耕继续教育',
+    cta: '学校简介',
+    href: '/about/',
+  },
 ];
 
 const news = [
-  { title: '硕学获评浙江师范大学“优秀校外教学点”（2025 年度）', date: '2025-12', href: '/news/' },
-  { title: '浙江国际海运职业技术学院授予我校“2024 年度优秀校外教学点”', date: '2024-12', href: '/news/' },
-  { title: '浙江海洋大学“优秀函授站”授牌（2021 年度）', date: '2022-01', href: '/news/' },
-  { title: '浙江工商职业技术学院授予我校“教学管理优秀教学点”', date: '2019-01', href: '/news/' },
-  { title: '浙江农林大学获评“校外合作办学进步单位”', date: '2013-12', href: '/news/' },
-  { title: '硕学教育正式创校，首年招生 950 名学员', date: '2012-09', href: '/news/' },
-];
-
-const notices = [
-  { title: '浙江省成人高考报名与考试时间以省教育考试院公布为准', date: '教务提示', href: '/notices/' },
-  { title: '成人高考报名材料清单：身份证、前置学历证书、证件照', date: '报名须知', href: '/notices/' },
-  { title: '国家开放大学春、秋两季注册，欢迎到校咨询当季安排', date: '教务提示', href: '/notices/' },
-  { title: '学士学位申请条件以各主考高校规定为准', date: '学位须知', href: '/notices/' },
-  { title: '学籍与学历信息统一以学信网查询结果为准', date: '教务提示', href: '/notices/' },
+  { title: '2026 年成人高等教育招生咨询已开启', date: '11-09', href: '/news/' },
+  { title: '硕学获评浙江师范大学「优秀校外教学点」', date: '10-28', href: '/news/' },
+  { title: '秋季班学籍注册与教务安排通知', date: '10-15', href: '/news/' },
+  { title: '学历提升公益讲座走进宁波南部商务区', date: '09-26', href: '/news/' },
 ];
 
 const guides = [
-  { title: '2026 年浙江海洋大学成人高等教育招生简章（待发布）', date: '2026', href: '/universities/' },
-  { title: '2026 年浙江师范大学成人高等教育招生简章（待发布）', date: '2026', href: '/universities/' },
-  { title: '2026 年金华职业技术大学成人高等教育招生简章（待发布）', date: '2026', href: '/universities/' },
-  { title: '2026 年浙江工商职业技术学院成人高等教育招生简章（待发布）', date: '2026', href: '/universities/' },
-  { title: '2026 年浙江国际海运职业技术学院成人高等教育招生简章（待发布）', date: '2026', href: '/universities/' },
-  { title: '2026 年国家开放大学招生简章（待发布）', date: '2026', href: '/products/guokai/' },
+  { title: '2026 年浙江海洋大学成人高等教育招生简章', href: '/universities/' },
+  { title: '2026 年浙江师范大学成人高等教育招生简章', href: '/universities/' },
+  { title: '2026 年金华职业技术大学招生简章', href: '/universities/' },
+  { title: '国家开放大学春秋两季注册说明', href: '/products/guokai/' },
 ];
 
 const universities = [
@@ -50,108 +54,179 @@ const universities = [
   { image: '/assets/images/uni-06.webp', name: '宁波工程学院' },
 ];
 
-const majorsBenke = ['会计学', '工商管理', '市场营销', '电子商务', '行政管理', '学前教育', '小学教育', '汉语言文学', '法学', '机械设计制造及其自动化', '电气工程及其自动化', '计算机科学与技术', '土木工程', '工程管理', '护理学', '药学', '金融学', '国际经济与贸易', '人力资源管理', '电子信息工程', '通信工程', '软件工程', '建筑学', '环境设计', '视觉传达设计', '英语'];
-const majorsZhuanke = ['大数据与会计', '工商企业管理', '电子商务', '市场营销', '行政管理', '学前教育', '小学教育', '计算机应用技术', '机电一体化技术', '建筑工程技术', '建设工程管理', '护理', '药学', '现代物流管理', '旅游管理', '酒店管理与数字化运营', '人力资源管理', '金融服务与管理', '大数据技术', '汽车制造与试验技术', '数控技术', '模具设计与制造', '艺术设计', '商务英语', '法律事务', '动漫制作技术', '财务管理', '国际贸易实务'];
-
-const certs = [
-  { image: '/assets/images/cert-sample-1.webp', name: '毕业证书样本（占位）' },
-  { image: '/assets/images/cert-sample-2.webp', name: '学位证书样本（占位）' },
-  { image: '/assets/images/cert-sample-3.webp', name: '录取通知书样本（占位）' },
+const partners = [
+  '浙江师范大学', '浙江海洋大学', '金华职业技术大学', '浙江工商职业技术学院',
+  '浙江农林大学', '杭州师范大学', '宁波大学', '湖北师范大学',
+  '浙江工商大学', '宁波工程学院', '浙江财经大学', '浙江国际海运职业技术学院',
 ];
 
-const campuses = [
-  { name: '宁波市区校区（一）', addr: '地址：浙江省宁波市XX区XX路XX号（待补充）', tel: '电话：0574-XXXXXXXX（待补充）' },
-  { name: '宁波市区校区（二）', addr: '地址：浙江省宁波市XX区XX路XX号（待补充）', tel: '电话：0574-XXXXXXXX（待补充）' },
-  { name: '区县接待点（含北仑等）', addr: '地址：待补充', tel: '电话：0574-XXXXXXXX（待补充）' },
+const majorsBenke = ['会计学', '工商管理', '市场营销', '电子商务', '行政管理', '学前教育', '小学教育', '汉语言文学', '法学', '机械设计制造及其自动化', '电气工程及其自动化', '计算机科学与技术', '土木工程', '工程管理', '护理学', '药学', '金融学', '国际经济与贸易', '人力资源管理', '电子信息工程', '软件工程', '环境设计', '英语', '视觉传达设计'];
+const majorsZhuanke = ['大数据与会计', '工商企业管理', '电子商务', '市场营销', '行政管理', '学前教育', '小学教育', '计算机应用技术', '机电一体化技术', '建筑工程技术', '建设工程管理', '护理', '药学', '现代物流管理', '旅游管理', '人力资源管理', '金融服务与管理', '大数据技术', '汽车制造与试验技术', '数控技术', '艺术设计', '商务英语', '法律事务', '财务管理'];
+
+const certs = [
+  { image: '/assets/images/cert-real-1.webp', name: '浙江师范大学 · 毕业证书' },
+  { image: '/assets/images/cert-real-2.webp', name: '浙江师范大学 · 学位证书' },
+  { image: '/assets/images/cert-real-3.webp', name: '宁波大学 · 毕业证书' },
+  { image: '/assets/images/cert-real-4.webp', name: '嘉兴大学 · 学位证书' },
+  { image: '/assets/images/cert-real-5.webp', name: '丽水职业技术学院 · 毕业证书' },
+];
+
+const honors = [
+  { image: '/assets/images/honors/real-honor-1.webp', name: '浙江师范大学 · 优秀教学点（2025）' },
+  { image: '/assets/images/honors/real-honor-3.webp', name: '浙江国际海运职业技术学院 · 优秀教学点' },
+  { image: '/assets/images/honors/real-honor-5.webp', name: '浙江海洋大学 · 优秀函授站' },
+  { image: '/assets/images/honors/real-honor-7.webp', name: '浙江工商职业技术学院 · 优秀教学点' },
+  { image: '/assets/images/honors/real-honor-8.webp', name: '浙江农林大学 · 合作办学进步单位' },
+];
+
+const moments = [
+  { image: '/assets/images/moment-real-1.webp', name: '浙师大荣誉教学点授牌' },
+  { image: '/assets/images/moment-real-2.webp', name: '名师线下课堂' },
+  { image: '/assets/images/moment-real-3.webp', name: '浙师大开学典礼' },
+  { image: '/assets/images/moment-real-4.webp', name: '学员植物园踏青' },
+  { image: '/assets/images/moment-real-5.webp', name: '浙海洋教学点工作会议' },
+];
+
+// 反馈要求：常见问题放在「立即咨询」表单下方
+const homeFaqs = [
+  { q: '成人高考适合哪些人报读？', a: '面向在职人员和社会其他人员，通过全国统一入学考试后以非脱产方式学习，工作学习两不误，是在职人员提升专科、本科学历的主流通道。' },
+  { q: '学历基础较低，还有提升路径吗？', a: '有。可以先从中专或高起专起步，再逐级报读专科、本科，形成完整提升路径；自考本科可先考试，申请毕业时再提交专科证。' },
+  { q: '工作繁忙，哪种学习方式更灵活？', a: '国家开放大学以线上网课为主，成考录取后线上学习为主，自考自主学习、只参加统考。三种方式都不需要脱产。' },
+  { q: '在职人员可以读研究生吗？', a: '可以。同等学力申硕是在职人员获得硕士学位的正规通道，我们提供院校专业选择、申硕流程规划与备考辅导。' },
+  { q: '硕学教育在哪些地方有服务网点？', a: '在宁波拥有 3 家分校、6 个接待点，欢迎到就近校区咨询，也可以先在线提交信息由教务老师联系。' },
+  { q: '除了学历提升，还有其他课程吗？', a: '有。自设会计、新媒体运营、办公软件、电商等面授课程，并提供职业技能培训与考证辅导。' },
 ];
 ---
 
 <Layout
-  title={site.brandName + ' - 宁波成人学历教育 · 官方函授站'}
+  title={site.brandName + ' - 提升学历 · 成就更好的你 | 宁波成人学历教育'}
   description={site.defaultMetaDescription}
   lang={defaultLocale}
   siteName={site.brandName}
   defaultDescription={site.defaultMetaDescription}
   faviconHref={site.logoPath}
-  ogImage={site.defaultOgImage}
+  ogImage="/assets/images/hero-main.webp"
 >
   <Navbar site={site} locale={defaultLocale} currentPath="/" />
-  <main id="main">
-    <section class="banner-carousel" aria-label="招生宣传轮播">
-      {banners.map((b, i) => (
-        <a href={b.href} class={`banner-slide${i === 0 ? ' active' : ''}`} data-slide={i}>
-          <img src={b.image} alt={b.title} />
-          <div class="banner-copy">
-            <h2>{b.title}</h2>
-            <p>{b.text}</p>
-            <span class="banner-btn">{b.cta} »</span>
+  <main id="main" class="lp-main">
+
+    <!-- 主视觉轮播 -->
+    <section class="lp-hero" aria-label="招生宣传轮播">
+      {heroSlides.map((slide, i) => (
+        <div class={`hero-slide${i === 0 ? ' active' : ''}`} data-slide={i}>
+          <img src={slide.image} alt="" aria-hidden="true" />
+          <div class="hero-veil"></div>
+          <div class="container hero-inner">
+            <h1 class="hero-title">{slide.title}</h1>
+            <p class="hero-subtitle"><span></span>{slide.subtitle}<span></span></p>
+            <a class="hero-btn" href={slide.href}>{slide.cta} <b>›</b></a>
           </div>
-        </a>
+        </div>
       ))}
-      <div class="banner-dots" role="tablist" aria-label="轮播导航">
-        {banners.map((_, i) => (
-          <button class={`banner-dot${i === 0 ? ' active' : ''}`} data-dot={i} aria-label={`第 ${i + 1} 张`}></button>
+      <button class="hero-arrow prev" type="button" data-hero-prev aria-label="上一张">‹</button>
+      <button class="hero-arrow next" type="button" data-hero-next aria-label="下一张">›</button>
+      <div class="hero-dots" role="tablist" aria-label="轮播导航">
+        {heroSlides.map((_, i) => (
+          <button class={`hero-dot${i === 0 ? ' active' : ''}`} data-hero-dot={i} aria-label={`第 ${i + 1} 张`}></button>
         ))}
       </div>
     </section>
 
-    <section class="home-news">
-      <div class="container home-news-grid">
-        <div>
-          <h2 class="sec-title">新闻动态<a class="sec-more" href="/news/">更多 »</a></h2>
-          <ul class="news-list">
-            {news.map((item) => (
-              <li>
-                <a href={item.href}>{item.title}</a>
-                <span class="date">{item.date}</span>
-              </li>
-            ))}
-          </ul>
+    <!-- 新闻资讯 + 招生简章 / 二维码 -->
+    <section class="lp-news-wrap">
+      <div class="container lp-news-grid">
+        <article class="news-card">
+          <header class="card-head">
+            <h2>新闻资讯</h2>
+            <a href="/news/">更多 ›</a>
+          </header>
+          <div class="news-card-body">
+            <div class="news-thumb" data-news-carousel>
+              <a class="news-thumb-link active" href="/news/"><img src="/assets/images/banner-1.webp" alt="校园秋景 · 新闻资讯" loading="lazy" /></a>
+              <a class="news-thumb-link" href="/news/"><img src="/assets/images/moment-real-3.webp" alt="浙师大开学典礼" loading="lazy" /></a>
+              <a class="news-thumb-link" href="/news/"><img src="/assets/images/moment-real-1.webp" alt="荣誉教学点授牌" loading="lazy" /></a>
+              <span class="news-thumb-dots" aria-hidden="true"><i class="active"></i><i></i><i></i></span>
+            </div>
+            <ul class="news-lines">
+              {news.map((item) => (
+                <li><a href={item.href}>{item.title}</a><span>{item.date}</span></li>
+              ))}
+            </ul>
+          </div>
+        </article>
+
+        <article class="news-card">
+          <header class="card-head">
+            <h2>招生简章</h2>
+            <a href="/universities/">更多 ›</a>
+          </header>
+          <div class="news-card-body guide-body">
+            <ul class="news-lines">
+              {guides.map((item) => (
+                <li><a href={item.href}>{item.title}</a><span>2026</span></li>
+              ))}
+            </ul>
+            <div class="qr-box">
+              <img src="/assets/images/qr-signup.svg" alt="扫码进入在线报名页的二维码" loading="lazy" />
+              <p>扫码在线报名</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 热门招生项目 -->
+    <section class="lp-section lp-programs">
+      <div class="container">
+        <div class="sec-head">
+          <h2>热门招生项目</h2>
+          <span>HOT PROGRAMS</span>
+          <i></i>
         </div>
-        <div>
-          <h2 class="sec-title">教务通知<a class="sec-more" href="/notices/">更多 »</a></h2>
-          <ul class="news-list">
-            {notices.map((item) => (
-              <li>
-                <a href={item.href}>{item.title}</a>
-                <span class="date">{item.date}</span>
-              </li>
-            ))}
-          </ul>
+        <div class="program-grid">
+          <a class="program-card" href="/products/chengkao/">
+            <span class="program-icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 17 24 8l20 9-20 9L4 17Z"/><path d="M12 21v10c0 3 5.4 5 12 5s12-2 12-5V21"/><path d="M44 17v12"/><circle cx="44" cy="32" r="1.6" fill="currentColor" stroke="none"/></svg>
+            </span>
+            <h3>成人高考</h3>
+            <p>省内多所公办高校官方函授站，报考、考前辅导、教务管理一体化服务。</p>
+          </a>
+          <a class="program-card" href="/products/zikao/">
+            <span class="program-icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 12c-4-3-10-4-17-3v26c7-1 13 0 17 3 4-3 10-4 17-3V9c-7-1-13 0-17 3Z"/><path d="M24 12v26"/></svg>
+            </span>
+            <h3>自学考试</h3>
+            <p>自学考试助学与考务支持，灵活安排学习节奏，适合在职人员提升学历。</p>
+          </a>
+          <a class="program-card" href="/products/guokai/">
+            <span class="program-icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="24" r="17"/><path d="M7 24h34"/><path d="M24 7c5 5 7 11 7 17s-2 12-7 17c-5-5-7-11-7-17s2-12 7-17Z"/></svg>
+            </span>
+            <h3>国家开放大学</h3>
+            <p>春、秋两季注册，线上学习为主，工作与学习兼顾，学籍学历国家承认。</p>
+          </a>
+          <a class="program-card" href="/training/">
+            <span class="program-icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5h18l7 7v31H12V5Z"/><path d="M30 5v8h7"/><path d="M18 22h13M18 29h13M18 36h9"/></svg>
+            </span>
+            <h3>职业技能培训</h3>
+            <p>考证辅导、办公软件与电商运营等面授课程，并提供企业定制化内训。</p>
+          </a>
         </div>
       </div>
     </section>
 
-    <section class="home-media">
+    <!-- 招生院校 -->
+    <section class="lp-section lp-universities">
       <div class="container">
-        <div class="media-grid">
-          <img src="/assets/images/campus-1.webp" alt="硕学教育服务前台" loading="lazy" />
-          <img src="/assets/images/campus-2.webp" alt="面授课堂" loading="lazy" />
-          <img src="/assets/images/campus-3.webp" alt="学员咨询现场" loading="lazy" />
+        <div class="sec-head">
+          <h2>招生院校</h2>
+          <span>PARTNER UNIVERSITIES</span>
+          <i></i>
         </div>
-      </div>
-    </section>
-
-    <section class="home-guide">
-      <div class="container">
-        <h2 class="sec-title">招生简章<a class="sec-more" href="/universities/">更多 »</a></h2>
-        <ul class="news-list">
-          {guides.map((item) => (
-            <li>
-              <a href={item.href}>{item.title}</a>
-              <span class="date">{item.date}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-
-    <section class="home-uni">
-      <div class="container">
-        <h2 class="sec-title">招生院校<a class="sec-more" href="/universities/">更多 »</a></h2>
         <div class="uni-grid">
           {universities.map((u) => (
-            <a href="/universities/" class="uni-card">
+            <a class="uni-card" href="/universities/">
               <img src={u.image} alt={`${u.name}院校标识占位图`} loading="lazy" />
               <span>{u.name}</span>
             </a>
@@ -160,156 +235,401 @@ const campuses = [
       </div>
     </section>
 
-    <section class="home-majors">
+    <!-- 合作高校标识墙 -->
+    <section class="lp-section lp-partners">
       <div class="container">
-        <h2 class="sec-title">本科专业<a class="sec-more" href="/majors/">更多 »</a></h2>
-        <div class="major-links">
-          {majorsBenke.map((m) => <a href="/majors/">{m}</a>)}
-        </div>
-      </div>
-    </section>
-    <section class="home-majors alt">
-      <div class="container">
-        <h2 class="sec-title">专科专业<a class="sec-more" href="/majors/">更多 »</a></h2>
-        <div class="major-links">
-          {majorsZhuanke.map((m) => <a href="/majors/">{m}</a>)}
-        </div>
-      </div>
-    </section>
-
-    <section class="home-certs">
-      <div class="container">
-        <h2 class="sec-title">证书样本</h2>
-        <div class="cert-grid">
-          {certs.map((c) => (
-            <figure>
-              <img src={c.image} alt={c.name} loading="lazy" />
-              <figcaption>{c.name}</figcaption>
-            </figure>
-          ))}
-        </div>
-        <p class="disclaimer">证书样本图为样式占位，实际证书以各高校正式颁发为准。</p>
-      </div>
-    </section>
-
-    <section class="home-campus">
-      <div class="container">
-        <h2 class="sec-title">校区分布</h2>
-        <div class="step-grid">
-          {campuses.map((c) => (
-            <div class="step-card">
-              <h3>{c.name}</h3>
-              <p>{c.addr}</p>
-              <p>{c.tel}</p>
+        <div class="partners-grid">
+          {partners.map((name, i) => (
+            <div class="partner-card">
+              <span class={`partner-seal seal-${i % 4}`} aria-hidden="true">{(name || '').slice(0, 1)}</span>
+              <span class="partner-name">{name}</span>
             </div>
           ))}
         </div>
+        <p class="partners-note">20+ 合作高校 · 官方函授站与教学点</p>
       </div>
     </section>
 
-    <StatsSection
-      label={home.statsLabel}
-      title={home.statsTitle}
-      stats={home.stats}
-    />
+    <!-- 招生专业 -->
+    <section class="lp-section lp-majors">
+      <div class="container">
+        <div class="sec-head">
+          <h2>招生专业</h2>
+          <span>MAJORS &amp; PROGRAMS</span>
+          <i></i>
+        </div>
+        <div class="major-grid">
+          <article class="major-card">
+            <header>
+              <span class="major-cap">
+                <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M2 11 16 4l14 7-14 7L2 11Z"/><path d="M7 14v7c0 2.6 4 4.5 9 4.5s9-1.9 9-4.5v-7l-9 4.3L7 14Z"/></svg>
+              </span>
+              <h3>本科</h3>
+              <a href="/majors/">查看全部 ›</a>
+            </header>
+            <ul class="major-list">
+              {majorsBenke.map((m) => <li><a href="/majors/">{m}</a></li>)}
+            </ul>
+          </article>
+          <article class="major-card">
+            <header>
+              <span class="major-cap">
+                <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M2 11 16 4l14 7-14 7L2 11Z"/><path d="M7 14v7c0 2.6 4 4.5 9 4.5s9-1.9 9-4.5v-7l-9 4.3L7 14Z"/></svg>
+              </span>
+              <h3>专科</h3>
+              <a href="/majors/">查看全部 ›</a>
+            </header>
+            <ul class="major-list">
+              {majorsZhuanke.map((m) => <li><a href="/majors/">{m}</a></li>)}
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 证书样本 -->
+    <section class="lp-section lp-carousel-section">
+      <div class="container">
+        <div class="sec-head">
+          <h2>证书样本</h2>
+          <span>CERTIFICATE SAMPLES</span>
+          <i></i>
+        </div>
+        <div class="carousel">
+          <button class="carousel-arrow prev" type="button" data-carousel-prev aria-label="向左滚动">‹</button>
+          <div class="carousel-track" data-carousel-track>
+            {certs.map((c) => (
+              <figure class="cert-item">
+                <img src={c.image} alt={c.name} loading="lazy" />
+                <figcaption>{c.name}</figcaption>
+              </figure>
+            ))}
+          </div>
+          <button class="carousel-arrow next" type="button" data-carousel-next aria-label="向右滚动">›</button>
+        </div>
+        <p class="disclaimer">以上为合作高校真实毕业证 / 学位证样本（已作缩略展示），实际证书以各高校正式颁发、学信网可查为准。</p>
+      </div>
+    </section>
+
+    <!-- 荣誉展示 -->
+    <section class="lp-section lp-honors">
+      <div class="container">
+        <div class="sec-head">
+          <h2>荣誉展示</h2>
+          <span>HONORS &amp; RECOGNITION</span>
+          <i></i>
+        </div>
+        <div class="honor-grid">
+          {honors.map((h) => (
+            <figure class="honor-item">
+              <img src={h.image} alt={h.name} loading="lazy" />
+              <figcaption>{h.name}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- 精彩回顾 -->
+    <section class="lp-section lp-carousel-section lp-moments">
+      <div class="container">
+        <div class="sec-head">
+          <h2>精彩回顾</h2>
+          <span>CAMPUS MOMENTS</span>
+          <i></i>
+        </div>
+        <div class="carousel">
+          <button class="carousel-arrow prev" type="button" data-carousel-prev aria-label="向左滚动">‹</button>
+          <div class="carousel-track" data-carousel-track>
+            {moments.map((m) => (
+              <figure class="moment-item">
+                <img src={m.image} alt={m.name} loading="lazy" />
+                <figcaption>{m.name}</figcaption>
+              </figure>
+            ))}
+          </div>
+          <button class="carousel-arrow next" type="button" data-carousel-next aria-label="向右滚动">›</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 报名引导 -->
+    <section class="lp-lead">
+      <div class="container">
+        <div class="sec-head">
+          <h2>还在纠结学历怎么提升？</h2>
+          <span>FREE CONSULTATION</span>
+          <i></i>
+        </div>
+        <p class="lead-sub">留下你的信息，教务老师为你做一次免费的学历规划与院校专业匹配。</p>
+        <form class="lead-form" action="/signup/" method="get">
+          <label class="sr-only" for="lead-name">您的姓名</label>
+          <input id="lead-name" name="name" type="text" placeholder="您的姓名" autocomplete="name" />
+          <label class="sr-only" for="lead-phone">手机号码</label>
+          <input id="lead-phone" name="phone" type="tel" placeholder="手机号码" autocomplete="tel" inputmode="tel" pattern="[0-9+\-\s]{7,20}" />
+          <label class="sr-only" for="lead-level">意向层次</label>
+          <select id="lead-level" name="level">
+            <option value="">意向层次</option>
+            <option value="专科">专科</option>
+            <option value="本科">本科</option>
+            <option value="在职研究生">在职研究生</option>
+            <option value="职业培训">职业技能培训</option>
+          </select>
+          <button type="submit">立即咨询</button>
+        </form>
+        <p class="lead-note">提交后前往在线报名页 · 信息仅用于本次咨询，不会对外公开</p>
+
+        <div class="faq-inline">
+          <h3>常见问题</h3>
+          {homeFaqs.map((item) => (
+            <details>
+              <summary>{item.q}</summary>
+              <p>{item.a}</p>
+            </details>
+          ))}
+          <p class="faq-inline-more"><a href="/faq/">查看全部常见问题 ›</a></p>
+        </div>
+      </div>
+    </section>
   </main>
   <Footer site={site} locale={defaultLocale} />
 </Layout>
 
 <script>
-  const slides = document.querySelectorAll('.banner-slide');
-  const dots = document.querySelectorAll('.banner-dot');
+  // 新闻缩略图轮播（反馈：这张图为轮播图）
+  const thumbCarousel = document.querySelector('[data-news-carousel]');
+  if (thumbCarousel) {
+    const thumbLinks = [...thumbCarousel.querySelectorAll('.news-thumb-link')];
+    const thumbDots = [...thumbCarousel.querySelectorAll('.news-thumb-dots i')];
+    let thumbIndex = 0;
+    const showThumb = (i) => {
+      thumbIndex = (i + thumbLinks.length) % thumbLinks.length;
+      thumbLinks.forEach((el, n) => el.classList.toggle('active', n === thumbIndex));
+      thumbDots.forEach((el, n) => el.classList.toggle('active', n === thumbIndex));
+    };
+    thumbDots.forEach((dot, n) => dot.addEventListener('click', () => showThumb(n)));
+    setInterval(() => showThumb(thumbIndex + 1), 4500);
+  }
+
+  // 主视觉轮播
+  const slides = [...document.querySelectorAll('.hero-slide')];
+  const dots = [...document.querySelectorAll('.hero-dot')];
   let current = 0;
   let timer;
   const show = (i) => {
-    slides.forEach((s, idx) => s.classList.toggle('active', idx === i));
-    dots.forEach((d, idx) => d.classList.toggle('active', idx === i));
-    current = i;
+    const next = (i + slides.length) % slides.length;
+    slides.forEach((s, idx) => s.classList.toggle('active', idx === next));
+    dots.forEach((d, idx) => d.classList.toggle('active', idx === next));
+    current = next;
   };
-  const next = () => show((current + 1) % slides.length);
   const restart = () => {
     clearInterval(timer);
-    timer = setInterval(next, 5000);
+    timer = setInterval(() => show(current + 1), 6000);
   };
-  dots.forEach((d) => {
-    d.addEventListener('click', () => {
-      show(Number(d.getAttribute('data-dot')));
-      restart();
-    });
+  document.querySelector('[data-hero-prev]')?.addEventListener('click', () => { show(current - 1); restart(); });
+  document.querySelector('[data-hero-next]')?.addEventListener('click', () => { show(current + 1); restart(); });
+  dots.forEach((d) => d.addEventListener('click', () => { show(Number(d.getAttribute('data-hero-dot'))); restart(); }));
+  if (slides.length > 1) restart();
+
+  // 图片轮播（横向滚动）
+  document.querySelectorAll('.carousel').forEach((carousel) => {
+    const track = carousel.querySelector('[data-carousel-track]');
+    if (!track) return;
+    const step = () => Math.max(240, track.clientWidth * 0.6);
+    carousel.querySelector('[data-carousel-prev]')?.addEventListener('click', () => track.scrollBy({ left: -step(), behavior: 'smooth' }));
+    carousel.querySelector('[data-carousel-next]')?.addEventListener('click', () => track.scrollBy({ left: step(), behavior: 'smooth' }));
   });
-  if (slides.length > 0) restart();
 </script>
 
 <style>
-  .banner-carousel { position: relative; height: 26rem; overflow: hidden; background: var(--color-primary-dark); }
-  .banner-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1); pointer-events: none; }
-  .banner-slide.active { opacity: 1; pointer-events: auto; }
-  .banner-slide img { width: 100%; height: 100%; object-fit: cover; }
-  .banner-copy {
-    position: absolute; inset: 0;
-    display: flex; flex-direction: column; justify-content: center; gap: 0.75rem;
-    padding: 0 8vw;
-    background: linear-gradient(90deg, rgba(21, 58, 104, 0.72) 0%, rgba(21, 58, 104, 0.25) 55%, transparent 100%);
-    color: #fff;
+  .lp-main { background: #fff; }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+  /* ——— 区块标题 ——— */
+  .sec-head { text-align: center; margin-bottom: 3.4rem; }
+  .sec-head h2 { font-size: 1.55rem; font-weight: 700; color: #16437D; letter-spacing: 0.04em; }
+  .sec-head span { display: block; margin-top: 0.35rem; font-size: 0.66rem; letter-spacing: 0.22em; color: #C9A65C; text-transform: uppercase; }
+  .sec-head i { display: block; width: 2.5rem; height: 2px; margin: 0.75rem auto 0; background: linear-gradient(90deg, transparent, #D9B46A, transparent); }
+
+  /* ——— 主视觉 ——— */
+  .lp-hero { position: relative; height: 30rem; overflow: hidden; background: #0B2447; }
+  .hero-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.9s ease; pointer-events: none; }
+  .hero-slide.active { opacity: 1; pointer-events: auto; }
+  .hero-slide > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 58%; }
+  .hero-veil { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(8, 28, 60, 0.76) 0%, rgba(8, 28, 60, 0.38) 46%, rgba(8, 28, 60, 0.04) 78%); }
+  .hero-inner { position: relative; height: 100%; width: 100%; max-width: 1440px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding-left: max(1.5rem, calc((100vw - 1200px) / 2 + 3rem)); }
+  .hero-title {
+    font-family: "STKaiti", "KaiTi", "Kaiti SC", "楷体", "Noto Serif SC", serif;
+    font-size: clamp(2rem, 3.9vw, 3.35rem); font-weight: 700; line-height: 1.2; letter-spacing: 0.03em;
+    white-space: nowrap; text-wrap: nowrap; width: max-content; max-width: 100%;
+    color: #F2CE82;
+    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.28), 0 0 26px rgba(217, 169, 78, 0.22);
   }
-  .banner-copy h2 { font-size: clamp(1.6rem, 3.2vw, 2.4rem); color: #fff; }
-  .banner-copy p { font-size: 1.02rem; color: rgba(255, 255, 255, 0.85); }
-  .banner-btn {
-    align-self: flex-start; margin-top: 0.75rem;
-    padding: 0.55rem 1.5rem;
-    background: var(--color-accent); color: #fff;
-    border-radius: 4px; font-weight: 600; font-size: 0.95rem;
-  }
-  .banner-dots { position: absolute; bottom: 1rem; left: 50%; transform: translateX(-50%); display: flex; gap: 0.5rem; }
-  .banner-dot { width: 0.6rem; height: 0.6rem; border-radius: 50%; border: none; background: rgba(255, 255, 255, 0.5); cursor: pointer; padding: 0; }
-  .banner-dot.active { background: #fff; }
+  .hero-subtitle { display: flex; align-items: center; gap: 0.9rem; margin-top: 1.1rem; font-size: clamp(0.9rem, 1.4vw, 1.12rem); letter-spacing: 0.16em; color: rgba(255, 255, 255, 0.92); }
+  .hero-subtitle span { display: block; width: 2.2rem; height: 1px; background: rgba(232, 195, 126, 0.85); }
+  .hero-btn { margin-top: 2.1rem; padding: 0.68rem 2.1rem; border: 1px solid #E6C484; border-radius: 999px; color: #F7E4BF; font-size: 0.98rem; letter-spacing: 0.08em; background: rgba(255, 255, 255, 0.06); backdrop-filter: blur(2px); }
+  .hero-btn b { font-weight: 400; margin-left: 0.35rem; }
+  .hero-btn:hover { background: rgba(230, 196, 132, 0.18); color: #fff; }
+  .hero-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 2.1rem; height: 2.1rem; border: none; border-radius: 50%; background: rgba(255, 255, 255, 0.32); color: #fff; font-size: 1.5rem; line-height: 1; cursor: pointer; z-index: 2; }
+  .hero-arrow.prev { left: 1.1rem; }
+  .hero-arrow.next { right: 1.1rem; }
+  .hero-arrow:hover { background: rgba(255, 255, 255, 0.55); }
+  .hero-dots { position: absolute; bottom: 2.9rem; left: 50%; transform: translateX(-50%); display: flex; gap: 0.55rem; z-index: 2; }
+  .hero-dot { width: 0.55rem; height: 0.55rem; border: none; border-radius: 50%; background: rgba(255, 255, 255, 0.45); cursor: pointer; padding: 0; }
+  .hero-dot.active { background: #F0CE8C; width: 1.4rem; border-radius: 999px; }
 
-  .home-news { background: #fff; padding: 3.5rem 0; }
-  .home-news-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; }
+  /* ——— 资讯双卡 ——— */
+  /* 反馈：首图和卡片之间留一点空位，不再负边距压在 Banner 上 */
+  .lp-news-wrap { position: relative; z-index: 3; margin-top: 2.2rem; padding-bottom: 3rem; background: #fff; }
+  .lp-news-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 1.5rem; }
+  .news-card { background: #fff; border: 1px solid #EDF1F7; border-radius: 0.9rem; box-shadow: 0 12px 34px rgba(20, 55, 105, 0.09); padding: 1.25rem 1.4rem 1.35rem; }
+  .card-head { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #EEF2F7; padding-bottom: 0.7rem; margin-bottom: 0.9rem; }
+  .card-head h2 { font-size: 1rem; font-weight: 700; color: #16437D; position: relative; padding-left: 0.7rem; }
+  .card-head h2::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 3px; height: 0.95rem; border-radius: 2px; background: #2E6FBF; }
+  .card-head a { font-size: 0.76rem; color: #9AA7B8; }
+  .card-head a:hover { color: #1D4E89; }
+  .news-card-body { display: grid; grid-template-columns: 10rem 1fr; gap: 1.1rem; align-items: stretch; }
+  .news-thumb { position: relative; display: block; border-radius: 0.5rem; overflow: hidden; min-height: 8.2rem; background: #EEF3F9; }
+  .news-thumb-link { position: absolute; inset: 0; opacity: 0; transition: opacity 0.65s ease; pointer-events: none; }
+  .news-thumb-link.active { opacity: 1; pointer-events: auto; }
+  .news-thumb-link img { width: 100%; height: 100%; min-height: 8.2rem; object-fit: cover; }
+  .news-thumb-dots { position: absolute; left: 0; right: 0; bottom: 0.5rem; display: flex; justify-content: center; gap: 0.3rem; z-index: 2; }
+  .news-thumb-dots i { width: 0.35rem; height: 0.35rem; border-radius: 50%; background: rgba(255, 255, 255, 0.55); }
+  .news-thumb-dots i.active { background: #F0CE8C; width: 0.8rem; border-radius: 999px; }
+  .news-lines { display: grid; align-content: space-between; gap: 0.55rem; min-width: 0; }
+  .news-lines li { display: flex; align-items: center; gap: 0.6rem; font-size: 0.82rem; border-bottom: 1px dashed #EEF2F7; padding-bottom: 0.45rem; }
+  .news-lines li:last-child { border-bottom: none; padding-bottom: 0; }
+  .news-lines a { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #46586E; }
+  .news-lines a:hover { color: #1D4E89; }
+  .news-lines span { font-size: 0.72rem; color: #A8B3C2; white-space: nowrap; }
+  .guide-body { grid-template-columns: 1fr 7.2rem; }
+  .qr-box { border-left: 1px solid #EEF2F7; padding-left: 0.9rem; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.35rem; }
+  .qr-box img { width: 6rem; height: 6rem; object-fit: contain; }
+  .qr-box p { font-size: 0.72rem; color: #7A889B; white-space: nowrap; }
 
-  .home-media { background: var(--color-bg); padding: 3.5rem 0; }
-  .media-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
-  .media-grid img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--radius-md); border: 1px solid var(--color-border-soft); }
+  /* ——— 通用区块 ——— */
+  .lp-section { padding: 4.6rem 0; }
+  .lp-programs { background: #fff; }
+  .lp-universities { background: #F4F8FD; }
+  .lp-partners { background: #F4F8FD; padding-top: 0.5rem; }
+  .lp-majors { background: #F4F8FD; padding-top: 2.2rem; }
+  .lp-carousel-section { background: #fff; }
+  .lp-honors { background: #fff; padding-top: 2.2rem; }
+  .lp-moments { background: #F8FAFD; }
 
-  .home-guide { background: #fff; padding: 3.5rem 0; }
-  .home-uni { background: var(--color-bg); padding: 3.5rem 0; }
-  .uni-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
-  .uni-card {
-    display: grid; gap: 0.6rem; justify-items: center;
-    background: #fff; border: 1px solid var(--color-border-soft);
-    border-radius: var(--radius-md); overflow: hidden; padding-bottom: 0.75rem;
-    font-size: 0.95rem; font-weight: 600; color: var(--color-text);
-  }
-  .uni-card img { width: 100%; aspect-ratio: 8 / 5; object-fit: cover; }
-  .uni-card:hover { border-color: var(--color-primary); color: var(--color-primary); }
+  /* 热门项目 */
+  .program-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+  .program-card { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.7rem; padding: 1.9rem 1.35rem 1.7rem; background: #fff; border: 1px solid #EAF0F8; border-radius: 0.85rem; box-shadow: 0 6px 22px rgba(23, 63, 116, 0.06); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+  .program-card:hover { transform: translateY(-5px); box-shadow: 0 14px 30px rgba(23, 63, 116, 0.13); }
+  .program-icon { display: grid; place-items: center; width: 3.15rem; height: 3.15rem; border-radius: 0.8rem; color: #fff; background: linear-gradient(145deg, #3B83D6, #1B56A5); box-shadow: 0 6px 14px rgba(29, 78, 137, 0.22); }
+  .program-icon svg { width: 1.75rem; height: 1.75rem; }
+  .program-card h3 { font-size: 1rem; font-weight: 700; color: #1B3E6D; }
+  .program-card p { font-size: 0.8rem; line-height: 1.8; color: #8492A5; }
 
-  .home-majors { background: #fff; padding: 3.5rem 0; }
-  .home-majors.alt { background: var(--color-bg); }
-  .major-links { display: flex; flex-wrap: wrap; }
-  .major-links a {
-    width: calc(100% / 6);
-    padding: 0.55rem 0.25rem;
-    text-align: center;
-    color: var(--color-text-muted);
-    font-size: 0.92rem;
-    border-radius: 4px;
-  }
-  .major-links a:hover { color: var(--color-primary); background: var(--color-primary-soft); }
+  /* 招生院校 */
+  .uni-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; }
+  .uni-card { display: block; background: #fff; border: 1px solid #E9EFF7; border-radius: 0.6rem; overflow: hidden; box-shadow: 0 5px 18px rgba(23, 63, 116, 0.05); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+  .uni-card:hover { transform: translateY(-4px); box-shadow: 0 12px 26px rgba(23, 63, 116, 0.13); }
+  .uni-card img { width: calc(100% - 1.6rem); height: 8.4rem; margin: 0.8rem; object-fit: contain; }
+  .uni-card span { display: block; text-align: center; padding: 0.7rem 0.5rem 0.9rem; border-top: 1px solid #F0F3F8; font-size: 0.9rem; font-weight: 700; color: #1B3E6D; }
 
-  .home-certs { background: #fff; padding: 3.5rem 0; }
-  .cert-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
-  .cert-grid figure { border: 1px solid var(--color-border-soft); border-radius: var(--radius-md); overflow: hidden; background: var(--color-surface); }
-  .cert-grid img { width: 100%; aspect-ratio: 9 / 6.4; object-fit: cover; }
-  .cert-grid figcaption { padding: 0.65rem; text-align: center; font-size: 0.88rem; color: var(--color-text-muted); }
+  /* 合作院校标识墙 */
+  .partners-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.85rem; }
+  .partner-card { display: flex; align-items: center; gap: 0.6rem; min-height: 3.2rem; padding: 0.5rem 0.8rem; background: #fff; border: 1px solid #EDF1F7; border-radius: 0.55rem; box-shadow: 0 2px 8px rgba(23, 63, 116, 0.04); }
+  .partner-seal { flex: none; display: grid; place-items: center; width: 1.85rem; height: 1.85rem; border-radius: 50%; color: #fff; font-size: 0.8rem; font-family: var(--font-serif); }
+  .seal-0 { background: #2E7B57; } .seal-1 { background: #1D5BA5; } .seal-2 { background: #B4473C; } .seal-3 { background: #2E6F9E; }
+  .partner-name { font-size: 0.78rem; font-weight: 600; color: #31527B; line-height: 1.4; }
+  .partners-note { margin-top: 1.1rem; text-align: right; font-size: 0.75rem; color: #A3AFC0; }
 
-  .home-campus { background: var(--color-bg); padding: 3.5rem 0 4.5rem; }
+  /* 招生专业 */
+  .major-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .major-card { background: #fff; border: 1px solid #E7EDF6; border-radius: 0.75rem; overflow: hidden; box-shadow: 0 7px 22px rgba(23, 63, 116, 0.07); }
+  .major-card header { display: flex; align-items: center; gap: 0.7rem; padding: 0.8rem 1.2rem; background: linear-gradient(100deg, #23518C, #3E7FC6); color: #fff; }
+  .major-cap { display: grid; place-items: center; width: 1.9rem; height: 1.9rem; border-radius: 0.4rem; background: rgba(255, 255, 255, 0.18); }
+  .major-cap svg { width: 1.15rem; height: 1.15rem; }
+  .major-card h3 { font-size: 1.05rem; font-weight: 700; letter-spacing: 0.1em; }
+  .major-card header a { margin-left: auto; font-size: 0.75rem; color: rgba(255, 255, 255, 0.82); }
+  .major-card header a:hover { color: #fff; }
+  .major-list { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.15rem 0.5rem; padding: 1.1rem 1.2rem 1.35rem; }
+  .major-list li { min-width: 0; }
+  .major-list a { display: block; font-size: 0.76rem; color: #54677F; padding: 0.28rem 0.15rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .major-list a::before { content: '·'; margin-right: 0.3rem; color: #C9A65C; }
+  .major-list a:hover { color: #1D4E89; }
 
-  @media (max-width: 900px) {
-    .banner-carousel { height: 20rem; }
-    .home-news-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-    .media-grid { grid-template-columns: 1fr; }
+  /* 证书 / 回顾轮播 */
+  .carousel { position: relative; }
+  .carousel-track { display: flex; gap: 1rem; overflow-x: auto; scroll-behavior: smooth; scrollbar-width: none; padding: 0.35rem 0.2rem 0.75rem; scroll-snap-type: x mandatory; }
+  .carousel-track::-webkit-scrollbar { display: none; }
+  .carousel-arrow { position: absolute; top: 42%; transform: translateY(-50%); z-index: 2; width: 1.9rem; height: 1.9rem; border: none; border-radius: 50%; background: #fff; color: #9AA7B8; box-shadow: 0 2px 10px rgba(23, 63, 116, 0.18); font-size: 1.35rem; line-height: 1; cursor: pointer; }
+  .carousel-arrow.prev { left: -0.7rem; }
+  .carousel-arrow.next { right: -0.7rem; }
+  .carousel-arrow:hover { color: #1D4E89; }
+  .cert-item, .moment-item { flex: 0 0 calc((100% - 4rem) / 5); scroll-snap-align: start; background: #fff; border: 1px solid #EBEFF5; border-radius: 0.6rem; overflow: hidden; box-shadow: 0 5px 16px rgba(23, 63, 116, 0.07); }
+  .cert-item img, .moment-item img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+  .cert-item figcaption, .moment-item figcaption { padding: 0.55rem 0.3rem; text-align: center; font-size: 0.72rem; color: #8794A6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .disclaimer { margin-top: 0.65rem; text-align: center; font-size: 0.75rem; color: #A5B0BF; }
+
+  /* 荣誉展示 */
+  .honor-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; }
+  .honor-item { background: #fff; border: 1px solid #EEE8DC; border-radius: 0.5rem; overflow: hidden; box-shadow: 0 5px 16px rgba(120, 95, 45, 0.1); }
+  .honor-item img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: #F4F1E9; }
+  .honor-item figcaption { padding: 0.5rem 0.4rem; text-align: center; font-size: 0.7rem; line-height: 1.5; color: #8A7A5E; min-height: 2.9rem; }
+
+  /* 报名引导 */
+  .lp-lead { background: #F8FAFD; padding: 4.6rem 0 5rem; }
+  .lp-lead .sec-head h2 { font-size: 1.4rem; }
+  .lead-sub { margin: -1.6rem 0 2rem; text-align: center; font-size: 0.85rem; color: #8A98AA; }
+  .lead-form { display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 1rem; max-width: 62rem; margin: 0 auto; }
+  .lead-form input, .lead-form select { width: 100%; height: 2.9rem; padding: 0 1.1rem; border: 1px solid #E6ECF4; border-radius: 999px; background: #fff; color: #46586E; font-size: 0.88rem; font-family: inherit; outline: none; }
+  .lead-form input:focus, .lead-form select:focus { border-color: #C9A65C; box-shadow: 0 0 0 3px rgba(201, 166, 92, 0.14); }
+  .lead-form select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%239AA7B8' stroke-width='1.6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1.2rem center; }
+  .lead-form button { height: 2.9rem; padding: 0 2.6rem; border: none; border-radius: 999px; background: linear-gradient(100deg, #C9A65C, #B8913F); color: #fff; font-size: 0.92rem; font-weight: 600; letter-spacing: 0.06em; cursor: pointer; box-shadow: 0 6px 16px rgba(184, 145, 63, 0.28); }
+  .lead-form button:hover { filter: brightness(1.06); }
+  .lead-note { margin-top: 1rem; text-align: center; font-size: 0.74rem; color: #A8B3C2; }
+  .faq-inline-more { text-align: center; margin-top: 0.4rem; font-size: 0.82rem; }
+  .faq-inline-more a { color: #1D4E89; text-decoration: none; }
+  .faq-inline-more a:hover { text-decoration: underline; }
+
+  @media (max-width: 1000px) {
+    .lp-hero { height: 25rem; }
+    .program-grid { grid-template-columns: repeat(2, 1fr); }
+    .partners-grid { grid-template-columns: repeat(3, 1fr); }
     .uni-grid { grid-template-columns: repeat(2, 1fr); }
-    .major-links a { width: calc(100% / 3); }
-    .cert-grid { grid-template-columns: 1fr; }
+    .major-grid { grid-template-columns: 1fr; }
+    .cert-item, .moment-item { flex-basis: calc((100% - 2rem) / 3); }
+    .honor-grid { grid-template-columns: repeat(3, 1fr); }
+    .lead-form { grid-template-columns: 1fr 1fr; }
+    .lead-form button { grid-column: 1 / -1; }
+  }
+  @media (max-width: 680px) {
+    .lp-hero { height: 21rem; }
+    .hero-inner { padding-left: 1.5rem; }
+    .hero-title { font-size: 1.5rem; white-space: normal; text-wrap: balance; width: auto; max-width: 100%; }
+    .hero-subtitle { flex-wrap: wrap; justify-content: flex-start; letter-spacing: 0.02em; font-size: 0.78rem; gap: 0.4rem; }
+    .hero-subtitle span { display: none; }
+    .hero-dots { bottom: 1.6rem; }
+    .lp-news-wrap { margin-top: 1rem; }
+    .lp-news-grid { grid-template-columns: 1fr; }
+    .news-card-body, .guide-body { grid-template-columns: 1fr; }
+    .news-thumb img { height: 9rem; min-height: 0; }
+    .qr-box { border-left: none; border-top: 1px solid #EEF2F7; padding: 0.85rem 0 0; flex-direction: row; gap: 0.9rem; }
+    .qr-box img { width: 4.5rem; height: 4.5rem; }
+    .lp-section { padding: 3.2rem 0; }
+    .program-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.8rem; }
+    .program-card { padding: 1.3rem 0.8rem; min-width: 0; }
+    .program-card p { overflow-wrap: anywhere; }
+    .uni-grid { grid-template-columns: minmax(0, 1fr); }
+    .uni-card { min-width: 0; }
+    .lp-section { overflow-x: clip; }
+    .program-card p { font-size: 0.74rem; }
+    .partners-grid { grid-template-columns: repeat(2, 1fr); }
+    .major-list { grid-template-columns: repeat(2, 1fr); }
+    .cert-item, .moment-item { flex-basis: calc((100% - 1rem) / 2); }
+    .honor-grid { grid-template-columns: repeat(2, 1fr); }
+    .lead-form { grid-template-columns: 1fr; }
+    /* 反馈：移动端也保留翻页按钮，不再把箭头隐藏 */
+    .carousel-arrow { display: grid; place-items: center; width: 1.75rem; height: 1.75rem; font-size: 1.2rem; }
+    .carousel-arrow.prev { left: 0.1rem; }
+    .carousel-arrow.next { right: 0.1rem; }
   }
 </style>
