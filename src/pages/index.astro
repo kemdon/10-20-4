@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import { getLocaleConfig, getSiteSettings } from '../lib/site-content';
+import { newsItems as allNews } from '../data/news';
 
 const { defaultLocale } = await getLocaleConfig();
 const site = await getSiteSettings(defaultLocale);
@@ -31,12 +32,7 @@ const heroSlides = [
   },
 ];
 
-const news = [
-  { title: '2026 年成人高等教育招生咨询已开启', date: '11-09', href: '/news/' },
-  { title: '硕学获评浙江师范大学「优秀校外教学点」', date: '10-28', href: '/news/' },
-  { title: '秋季班学籍注册与教务安排通知', date: '10-15', href: '/news/' },
-  { title: '学历提升公益讲座走进宁波南部商务区', date: '09-26', href: '/news/' },
-];
+const news = allNews.slice(0, 4).map((n) => ({ title: n.title, date: n.date.slice(5), href: `/news/${n.slug}/` }));
 
 const guides = [
   { title: '2026 年浙江海洋大学成人高等教育招生简章', href: '/universities/' },

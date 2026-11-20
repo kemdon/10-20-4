@@ -1,0 +1,83 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import { getLocaleConfig, getSiteSettings } from '../../lib/site-content';
+import { newsItems, getNewsItem } from '../../data/news';
+
+export async function getStaticPaths() {
+  return newsItems.map((item) => ({ params: { slug: item.slug }, props: { item } }));
+}
+
+const { item } = Astro.props as { item: ReturnType<typeof getNewsItem> & object };
+const { defaultLocale } = await getLocaleConfig();
+const site = await getSiteSettings(defaultLocale);
+const others = newsItems.filter((n) => n.slug !== item.slug).slice(0, 4);
+---
+
+<Layout
+  title={item.title + ' - 学院新闻 - 硕学教育'}
+  description={item.summary}
+  lang={defaultLocale}
+  siteName={site.brandName}
+  defaultDescription={site.defaultMetaDescription}
+  faviconHref={site.logoPath}
+  ogImage={site.defaultOgImage}
+>
+  <Navbar site={site} locale={defaultLocale} currentPath="/news" />
+  <main id="main">
+    <section class="page-hero">
+      <div class="container">
+        <span class="kicker">NEWS CENTER</span>
+        <h1>学院新闻</h1>
+      </div>
+    </section>
+    <div class="page-body">
+      <div class="container article-container">
+        <a class="back-link" href="/news/">‹ 返回新闻列表</a>
+        <article class="article">
+          <header>
+            <h1 class="article-title">{item.title}</h1>
+            <p class="article-date">{item.date}</p>
+          </header>
+          {item.paragraphs.map((p) => <p class="article-p">{p}</p>)}
+        </article>
+
+        <aside class="more-news">
+          <h2>更多动态</h2>
+          <ul>
+            {others.map((n) => (
+              <li><a href={`/news/${n.slug}/`}>{n.title}</a><span>{n.date}</span></li>
+            ))}
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </main>
+  <Footer site={site} locale={defaultLocale} />
+</Layout>
+
+<style>
+  .article-container { max-width: 860px; }
+  .back-link { display: inline-block; margin-bottom: 1.25rem; color: var(--color-text-muted); font-size: 0.9rem; }
+  .back-link:hover { color: var(--color-primary); }
+  .article {
+    background: #fff;
+    border: 1px solid var(--color-border-soft);
+    border-radius: var(--radius-md);
+    padding: 2.2rem 2.4rem;
+  }
+  .article-title { font-size: 1.5rem; line-height: 1.5; margin-bottom: 0.6rem; }
+  .article-date { font-size: 0.85rem; color: var(--color-accent); font-family: var(--font-num); margin-bottom: 1.5rem; }
+  .article-p { color: var(--color-text-muted); line-height: 2.1; margin-bottom: 1.1rem; text-indent: 2em; }
+  .more-news { margin-top: 2.2rem; }
+  .more-news h2 { font-size: 1.15rem; margin-bottom: 1rem; }
+  .more-news ul { display: grid; border-top: 1px solid var(--color-border-soft); }
+  .more-news li {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
+    padding: 0.75rem 0.25rem; border-bottom: 1px dashed var(--color-border-soft); font-size: 0.92rem;
+  }
+  .more-news a { color: var(--color-text); }
+  .more-news a:hover { color: var(--color-primary); }
+  .more-news span { font-family: var(--font-num); color: var(--color-text-muted); font-size: 0.82rem; white-space: nowrap; }
+</style>
