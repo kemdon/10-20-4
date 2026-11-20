@@ -55,9 +55,18 @@ const universities = [
 ];
 
 const partners = [
-  '浙江师范大学', '浙江海洋大学', '金华职业技术大学', '浙江工商职业技术学院',
-  '浙江农林大学', '杭州师范大学', '宁波大学', '湖北师范大学',
-  '浙江工商大学', '宁波工程学院', '浙江财经大学', '浙江国际海运职业技术学院',
+  { name: '浙江师范大学', logo: '/assets/images/partner-logo-01.webp' },
+  { name: '浙江海洋大学', logo: '/assets/images/partner-logo-02.webp' },
+  { name: '金华职业技术大学', logo: '/assets/images/partner-logo-03.webp' },
+  { name: '浙江工商职业技术学院', logo: '/assets/images/partner-logo-04.webp' },
+  { name: '浙江农林大学', logo: '/assets/images/partner-logo-05.webp' },
+  { name: '杭州师范大学', logo: '/assets/images/partner-logo-06.webp' },
+  { name: '宁波大学', logo: '/assets/images/partner-logo-07.webp' },
+  { name: '湖北师范大学', logo: '/assets/images/partner-logo-08.webp' },
+  { name: '浙江工商大学', logo: '/assets/images/partner-logo-09.webp' },
+  { name: '宁波工程学院', logo: '/assets/images/partner-logo-10.webp' },
+  { name: '浙江财经大学', logo: '/assets/images/partner-logo-11.webp' },
+  { name: '浙江国际海运职业技术学院', logo: '/assets/images/partner-logo-12.webp' },
 ];
 
 const majorsBenke = ['会计学', '工商管理', '市场营销', '电子商务', '行政管理', '学前教育', '小学教育', '汉语言文学', '法学', '机械设计制造及其自动化', '电气工程及其自动化', '计算机科学与技术', '土木工程', '工程管理', '护理学', '药学', '金融学', '国际经济与贸易', '人力资源管理', '电子信息工程', '软件工程', '环境设计', '英语', '视觉传达设计'];
@@ -271,10 +280,10 @@ const homeFaqs = [
     <section class="lp-section lp-partners">
       <div class="container">
         <div class="partners-grid">
-          {partners.map((name, i) => (
+          {partners.map((p) => (
             <div class="partner-card">
-              <span class={`partner-seal seal-${i % 4}`} aria-hidden="true">{(name || '').slice(0, 1)}</span>
-              <span class="partner-name">{name}</span>
+              <img class="partner-logo" src={p.logo} alt={`${p.name}校徽标识占位图`} loading="lazy" />
+              <span class="partner-name">{p.name}</span>
             </div>
           ))}
         </div>
@@ -608,8 +617,7 @@ const homeFaqs = [
   /* 合作院校标识墙 */
   .partners-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.85rem; }
   .partner-card { display: flex; align-items: center; gap: 0.6rem; min-height: 3.2rem; padding: 0.5rem 0.8rem; background: #fff; border: 1px solid #EDF1F7; border-radius: 0.55rem; box-shadow: 0 2px 8px rgba(23, 63, 116, 0.04); }
-  .partner-seal { flex: none; display: grid; place-items: center; width: 1.85rem; height: 1.85rem; border-radius: 50%; color: #fff; font-size: 0.8rem; font-family: var(--font-serif); }
-  .seal-0 { background: #2E7B57; } .seal-1 { background: #1D5BA5; } .seal-2 { background: #B4473C; } .seal-3 { background: #2E6F9E; }
+  .partner-logo { flex: none; width: 2.2rem; height: 2.2rem; object-fit: contain; }
   .partner-name { font-size: 0.78rem; font-weight: 600; color: #31527B; line-height: 1.4; }
   .partners-note { margin-top: 1.1rem; text-align: right; font-size: 0.75rem; color: #A3AFC0; }
 
