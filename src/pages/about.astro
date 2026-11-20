@@ -51,14 +51,24 @@ const site = await getSiteSettings(defaultLocale);
     </section>
 
     <section class="page-section alt">
-      <div class="container">
-        <h2>我们的现在</h2>
-        <p class="prose">
-          硕学教育在浙江宁波拥有 3 家分校、6 个接待点，在校学员近万人。硕学现为浙江海洋大学、浙江师范大学、金华职业技术大学、浙江工商职业技术学院、浙江国际海运职业技术学院的宁波官方教学点，并与二十余所高校合作招生。
-        </p>
-        <p class="prose">
-          业务上，我们以成人高考函授咨询为核心起步，陆续新增自学考试助学、成人中专、国家开放大学，并上线同等学力申硕咨询服务，形成从中专、专科、本科到在职研究生的完整学历服务链路；同时自设会计、新媒体运营、办公软件、电商等面授课程，为上班族提供学历提升与职业培训服务。
-        </p>
+      <div class="container now-grid">
+        <div class="now-text">
+          <h2>我们的现在</h2>
+          <p class="prose">
+            硕学教育在浙江宁波拥有 3 家分校、6 个接待点，在校学员近万人。硕学现为浙江海洋大学、浙江师范大学、金华职业技术大学、浙江工商职业技术学院、浙江国际海运职业技术学院的宁波官方教学点，并与二十余所高校合作招生。
+          </p>
+          <p class="prose">
+            业务上，我们以成人高考函授咨询为核心起步，陆续新增自学考试助学、成人中专、国家开放大学，并上线同等学力申硕咨询服务，形成从中专、专科、本科到在职研究生的完整学历服务链路；同时自设会计、新媒体运营、办公软件、电商等面授课程，为上班族提供学历提升与职业培训服务。
+          </p>
+        </div>
+        <aside class="now-stats" aria-label="学校关键数据">
+          <div class="now-stat"><span class="now-num">近 1 万</span><span class="now-cap">在校学员</span></div>
+          <div class="now-stat"><span class="now-num">3 家</span><span class="now-cap">分校</span></div>
+          <div class="now-stat"><span class="now-num">6 个</span><span class="now-cap">接待点</span></div>
+          <div class="now-stat"><span class="now-num">5 所</span><span class="now-cap">官方教学点</span></div>
+          <div class="now-stat"><span class="now-num">20+</span><span class="now-cap">合作高校</span></div>
+          <div class="now-stat"><span class="now-num">2008</span><span class="now-cap">办学起始</span></div>
+        </aside>
       </div>
     </section>
 
@@ -220,6 +230,38 @@ const site = await getSiteSettings(defaultLocale);
   .campus-grid img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: #EEF3F9; }
   .campus-grid figcaption { padding: 0.6rem 0.5rem; font-size: 0.8rem; color: var(--color-text-muted); text-align: center; }
   @media (max-width: 760px) { .campus-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .now-grid {
+    display: grid;
+    grid-template-columns: 1.25fr 0.75fr;
+    gap: 2.5rem;
+    align-items: start;
+  }
+  .now-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.85rem;
+  }
+  .now-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 1.1rem 1.2rem;
+    background: linear-gradient(135deg, #23518C, #3E7FC6);
+    border-radius: 0.8rem;
+    color: #fff;
+    box-shadow: 0 10px 24px rgba(21, 58, 104, 0.16);
+  }
+  .now-num {
+    font-family: var(--font-num);
+    font-size: 1.55rem;
+    font-weight: 700;
+    line-height: 1.1;
+    color: #F5D489;
+  }
+  .now-cap { font-size: 0.85rem; color: rgba(255, 255, 255, 0.85); }
+  @media (max-width: 900px) {
+    .now-grid { grid-template-columns: 1fr; gap: 1.75rem; }
+  }
   .honor-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
