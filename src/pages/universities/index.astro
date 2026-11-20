@@ -147,7 +147,8 @@ const honors = [
   .uni-container { max-width: 1200px; }
   .sec-block { max-width: 100%; }
   .uni-hint { margin: -0.6rem 0 1.1rem; font-size: 0.9rem; color: var(--color-text-muted); }
-  .uni-tabs { display: flex; gap: 0.5rem; overflow-x: auto; padding: 0.2rem 0.2rem 0.8rem; scrollbar-width: thin; }
+  /* 反馈：合作高校标签与专业标签保持一致，全部换行平铺，不再横向滑动 */
+  .uni-tabs { display: flex; flex-wrap: wrap; gap: 0.5rem; padding: 0.2rem 0.2rem 0.8rem; }
   .uni-tab {
     flex: none; padding: 0.55rem 1rem; border: 1px solid #DCE6F3; border-radius: 999px;
     background: #fff; color: #46586E; font-family: inherit; font-size: 0.86rem; cursor: pointer;
@@ -226,8 +227,8 @@ const honors = [
 
   tabs.forEach((tab) => {
     tab.addEventListener('click', () => {
+      // 反馈：标签已改为全部平铺，无需再横向滚动定位
       selectUniversity(Number(tab.dataset.uniIndex));
-      tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
     });
   });
 

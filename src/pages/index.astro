@@ -133,6 +133,38 @@ const homeFaqs = [
     </section>
 
     <!-- 新闻资讯 + 招生简章 / 二维码 -->
+    <!-- 数据横条（参考站样式，数字为学校真实口径） -->
+    <section class="lp-news-wrap hero-stats-anchor">
+      <div class="container">
+        <div class="hero-stats" role="list" aria-label="学校关键数据">
+          <div class="stat-cell" role="listitem">
+            <span class="stat-label">在校学员</span>
+            <span class="stat-value">近 1 万</span>
+          </div>
+          <div class="stat-cell" role="listitem">
+            <span class="stat-label">分校网点</span>
+            <span class="stat-value">3<span class="stat-plus"> 家</span></span>
+          </div>
+          <div class="stat-cell" role="listitem">
+            <span class="stat-label">接待点</span>
+            <span class="stat-value">6<span class="stat-plus"> 个</span></span>
+          </div>
+          <div class="stat-cell" role="listitem">
+            <span class="stat-label">官方函授站</span>
+            <span class="stat-value">5<span class="stat-plus"> 所</span></span>
+          </div>
+          <div class="stat-cell" role="listitem">
+            <span class="stat-label">合作高校</span>
+            <span class="stat-value">10<span class="stat-plus"> 余所</span></span>
+          </div>
+          <div class="stat-cell" role="listitem">
+            <span class="stat-label">办学起始</span>
+            <span class="stat-value">2008<span class="stat-plus"> 年</span></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="lp-news-wrap">
       <div class="container lp-news-grid">
         <article class="news-card">
@@ -481,6 +513,46 @@ const homeFaqs = [
   /* ——— 资讯双卡 ——— */
   /* 反馈：首图和卡片之间留一点空位，不再负边距压在 Banner 上 */
   .lp-news-wrap { position: relative; z-index: 3; margin-top: 2.2rem; padding-bottom: 3rem; background: #fff; }
+
+  /* ——— Banner 下方数据横条（参考站样式） ——— */
+  .hero-stats-anchor { margin-top: 1.9rem; padding-bottom: 0; background: transparent; }
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    background: linear-gradient(105deg, #23518C 0%, #3E7FC6 100%);
+    border-radius: 1rem;
+    box-shadow: 0 14px 34px rgba(21, 58, 104, 0.22);
+    padding: 1.35rem 1.2rem;
+    color: #fff;
+  }
+  .stat-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding: 0.2rem 1.2rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.28);
+  }
+  .stat-cell:last-child { border-right: none; }
+  .stat-label { font-size: 0.85rem; color: rgba(255, 255, 255, 0.88); letter-spacing: 0.04em; }
+  .stat-value {
+    font-family: var(--font-num);
+    font-size: clamp(1.5rem, 2.2vw, 2rem);
+    font-weight: 700;
+    line-height: 1.15;
+    color: #F5D489;
+  }
+  .stat-plus { font-size: 0.6em; font-weight: 600; margin-left: 0.15rem; }
+
+  @media (max-width: 1000px) {
+    .hero-stats { grid-template-columns: repeat(3, 1fr); row-gap: 1.1rem; padding: 1.1rem 0.6rem; }
+    .stat-cell { padding: 0.2rem 0.9rem; }
+    .stat-cell:nth-child(3n) { border-right: none; }
+  }
+  @media (max-width: 680px) {
+    .hero-stats { grid-template-columns: repeat(2, 1fr); }
+    .stat-cell:nth-child(3n) { border-right: 1px solid rgba(255, 255, 255, 0.28); }
+    .stat-cell:nth-child(2n) { border-right: none; }
+  }
   .lp-news-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 1.5rem; }
   .news-card { background: #fff; border: 1px solid #EDF1F7; border-radius: 0.9rem; box-shadow: 0 12px 34px rgba(20, 55, 105, 0.09); padding: 1.25rem 1.4rem 1.35rem; }
   .card-head { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #EEF2F7; padding-bottom: 0.7rem; margin-bottom: 0.9rem; }

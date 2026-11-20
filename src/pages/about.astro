@@ -26,6 +26,7 @@ const site = await getSiteSettings(defaultLocale);
         <p>
           硕学教育成立于 2012 年，前身是 2008 年 5 月创办的助才网。“硕学”取自“硕学通儒”，意为做读书人。我们始终相信，学习可以改变命运。
         </p>
+        <span class="hero-rule"></span>
       </div>
     </section>
 
@@ -53,7 +54,7 @@ const site = await getSiteSettings(defaultLocale);
       <div class="container">
         <h2>我们的现在</h2>
         <p class="prose">
-          硕学教育在浙江宁波拥有 3 家分校、6 个接待点，在校学员近万人。硕学现为浙江海洋大学、浙江师范大学、金华职业技术大学、浙江工商职业技术学院、浙江国际海运职业技术学院的宁波官方函授站，并与十余所高校合作招生。
+          硕学教育在浙江宁波拥有 3 家分校、6 个接待点，在校学员近万人。硕学现为浙江海洋大学、浙江师范大学、金华职业技术大学、浙江工商职业技术学院、浙江国际海运职业技术学院的宁波官方教学点，并与二十余所高校合作招生。
         </p>
         <p class="prose">
           业务上，我们以成人高考函授咨询为核心起步，陆续新增自学考试助学、成人中专、国家开放大学，并上线同等学力申硕咨询服务，形成从中专、专科、本科到在职研究生的完整学历服务链路；同时自设会计、新媒体运营、办公软件、电商等面授课程，为上班族提供学历提升与职业培训服务。
@@ -156,6 +157,9 @@ const site = await getSiteSettings(defaultLocale);
     color: rgba(222, 235, 252, 0.82);
   }
   .page-section {
+    /* 反馈：覆盖全局 .page-section 的 display:grid，避免纯文字板块被收缩成居中窄列；
+       与「荣誉 / 心得」板块保持同样的通栏左对齐版式 */
+    display: block;
     padding: 4.2rem 0;
   }
   .page-section.alt {

@@ -93,7 +93,8 @@ const site = await getSiteSettings(defaultLocale);
   .contact-card:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(23, 63, 116, 0.12); }
   .contact-district { font-size: 0.98rem; font-weight: 700; color: #16437D; }
   .contact-teacher { font-size: 0.84rem; color: var(--color-text-muted); }
-  .contact-phone { font-family: var(--font-num); font-size: 0.86rem; color: var(--color-primary); text-decoration: none; }
+  /* 反馈：号码数字改成黑体加粗，颜色不变 */
+  .contact-phone { font-family: var(--font-sans); font-weight: 800; font-size: 0.86rem; color: var(--color-primary); text-decoration: none; }
   .contact-phone:hover { text-decoration: underline; }
   .alt-block { padding: 1.6rem; background: var(--color-bg); border-radius: 0.8rem; }
   .portal-more { display: inline-block; margin-top: 1.4rem; color: var(--color-primary); font-size: 0.9rem; }

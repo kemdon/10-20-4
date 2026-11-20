@@ -359,12 +359,20 @@ h3 {
 
 /* ——— 门户栏目页通用 ——— */
 .page-hero {
+  /* 反馈：首栏信息统一为「背景加深 + 文字居中」排版（参考全层次在职学习服务横幅） */
   background:
-    radial-gradient(circle at 50% 120%, rgba(90, 145, 210, 0.28), transparent 62%),
-    linear-gradient(120deg, #102542 0%, #1B3B66 48%, #102542 100%);
+    radial-gradient(circle at 50% 120%, rgba(70, 120, 185, 0.18), transparent 60%),
+    linear-gradient(120deg, #0A1D36 0%, #142F56 48%, #0A1D36 100%);
   color: #fff;
   text-align: center;
   padding: 4.5rem 1rem 4.2rem;
+}
+.page-hero > .container { text-align: center; }
+.page-hero h1,
+.page-hero .kicker,
+.page-hero .section-kicker,
+.page-hero p {
+  text-align: center;
 }
 .page-hero .kicker {
   display: block;
@@ -381,7 +389,9 @@ h3 {
   font-weight: 800;
   letter-spacing: 0.06em;
   line-height: 1.3;
-  margin: 0 0 0.85rem;
+  /* 覆盖全局 h1 的 max-width:20ch，避免标题块靠左导致文字看起来未居中 */
+  max-width: none;
+  margin: 0 auto 0.85rem;
 }
 .page-hero p {
   max-width: 46rem;
