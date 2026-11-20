@@ -13,72 +13,74 @@ function field(value, maxLength) {
   return typeof value === 'string' ? value.trim().slice(0, maxLength) : '';
 }
 
+const LEVELS = ['专科', '本科', '在职研究生', '职业技能培训'];
+
 export async function onRequestPost({ request, env }) {
   if (!env.RESEND_API_KEY || !env.RESEND_FROM_EMAIL || !env.CONTACT_FORM_TO_EMAIL) {
     console.error('Contact form email environment variables are not configured.');
-    return json({ ok: false, error: 'Email service is not configured.' }, 503);
+    return json({ ok: false, error: '邮件服务暂未配置，请稍后再试或到校咨询。' }, 503);
   }
 
   const contentLength = Number(request.headers.get('content-length') || 0);
   if (contentLength > 16_384) {
-    return json({ ok: false, error: 'Request is too large.' }, 413);
+    return json({ ok: false, error: '提交内容过长。' }, 413);
   }
 
   let payload;
   try {
     payload = await request.json();
   } catch {
-    return json({ ok: false, error: 'Invalid request body.' }, 400);
+    return json({ ok: false, error: '提交数据格式有误。' }, 400);
   }
 
   const data = {
-    name: field(payload?.name, 120),
-    country: field(payload?.country, 120),
-    whatsapp: field(payload?.whatsapp, 80),
-    type: field(payload?.type, 80),
-    brand: field(payload?.brand, 120),
-    email: field(payload?.email, 254),
+    name: field(payload?.name, 60),
+    phone: field(payload?.phone, 30),
+    level: field(payload?.level, 40),
+    message: field(payload?.message, 500),
   };
 
-  if (Object.values(data).some((value) => !value)) {
-    return json({ ok: false, error: 'Please complete all required fields.' }, 400);
+  if (!data.name || !data.phone) {
+    return json({ ok: false, error: '请填写姓名和联系电话。' }, 400);
   }
-
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
-    return json({ ok: false, error: 'Please enter a valid email address.' }, 400);
+  if (!/^[0-9+\-\s]{7,20}$/.test(data.phone)) {
+    return json({ ok: false, error: '请填写有效的联系电话。' }, 400);
+  }
+  if (data.level && !LEVELS.includes(data.level)) {
+    data.level = '';
   }
 
   const resend = new Resend(env.RESEND_API_KEY);
-  const subjectName = data.name.replace(/[\r\n]+/g, ' ');
+  const safeName = data.name.replace(/[\r\n]+/g, ' ');
+  const subject = `官网咨询：${safeName}（${data.level || '未选择层次'}）`;
   const text = [
-    'New website contact inquiry',
+    '官网新咨询线索',
     '',
-    `Name: ${data.name}`,
-    `Country: ${data.country}`,
-    `WhatsApp: ${data.whatsapp}`,
-    `Type: ${data.type}`,
-    `Car Brand: ${data.brand}`,
-    `Email: ${data.email}`,
+    `姓名：${data.name}`,
+    `联系电话：${data.phone}`,
+    `意向层次：${data.level || '未填写'}`,
+    `留言：${data.message || '无'}`,
+    '',
+    `提交时间：${new Date().toISOString()}`,
   ].join('\n');
 
   try {
     const { error } = await resend.emails.send({
-      from: `Website Contact <${env.RESEND_FROM_EMAIL}>`,
+      from: `官网咨询 <${env.RESEND_FROM_EMAIL}>`,
       to: [env.CONTACT_FORM_TO_EMAIL],
-      replyTo: data.email,
-      subject: `Website inquiry from ${subjectName}`,
+      subject,
       text,
     });
 
     if (error) {
       console.error('Resend rejected contact email:', error.name, error.message);
-      return json({ ok: false, error: 'Unable to send your inquiry right now.' }, 502);
+      return json({ ok: false, error: '提交失败，请稍后再试或直接到校咨询。' }, 502);
     }
 
     return json({ ok: true });
   } catch (error) {
     console.error('Contact email delivery failed:', error);
-    return json({ ok: false, error: 'Unable to send your inquiry right now.' }, 502);
+    return json({ ok: false, error: '提交失败，请稍后再试或直接到校咨询。' }, 502);
   }
 }
 

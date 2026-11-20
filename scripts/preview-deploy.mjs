@@ -252,6 +252,33 @@ if (project.subdomain !== expectedSubdomain) {
 }
 console.log(`Cloudflare Pages subdomain confirmed: ${project.subdomain}`);
 
+// 同步联系表单所需的 Functions 环境变量（Resend 推送邮箱）
+const contactMode = (process.env.CONTACT_FORM_MODE || '').trim().toLowerCase();
+if (contactMode === 'function') {
+  const resendApiKey = process.env.RESEND_API_KEY;
+  const resendFromEmail = process.env.RESEND_FROM_EMAIL;
+  const contactFormToEmail = process.env.CONTACT_FORM_TO_EMAIL;
+  if (resendApiKey && resendFromEmail && contactFormToEmail) {
+    const envVars = {
+      RESEND_API_KEY: { type: 'secret_text', value: resendApiKey },
+      RESEND_FROM_EMAIL: { type: 'plain_text', value: resendFromEmail },
+      CONTACT_FORM_TO_EMAIL: { type: 'plain_text', value: contactFormToEmail },
+    };
+    await cloudflareApi(`/accounts/${accountId}/pages/projects/${encodeURIComponent(slug)}`, {
+      method: 'PATCH',
+      body: {
+        deployment_configs: {
+          production: { env_vars: envVars },
+          preview: { env_vars: envVars },
+        },
+      },
+    });
+    console.log('Contact-form bindings synchronized (Resend -> ' + contactFormToEmail + ')');
+  } else {
+    console.warn('CONTACT_FORM_MODE=function but RESEND env vars are missing; /api/contact will return 503.');
+  }
+}
+
 const CONTACT_FORM_MODE = (process.env.CONTACT_FORM_MODE || '').trim().toLowerCase();
 const staticOnly = CONTACT_FORM_MODE !== 'function';
 

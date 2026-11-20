@@ -39,6 +39,31 @@ const site = await getSiteSettings(defaultLocale);
       </div>
       <div class="page-body alt">
         <div class="container">
+          <h2 class="sec-title">在线咨询登记</h2>
+          <div class="info-card">
+            <form class="signup-form" id="signup-form" novalidate>
+              <div class="signup-row">
+                <label class="sr-only" for="sf-name">您的姓名</label>
+                <input id="sf-name" name="name" type="text" placeholder="您的姓名 *" autocomplete="name" required />
+                <label class="sr-only" for="sf-phone">手机号码</label>
+                <input id="sf-phone" name="phone" type="tel" placeholder="手机号码 *" autocomplete="tel" inputmode="tel" pattern="[0-9+\-\s]{7,20}" required />
+                <label class="sr-only" for="sf-level">意向层次</label>
+                <select id="sf-level" name="level">
+                  <option value="">意向层次</option>
+                  <option value="专科">专科</option>
+                  <option value="本科">本科</option>
+                  <option value="在职研究生">在职研究生</option>
+                  <option value="职业技能培训">职业技能培训</option>
+                </select>
+                <button type="submit">提交登记</button>
+              </div>
+              <p class="signup-note" id="sf-note">提交后教务老师将尽快与你联系 · 信息仅用于本次咨询</p>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="page-body">
+        <div class="container">
           <h2 class="sec-title">报名方式</h2>
           <div class="major-cols">
             <div class="info-card">
@@ -59,3 +84,69 @@ const site = await getSiteSettings(defaultLocale);
   </main>
   <Footer site={site} locale={defaultLocale} />
 </Layout>
+
+<style>
+  .signup-form { display: grid; gap: 0.7rem; }
+  .signup-row { display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 0.9rem; }
+  .signup-form input, .signup-form select, .signup-form button {
+    height: 2.9rem; border-radius: 999px; font-size: 0.9rem; font-family: inherit;
+  }
+  .signup-form input, .signup-form select {
+    padding: 0 1.1rem; border: 1px solid var(--color-border); background: #fff; color: var(--color-text); outline: none;
+  }
+  .signup-form input:focus, .signup-form select:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(29, 78, 137, 0.12); }
+  .signup-form button {
+    padding: 0 2rem; border: none; background: var(--color-primary); color: #fff; font-weight: 600; cursor: pointer;
+  }
+  .signup-form button:hover { background: var(--color-primary-dark); }
+  .signup-form button:disabled { opacity: 0.6; cursor: wait; }
+  .signup-note { font-size: 0.8rem; color: var(--color-text-muted); }
+  @media (max-width: 760px) {
+    .signup-row { grid-template-columns: 1fr; }
+    .signup-form button { width: 100%; }
+  }
+</style>
+
+<script>
+  const form = document.getElementById('signup-form');
+  if (form) {
+    const note = document.getElementById('sf-note');
+    const button = form.querySelector('button[type="submit"]');
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const name = document.getElementById('sf-name').value.trim();
+      const phone = document.getElementById('sf-phone').value.trim();
+      const level = document.getElementById('sf-level').value;
+      if (!name || !phone) {
+        note.textContent = '请填写姓名和手机号码。';
+        note.style.color = '#C8452B';
+        return;
+      }
+      button.disabled = true;
+      button.textContent = '提交中…';
+      note.style.color = '';
+      try {
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, phone, level }),
+        });
+        const payload = await response.json().catch(() => ({}));
+        if (response.ok && payload.ok) {
+          note.textContent = '提交成功！教务老师会尽快与你联系。';
+          note.style.color = '#2E7B57';
+          form.reset();
+        } else {
+          note.textContent = payload.error || '提交失败，请稍后再试或到校咨询。';
+          note.style.color = '#C8452B';
+        }
+      } catch {
+        note.textContent = '网络异常，提交失败，请稍后再试或到校咨询。';
+        note.style.color = '#C8452B';
+      } finally {
+        button.disabled = false;
+        button.textContent = '提交登记';
+      }
+    });
+  }
+</script>
